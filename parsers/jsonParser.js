@@ -24,9 +24,9 @@ exports.helpers.getAccessor = function (propName) {
     return propName[0] === '_' ? "private" : "public";
 };
 
-function getType(prop) {
+exports.helpers.getType = function(prop) {
     throw "Not implemented";    
-}
+};
 
 exports.helpers.getConstruct = function(propName) {
     if (propName[0] === '_') {
