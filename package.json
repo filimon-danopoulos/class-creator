@@ -1,0 +1,20 @@
+{
+  "name": "class-generator",
+  "version": "0.1.0",
+  "description": "Generates classes from JSON",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "keywords": [
+    "JSON",
+    "generation",
+    "classes"
+  ],
+  "author": "Filimon Danopoulos",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.10.0",
+    "express": "^4.10.4"
+  }
+}
