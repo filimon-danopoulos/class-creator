@@ -10,8 +10,8 @@ exports.parse = function(json) {
 
             member.accessor = exports.helpers.getAccessor(propName);
             //member.type = getType(prop);
-            member.construct = getConstruct(propName);
-            member.name = getName(propName); 
+            member.construct = exports.helpers.getConstruct(propName);
+            member.name = exports.helpers.getName(propName); 
             result.push(member);
         }
     }
@@ -28,7 +28,7 @@ function getType(prop) {
     throw "Not implemented";    
 }
 
-function getConstruct(propName) {
+exports.helpers.getConstruct = function(propName) {
     if (propName[0] === '_') {
         propName = propName.slice(1);    
     }
@@ -40,14 +40,14 @@ function getConstruct(propName) {
     } else {
         return "property";
     }
-}
+};
 
-function getName(propName) {
+exports.helpers.getName = function getName(propName) {
    if (propName[0] === '_') {
        propName = propName.slice(1);
    }
    return propName;
-}
+};
 
 
 module.exports = exports;
