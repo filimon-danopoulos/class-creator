@@ -2,7 +2,7 @@ var assert = require("assert");
 
 describe("jsonParser", function() {
     "use strict";
-    var jsonParser = require("../parsers/jsonParser");
+    var jsonParser = require("../app/parsers/jsonParser");
     describe("parse", function() {      
         it("should return a private constant when property is all upper case and starts with a _", function() {
             var input = { _TEST: "test" },
