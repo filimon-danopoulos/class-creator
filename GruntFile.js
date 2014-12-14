@@ -9,7 +9,7 @@ grunt.initConfig({
             dest: 'app/',
             options: {
                 //watch: true,
-                module: 'AMD', 
+                module: 'commonjs', 
                 target: 'es5', 
                 basePath: 'src/',
                 sourceMap: false,
