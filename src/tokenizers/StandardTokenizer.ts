@@ -1,4 +1,5 @@
 // <reference path="./contracts/index.d.ts"/>
+
 import helper = require("./StandardTokenizerHelper");
 
 export class StandardTokenizer implements ITokenizer {

@@ -65,5 +65,13 @@ describe("StandardTokinezerHelper", function() {
             assert(result === "test");
         });
     });
+    describe("getType", function() {
+        it("should return int for an integer");
+        it("should return float for a string value that is a number with a decimal");
+        it("should return string for a non-numeric string");
+        it("should return array for an array");
+        it("should return an object name when an object is passed"); 
+    
+    });
 });
   

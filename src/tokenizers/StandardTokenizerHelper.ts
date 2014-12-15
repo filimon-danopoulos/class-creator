@@ -7,8 +7,12 @@ export class StandardTokenizerHelper implements ITokenizerHelper {
         }
         return propertyName;
     }  
-    getType(property: any) {
-        throw "Not implemented";    
+    getType(propertyName: string, property: any) {
+        switch (typeof property) {
+            case "number": return "int";
+            case "string": (!isNaN(+property) && /[,.]/.test(property)) ? "float": "string";
+            case "object": Array.isArray(property) ? "array" : propertyName;
+        }
         return "";
     }
     getAccessor(propertyName: string) {
