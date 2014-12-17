@@ -5,3 +5,4 @@
 // <reference path="ICodeGenerator.d.ts" />
 // <reference path="ICodeGeneratorHelper.d.ts" />
 // <reference path="ICodeTemplate.d.ts" />
+// <reference parh="ICodeTemplateFactory.d.ts" />
