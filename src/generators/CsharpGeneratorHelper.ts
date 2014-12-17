@@ -3,7 +3,7 @@
 import CsharpClassTemplate = require("./CsharpClassTemplate");
 
 class CsharpGeneratorHelper implements ICodeGeneratorHelper {
-    getSkeleton(): ICodeTemplate {
+    getTemplate(): ICodeTemplate {
         return new CsharpClassTemplate();
     }
     generateMember(member: IToken): string {
