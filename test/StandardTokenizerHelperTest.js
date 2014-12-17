@@ -66,12 +66,26 @@ describe("StandardTokinezerHelper", function() {
         });
     });
     describe("getType", function() {
-        it("should return int for an integer");
-        it("should return float for a string value that is a number with a decimal");
-        it("should return string for a non-numeric string");
-        it("should return array for an array");
-        it("should return an object name when an object is passed"); 
-    
+        it("should return integer for an integer", function() {
+            var result = helper.getType("test", 4);
+            assert(result === "integer");
+        });
+        it("should return float for a string value that is a number with a decimal", function() {
+            var result = helper.getType("test", "4.0");    
+            assert(result === "float");
+        });
+        it("should return string for a non-numeric string", function() {
+            var result = helper.getType("test", "test");
+            assert(result === "string");    
+        });
+        it("should return array for an array", function() {
+            var result = helper.getType("test", ["test"]);    
+            assert(result === "array");
+        });
+        it("should return an object name when an object is passed", function() {
+            var result = helper.getType("test", {});
+            assert(result === "test");
+        }); 
     });
 });
   

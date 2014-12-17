@@ -9,11 +9,11 @@ export class StandardTokenizerHelper implements ITokenizerHelper {
     }  
     getType(propertyName: string, property: any) {
         switch (typeof property) {
-            case "number": return "int";
-            case "string": (!isNaN(+property) && /[,.]/.test(property)) ? "float": "string";
-            case "object": Array.isArray(property) ? "array" : propertyName;
+            case "number": return "integer";
+            case "string": return ((!isNaN(+property) && /[,.]/.test(property)) ? "float": "string");
+            case "object": return (Array.isArray(property) ? "array" : propertyName);
+            default: throw new Error("Unkown input");
         }
-        return "";
     }
     getAccessor(propertyName: string) {
         return propertyName[0] === '_' ? "private" : "public";
