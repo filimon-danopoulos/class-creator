@@ -4,5 +4,5 @@
 interface ICodeGenerator {
     generate(members: IToken[]) : string;    
     generateFile(members: IToken[]) : any;
-    helpers: ICodeGeneratorHelper;
+    helper: ICodeGeneratorHelper;
 }

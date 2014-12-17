@@ -4,3 +4,4 @@
 // <reference path="IParser.d.ts" />
 // <reference path="ICodeGenerator.d.ts" />
 // <reference path="ICodeGeneratorHelper.d.ts" />
+// <reference path="ICodeTemplate.d.ts" />

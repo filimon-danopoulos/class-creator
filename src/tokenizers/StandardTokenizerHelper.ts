@@ -1,6 +1,6 @@
 // <reference path="./contracts/index.d.ts" />
 
-export class StandardTokenizerHelper implements ITokenizerHelper {
+class StandardTokenizerHelper implements ITokenizerHelper {
     getName(propertyName: string) {  
         if (propertyName[0] === '_') {
             propertyName = propertyName.slice(1);
@@ -31,6 +31,5 @@ export class StandardTokenizerHelper implements ITokenizerHelper {
             return "property";
         }
     }
-
-
 }
+export = StandardTokenizerHelper;

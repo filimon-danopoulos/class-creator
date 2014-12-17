@@ -1,5 +1,7 @@
+// <reference path="ICodeTemplate.d.ts" />
+// <reference path="IToken.d.ts" />
+
 interface ICodeGeneratorHelper {
-    getSkeleton() : string;
-    generateMember(member: string) : string;
-    addMember(member: string, skeleton: string) : string;    
+    getSkeleton(): ICodeTemplate;
+    generateMember(member: IToken): string;
 }

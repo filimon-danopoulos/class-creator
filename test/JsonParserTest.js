@@ -1,5 +1,5 @@
 var assert = require("assert");
-var JsonParser = require("../app/parsers/JsonParser").JsonParser;
+var JsonParser = require("../app/parsers/JsonParser");
 
 describe("JsonParser", function() {
     var parser = new JsonParser();

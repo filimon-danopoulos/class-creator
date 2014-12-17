@@ -1,5 +1,5 @@
 var assert = require("assert");
-var StandardTokenizerHelper = require("../app/tokenizers/StandardTokenizerHelper").StandardTokenizerHelper;
+var StandardTokenizerHelper = require("../app/tokenizers/StandardTokenizerHelper");
 
 describe("StandardTokinezerHelper", function() {
     var helper = new StandardTokenizerHelper();

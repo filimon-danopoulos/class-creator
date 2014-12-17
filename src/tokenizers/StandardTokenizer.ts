@@ -1,10 +1,10 @@
 // <reference path="./contracts/index.d.ts"/>
 
-import helper = require("./StandardTokenizerHelper");
+import StandardTokenizerHelper = require("./StandardTokenizerHelper");
 
-export class StandardTokenizer implements ITokenizer {
+class StandardTokenizer implements ITokenizer {
     constructor() {
-        this.helper = new helper.StandardTokenizerHelper();
+        this.helper = new StandardTokenizerHelper();
     }
     tokenize(input: any) {
         var result = [];
@@ -24,3 +24,5 @@ export class StandardTokenizer implements ITokenizer {
     }
     helper: ITokenizerHelper;
 }
+
+export = StandardTokenizer;
