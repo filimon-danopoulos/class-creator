@@ -1,6 +1,7 @@
 // <reference path="./contracts/index.d.ts"/>
 
 import StandardTokenizerHelper = require("./StandardTokenizerHelper");
+import Token = require("./Token");
 
 class StandardTokenizer implements ITokenizer {
     constructor() {
@@ -10,11 +11,11 @@ class StandardTokenizer implements ITokenizer {
         var result = [];
         for (var propertyName in input) {
             if (input.hasOwnProperty(propertyName)) {
-                var property;
-                property = input[propertyName];
+                var property = input[propertyName];
+                var type = this.helper.getType(propertyName, property);
                 result.push({
                     accessor: this.helper.getAccessor(propertyName),
-                    type: this.helper.getType(propertyName, property),
+                    type: type, 
                     construct: this.helper.getConstruct(propertyName),
                     name: this.helper.getName(propertyName)
                 });

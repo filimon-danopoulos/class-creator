@@ -3,5 +3,5 @@ interface IToken {
     type: string;
     construct: string; 
     accessor: string;   
-    parent: string; 
+    parentName: string; 
 }    
