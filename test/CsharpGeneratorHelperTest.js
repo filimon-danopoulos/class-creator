@@ -71,7 +71,39 @@ describe("CsharpGeneratorHelper", function() {
             assert(result[1] === "string", "second part should be a type");
             assert(result[2] === "Test", "third part should be a name");
         });
-        it("should return a string representing a private constant for a private constant token");
-        it("should return a string representing a public constant for public constant token");
+        it("should return a string representing a private constant for a private constant token", function() {
+            var input = { 
+                    name: "TEST",
+                    type: "string",
+                    accessor: "private",
+                    construct: "constant"
+                },
+                result = helper.generateMember(input);
+            assert(result.slice(-1) === ";", "result should end in ;");
+            result = result.slice(0,-1).split(" ");
+            assert(result.length === 5, "result should have five parts");
+            assert(result[0] === "private", "first part should be an accessor");
+            assert(result[1] === "static", "second part should be static");
+            assert(result[2] === "readonly", "third part should be readonly");
+            assert(result[3] === "string", "fourth part should be a type");
+            assert(result[4] === "TEST", "fifth part should be a name");
+        });
+        it("should return a string representing a public constant for public constant token", function() {
+            var input = { 
+                    name: "TEST",
+                    type: "string",
+                    accessor: "public",
+                    construct: "constant"
+                },
+                result = helper.generateMember(input);
+            assert(result.slice(-1) === ";", "result should end in ;");
+            result = result.slice(0,-1).split(" ");
+            assert(result.length === 5, "result should have five parts");
+            assert(result[0] === "public", "first part should be an accessor");
+            assert(result[1] === "static", "second part should be static");
+            assert(result[2] === "readonly", "third part should be readonly");
+            assert(result[3] === "string", "fourth part should be a type");
+            assert(result[4] === "TEST", "fifth part should be a name");
+        });
     });
 });

@@ -2,6 +2,7 @@ var assert = require("assert");
 var CsharpTemplateFactory = require("../app/generators/csharp/CsharpTemplateFactory");
 var CsharpPropertyTemplate = require("../app/generators/csharp/CsharpPropertyTemplate");
 var CsharpFieldTemplate = require("../app/generators/csharp/CsharpFieldTemplate");
+var CsharpConstantTemplate = require("../app/generators/csharp/CsharpConstantTemplate");
 
 describe("CsharpTemplateFactory", function() {
     var factory = new CsharpTemplateFactory();
@@ -24,6 +25,14 @@ describe("CsharpTemplateFactory", function() {
             });
             assert(result instanceof CsharpFieldTemplate);
         });
-        it("should return a CsharpConstantTemplate for a token that is a constant");
+        it("should return a CsharpConstantTemplate for a token that is a constant", function() {
+            var result = factory.getTemplate({
+                name: "TEST", 
+                type: "string",
+                accessor: "private",
+                construct: "constant"
+            });
+            assert(result instanceof CsharpConstantTemplate);
+        });
     });    
 });
