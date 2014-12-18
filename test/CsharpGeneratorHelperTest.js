@@ -1,6 +1,6 @@
 var assert = require("assert");
-var CsharpGeneratorHelper = require("../app/generators/CsharpGeneratorHelper");
-var CsharpClassTemplate = require("../app/generators/CsharpClassTemplate");
+var CsharpGeneratorHelper = require("../app/generators/csharp/CsharpGeneratorHelper");
+var CsharpClassTemplate = require("../app/generators/csharp/CsharpClassTemplate");
 
 describe("CsharpGeneratorHelper", function() {
     var helper = new CsharpGeneratorHelper();

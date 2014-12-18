@@ -1,5 +1,5 @@
 var assert = require("assert");
-var CsharpGenerator = require("../app/generators/CsharpGenerator");
+var CsharpGenerator = require("../app/generators/csharp/CsharpGenerator");
 
 describe("csharpGenerator", function () {
     var generator = new CsharpGenerator();

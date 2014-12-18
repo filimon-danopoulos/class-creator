@@ -1,7 +1,7 @@
 var assert = require("assert");
-var CsharpTemplateFactory = require("../app/generators/CsharpTemplateFactory");
-var CsharpPropertyTemplate = require("../app/generators/CsharpPropertyTemplate");
-var CsharpFieldTemplate = require("../app/generators/CsharpFieldTemplate");
+var CsharpTemplateFactory = require("../app/generators/csharp/CsharpTemplateFactory");
+var CsharpPropertyTemplate = require("../app/generators/csharp/CsharpPropertyTemplate");
+var CsharpFieldTemplate = require("../app/generators/csharp/CsharpFieldTemplate");
 
 describe("CsharpTemplateFactory", function() {
     var factory = new CsharpTemplateFactory();
