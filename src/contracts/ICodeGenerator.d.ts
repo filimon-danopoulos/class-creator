@@ -2,7 +2,7 @@
 // <reference path="IToken.d.ts" />
 
 interface ICodeGenerator {
-    generate(members: IToken[]) : string;    
-    generateFile(members: IToken[]) : any;
+    generate(className: string, tokens: IToken[]) : string;    
+    generateFile(className: string, tokens: IToken[]) : any;
     helper: ICodeGeneratorHelper;
 }

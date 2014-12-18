@@ -4,6 +4,6 @@
 
 interface ICodeGeneratorHelper {
     getTemplate(): ICodeTemplate;
-    generateMember(member: IToken): string;
+    generateMember(token: IToken): string;
     templateFactory: ICodeTemplateFactory
 }
