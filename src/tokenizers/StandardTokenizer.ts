@@ -10,11 +10,11 @@ class StandardTokenizer implements ITokenizer {
         var result = [];
         for (var propertyName in input) {
             if (input.hasOwnProperty(propertyName)) {
-                var prop;
-                prop = input[propertyName];
+                var property;
+                property = input[propertyName];
                 result.push({
                     accessor: this.helper.getAccessor(propertyName),
-                    type: "",
+                    type: this.helper.getType(propertyName, property),
                     construct: this.helper.getConstruct(propertyName),
                     name: this.helper.getName(propertyName)
                 });

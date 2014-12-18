@@ -10,7 +10,6 @@ class CsharpCodeService implements ICodeService {
     }
     getCodeAsString(data: any): string {
         throw "Not Implemented";
-        return "";    
     }       
     getCodeAsStrings(data: any): string[] {
         throw "Not Implemented";
@@ -20,7 +19,7 @@ class CsharpCodeService implements ICodeService {
         throw "Not Implemented";    
     }
     getCodeAsFiles(data: any): any {
-        throw "Not Implemente";
+        throw "Not Implemented";
         return [];    
     }
     parser: IParser;
