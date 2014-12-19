@@ -22,7 +22,7 @@ describe("CsharpCodeService", function() {
             var result = service.getCodeAsString(input);
             var expected = [
                 "public class RootClass {",
-                    "public int IntTest { get; set }",
+                    "public int IntTest { get; set; }",
                     "private string stringTest;",
                     "public static readonly float CONSTANT_TEST;",
                     "public NestedTypeTest nestedTypeTest;",
@@ -31,6 +31,10 @@ describe("CsharpCodeService", function() {
                     "private string NestedString { get; set; }",
                  "}"
             ].join("\n");
+
+            console.log(result);
+            console.log("");
+            console.log(expected);
             assert(result === expected);
         });
     });

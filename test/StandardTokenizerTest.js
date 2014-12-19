@@ -4,7 +4,7 @@ var StandardTokenizer = require("../app/tokenizers/StandardTokenizer");
 describe("StandardTokenizer", function() {
     "use strict";
     var tokenizer = new StandardTokenizer();
-    describe("tokenize", function() {      
+    describe("#tokenize()", function() {      
         it("should return a private when the property starts with a _", function() {
             var input = { _TEST: "test" },
                 result = tokenizer.tokenize(input);
@@ -95,7 +95,87 @@ describe("StandardTokenizer", function() {
             var token = rootClass.tokens[0];
             assert(token.type === "float", "it should have the right type");
         }); 
-
-        it("should handle a json input as expected, test 1");
+        it(" should handle test case 1", function () {
+            var input = {
+                classOne: {
+                    intField: 1,
+                    _privateStringField: "test"    
+                },
+                IntProperty: 3,
+                ClassTwo: {
+                    _PrivateFloatProperty: "4.0", 
+                    CONSTANT_STRING: "test", 
+                    CLASS_THREE: {
+                        stringField: "test",
+                        _PRIVATE_CONSTANT_INT: 7    
+                    }    
+                }   
+            };
+            var result = tokenizer.tokenize(input);
+            var expected = [{
+                className: "rootClass",
+                tokens: [{
+                    name: "classOne",
+                    type: "classOne",
+                    construct: "field",    
+                    accessor: "public"
+                }, {
+                    name: "IntProperty",
+                    type: "integer",
+                    construct: "property",
+                    accessor: "public"
+                }, {
+                    name: "ClassTwo",
+                    type: "ClassTwo",
+                    construct: "property", 
+                    accessor: "public"
+                }]    
+            }, {
+                className: "classOne",
+                tokens: [{
+                    name: "intField",
+                    type: "integer",
+                    construct: "field",
+                    accessor: "public"
+                }, {
+                    name: "privateStringField",
+                    type: "string",
+                    construct: "field", 
+                    accessor: "private"
+                }]    
+            }, {
+                className: "ClassTwo",
+                tokens: [{
+                    name: "PrivateFloatProperty",
+                    type: "float",
+                    construct: "property",
+                    accessor: "private"
+                }, {
+                    name: "CONSTANT_STRING",
+                    type: "string",
+                    construct: "constant",
+                    accessor: "public"
+                }, {
+                    name: "CLASS_THREE",
+                    type: "CLASS_THREE",
+                    construct: "constant",
+                    accessor: "public"
+                }]    
+            }, {
+                className: "CLASS_THREE",
+                tokens: [{
+                    name: "stringField",
+                    type: "string",
+                    construct: "field",
+                    accessor: "public"
+                }, {
+                    name: "PRIVATE_CONSTANT_INT",
+                    type: "integer",
+                    construct: "constant",
+                    accessor: "private"
+                }]    
+            }];
+            assert(JSON.stringify(result) === JSON.stringify(expected));
+        });
     });
 });

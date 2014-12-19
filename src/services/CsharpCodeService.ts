@@ -9,7 +9,13 @@ class CsharpCodeService implements ICodeService {
         this.generator = new CsharpGenerator(); 
     }
     getCodeAsString(data: any): string {
-        throw "Not Implemented";
+        var result = "";
+        var parsed = this.parser.parse(data);
+        var tokenized = this.tokenizer.tokenize(parsed);
+        for (var i = 0, l = tokenized.length; i < l; i++) {
+           result += "\n"+this.generator.generate(tokenized[i].className, tokenized[i].tokens);
+        }
+        return result;
     }       
     getCodeAsStrings(data: any): string[] {
         throw "Not Implemented";

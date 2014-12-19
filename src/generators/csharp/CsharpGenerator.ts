@@ -14,7 +14,7 @@ class CsharpGenerator implements ICodeGenerator {
         }
         var classContent = members.join("\n");
         var result = classTemplate.getTemplate();
-
+        className = (className[0].toUpperCase() === className[0] ? className : className[0].toUpperCase()+className.slice(1));
         result = result.replace("{{className}}", className);
         result = result.replace("{{members}}", classContent);
 
