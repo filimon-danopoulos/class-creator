@@ -8,16 +8,24 @@ describe("StandardTokenizer", function() {
         it("should return a private when the property starts with a _", function() {
             var input = { _TEST: "test" },
                 result = tokenizer.tokenize(input);
-                
-            assert(result.length === 1);
-            assert(result[0].accessor === "private");
+
+            assert(result.length === 1, "should only get a single result");
+            var rootClass = result[0];
+            assert(rootClass.className === "rootClass", "the className should be rootClass");
+            assert(rootClass.tokens.length === 1, "it should have one token");
+            var token = rootClass.tokens[0];
+            assert(token.accessor === "private", "it should have the right accessor");
         });   
-        it("should return a public when property does't start with a _", function() {
+        it("should return a public when property doesn't start with a _", function() {
             var input = { TEST: "1.0" },
                 result = tokenizer.tokenize(input);
-                
-            assert(result.length === 1);
-            assert(result[0].accessor === "public");
+
+           assert(result.length === 1, "should only get a single result");
+            var rootClass = result[0];
+            assert(rootClass.className === "rootClass", "the className should be rootClass");
+            assert(rootClass.tokens.length === 1, "it should have one token");
+            var token = rootClass.tokens[0];
+            assert(token.accessor === "public", "it should have the right accessor");
         }); 
 
         it("should return a constant when property is all upper case", function() {
@@ -63,5 +71,7 @@ describe("StandardTokenizer", function() {
             assert(result.length === 1);
             assert(result[0].type === "float");
         }); 
+
+        it("should handle a json input as expected, test 1");
     });
 });
