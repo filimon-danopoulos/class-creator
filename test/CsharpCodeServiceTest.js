@@ -19,7 +19,7 @@ describe("CsharpCodeService", function() {
                     _NestedString: "test"
                 }
             };
-            var result = service.getCodeAsString(input);
+            var result = service.getCodeAsString(input).replace(/\n/g, "");
             var expected = [
                 "public class RootClass {",
                     "public int IntTest { get; set; }",
@@ -30,10 +30,9 @@ describe("CsharpCodeService", function() {
                  "public class NestedTypeTest {",
                     "private string NestedString { get; set; }",
                  "}"
-            ].join("\n");
+            ].join("");
 
             console.log(result);
-            console.log("");
             console.log(expected);
             assert(result === expected);
         });

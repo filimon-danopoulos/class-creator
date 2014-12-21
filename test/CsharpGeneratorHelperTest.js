@@ -11,99 +11,97 @@ describe("CsharpGeneratorHelper", function() {
         });
     });
     describe("generateMember", function() {
-        it("should return a string representing a private property for a private property token", function() {
+        it("should return a string representing a private member for a private token", function() {
             var input = { 
-                    name: "Test",
-                    type: "string",
-                    accessor: "private",
-                    construct: "property"
-                },
-                result = helper.generateMember(input);
-            assert(result.indexOf("{ get; set; }") !== -1, "result should have get and set");
-            result = result.replace(/ \{.*?\}/, '').split(" ");
-            assert(result.length === 3, "result should have three parts");
-            assert(result[0] === "private", "first part should be an accessor");
-            assert(result[1] === "string", "second part should be a type");
-            assert(result[2] === "Test", "third part should be a name");
-        });
-        it("should return a string representing a public property for a public property token", function() {
-            var input = { 
-                    name: "Test",
-                    type: "string",
-                    accessor: "public",
-                    construct: "property"
-                },
-                result = helper.generateMember(input);
-            assert(result.indexOf("{ get; set; }") !== -1, "result should have get and set");
-            result = result.replace(/ \{.*?\}/, '').split(" ");
-            assert(result.length === 3, "result should have three parts");
-            assert(result[0] === "public", "first part should be an accessor");
-            assert(result[1] === "string", "second part should be a type");
-            assert(result[2] === "Test", "third part should be a name");
-        });
-        it("should return a string representing a private field for a private field token", function() {
-            var input = { 
-                    name: "Test",
+                    name: "test",
                     type: "string",
                     accessor: "private",
                     construct: "field"
                 },
                 result = helper.generateMember(input);
-            assert(result.slice(-1) === ";", "result should end in ;");
-            result = result.slice(0,-1).split(" ");
-            assert(result.length === 3, "result should have three parts");
-            assert(result[0] === "private", "first part should be an accessor");
-            assert(result[1] === "string", "second part should be a type");
-            assert(result[2] === "Test", "third part should be a name");
+            assert(/^private .*?$/.test(result));
         });
-        it("should return a string representing a public field for a public field token", function() {
+        it("should return a string representing a public member for a public token", function() {
             var input = { 
-                    name: "Test",
+                    name: "test",
                     type: "string",
                     accessor: "public",
                     construct: "field"
                 },
                 result = helper.generateMember(input);
-            assert(result.slice(-1) === ";", "result should end in ;");
-            result = result.slice(0,-1).split(" ");
-            assert(result.length === 3, "result should have three parts");
-            assert(result[0] === "public", "first part should be an accessor");
-            assert(result[1] === "string", "second part should be a type");
-            assert(result[2] === "Test", "third part should be a name");
+            assert(/^public .*?$/.test(result)); 
         });
-        it("should return a string representing a private constant for a private constant token", function() {
+
+        it("should return a string representing a string member for a string token", function() {
             var input = { 
-                    name: "TEST",
+                    name: "test",
                     type: "string",
+                    accessor: "private",
+                    construct: "field"
+                },
+                result = helper.generateMember(input);
+            assert(/^\w*? string .*?$/.test(result));
+        });
+        it("should return a string representing an int member for an integer token", function() {
+            var input = { 
+                    name: "test",
+                    type: "integer",
+                    accessor: "private",
+                    construct: "field"
+                },
+                result = helper.generateMember(input);
+            assert(/^\w*? int .*?$/.test(result));
+        });
+        it("should return a string representing a float for a float token", function() {
+            var input = { 
+                    name: "test",
+                    type: "float",
+                    accessor: "private",
+                    construct: "field"
+                },
+                result = helper.generateMember(input);
+            assert(/^\w*? float .*?$/.test(result));
+        });
+        it("should return a string representing a custom type for custom type token", function() {
+            var input = { 
+                    name: "test",
+                    type: "Test",
+                    accessor: "public",
+                    construct: "field"
+                },
+                result = helper.generateMember(input);
+            assert(/^\w*? Test .*?$/.test(result));
+        });
+
+        it("should return a string representing a field for a field token", function(){
+            var input = { 
+                    name: "test",
+                    type: "float",
+                    accessor: "private",
+                    construct: "field"
+                },
+                result = helper.generateMember(input);
+            assert(/^\w*? .*? .*?;$/.test(result));
+        });
+        it("should return a string representing a property for a field property", function() {
+            var input = { 
+                    name: "test",
+                    type: "float",
+                    accessor: "private",
+                    construct: "property"
+                },
+                result = helper.generateMember(input);
+            assert(/^\w*? .*? .*? \{ get; set; \}$/.test(result));
+        });
+        it("should return a string representing a static readonly member for a constant token", function() {
+            var input = { 
+                    name: "test",
+                    type: "float",
                     accessor: "private",
                     construct: "constant"
                 },
                 result = helper.generateMember(input);
-            assert(result.slice(-1) === ";", "result should end in ;");
-            result = result.slice(0,-1).split(" ");
-            assert(result.length === 5, "result should have five parts");
-            assert(result[0] === "private", "first part should be an accessor");
-            assert(result[1] === "static", "second part should be static");
-            assert(result[2] === "readonly", "third part should be readonly");
-            assert(result[3] === "string", "fourth part should be a type");
-            assert(result[4] === "TEST", "fifth part should be a name");
-        });
-        it("should return a string representing a public constant for public constant token", function() {
-            var input = { 
-                    name: "TEST",
-                    type: "string",
-                    accessor: "public",
-                    construct: "constant"
-                },
-                result = helper.generateMember(input);
-            assert(result.slice(-1) === ";", "result should end in ;");
-            result = result.slice(0,-1).split(" ");
-            assert(result.length === 5, "result should have five parts");
-            assert(result[0] === "public", "first part should be an accessor");
-            assert(result[1] === "static", "second part should be static");
-            assert(result[2] === "readonly", "third part should be readonly");
-            assert(result[3] === "string", "fourth part should be a type");
-            assert(result[4] === "TEST", "fifth part should be a name");
+            assert(/^\w*? static readonly .*?;$/.test(result));
         });
     });
 });
