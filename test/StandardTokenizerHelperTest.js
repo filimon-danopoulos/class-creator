@@ -87,5 +87,11 @@ describe("StandardTokinezerHelper", function() {
             assert(result === "test");
         }); 
     });
+    describe("getTokensForObject", function() {
+        it("should return the right tokens for an object");    
+    });
+    describe("getObjects", function() {
+        it("should return all the objects from a JSON objects, regardless of nesting");    
+    });
 });
   

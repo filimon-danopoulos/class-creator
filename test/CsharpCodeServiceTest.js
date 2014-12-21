@@ -31,9 +31,6 @@ describe("CsharpCodeService", function() {
                     "private string NestedString { get; set; }",
                  "}"
             ].join("");
-
-            console.log(result);
-            console.log(expected);
             assert(result === expected);
         });
     });
