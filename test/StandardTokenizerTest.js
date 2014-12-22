@@ -4,7 +4,7 @@ var StandardTokenizer = require("../app/tokenizers/StandardTokenizer");
 describe("StandardTokenizer", function() {
     "use strict";
     var tokenizer = new StandardTokenizer();
-    describe("#tokenize()", function() {      
+    describe("tokenize", function() {      
         it("should return a private when the property starts with a _", function() {
             var input = { _TEST: "test" },
                 result = tokenizer.tokenize(input);
@@ -46,8 +46,13 @@ describe("StandardTokenizer", function() {
             var input = { _test: "1.0" },
                 result = tokenizer.tokenize(input);
             assert(result[0].tokens[0].type === "float");
+        });
+        it("should return a boolean when property has a boolean value", function() {
+            var input = { Test: true },
+                result = tokenizer.tokenize(input);
+            assert(result[0].tokens[0].type === "boolean");    
         }); 
-        it("should handle test case 1", function () {
+        it("should handle a json blob correctly, test case 1", function () {
             var input = {
                 classOne: {
                     intField: 1,

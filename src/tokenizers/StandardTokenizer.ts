@@ -13,7 +13,8 @@ class StandardTokenizer implements ITokenizer {
         };
         var objects = this.helper.getObjects(input);
         for (var i = 0, l = objects.length; i < l; i++) {
-            result.push(this.helper.getTokensForObject(objects[i]));
+            var current = objects[i];
+            result.push({ className: current.name, tokens: this.helper.getTokensForObject(current.value)});
         }
 
         return result; 

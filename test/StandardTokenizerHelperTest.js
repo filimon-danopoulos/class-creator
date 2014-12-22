@@ -45,8 +45,8 @@ describe("StandardTokinezerHelper", function() {
             assert(result === "TEST");
         });
         it("should return all upper case without a leading _ when input starts with _ followed by all upper case", function() {
-            var result = helper.getName("_TEST");
-            assert(result === "TEST");
+            var result = helper.getName("_TEST_CASE");
+            assert(result === "TEST_CASE");
         });
         it("should return string with leading upper case when input has leading upper case", function() {
             var result = helper.getName("Test");
@@ -78,6 +78,10 @@ describe("StandardTokinezerHelper", function() {
             var result = helper.getType("test", "test");
             assert(result === "string");    
         });
+        it("should return boolean for a boolean", function() {
+            var result = helper.getType("test", true);
+            assert(result === "boolean");    
+        });
         it("should return array for an array", function() {
             var result = helper.getType("test", ["test"]);    
             assert(result === "array");
@@ -86,9 +90,55 @@ describe("StandardTokinezerHelper", function() {
             var result = helper.getType("test", {});
             assert(result === "test");
         }); 
+        it("should return a custom class name without a leading _ an object is passed that has a leading _ in the name.", function() {
+            var result = helper.getType("_TEST", {});
+            assert(result === "TEST");    
+        });
     });
     describe("getTokensForObject", function() {
-        it("should return the right tokens for an object");    
+        it("should return the right tokens for an object", function() {
+            var input = {
+                    stringField: "Test",
+                    _privateFloatField: "4.0",
+                    IntProperty: 4,
+                    _PrivateBoolProperty: true,
+                    ARRAY_CONSTANT: [],
+                    _PRIVATE_OBJECT_CONSTANT: {}
+                },
+                result = helper.getTokensForObject(input),
+                expected = [{
+                    name: "stringField",
+                    type: "string",
+                    construct: "field",
+                    accessor: "public"    
+                }, {
+                    name: "privateFloatField",
+                    type: "float",
+                    construct: "field",
+                    accessor: "private"    
+                }, {
+                    name: "IntProperty",
+                    type: "integer",
+                    construct: "property",
+                    accessor: "public"    
+                }, {
+                    name: "PrivateBoolProperty",
+                    type: "boolean",
+                    construct: "property",
+                    accessor: "private"    
+                }, {
+                    name: "ARRAY_CONSTANT",
+                    type: "array",
+                    construct: "constant",
+                    accessor: "public"    
+                }, {
+                    name: "PRIVATE_OBJECT_CONSTANT",
+                    type: "PRIVATE_OBJECT_CONSTANT",
+                    construct: "constant",
+                    accessor: "private"
+                }];
+            assert(JSON.stringify(result) === JSON.stringify(expected));
+        });    
     });
     describe("getObjects", function() {
         it("should return all the objects from a JSON objects, regardless of nesting");    

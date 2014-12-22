@@ -103,5 +103,16 @@ describe("CsharpGeneratorHelper", function() {
                 result = helper.generateMember(input);
             assert(/^\w*? static readonly .*?;$/.test(result));
         });
+        it("should handle a token correctly, test case 1", function() {
+            var input = {
+                    name: "Test",
+                    type: "string",
+                    accessor: "private",
+                    construct: "property"
+                },
+                result = helper.generateMember(input),
+                expected = "private string Test { get; set; }";    
+            assert(result === expected);
+        });
     });
 });

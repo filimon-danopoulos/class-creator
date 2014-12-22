@@ -10,9 +10,10 @@ class StandardTokenizerHelper implements ITokenizerHelper {
     }  
     getType(propertyName: string, property: any) {
         switch (typeof property) {
+            case "boolean": return "boolean";
             case "number": return "integer";
             case "string": return ((!isNaN(+property) && /[,.]/.test(property)) ? "float": "string");
-            case "object": return (Array.isArray(property) ? "array" : propertyName);
+            case "object": return (Array.isArray(property) ? "array" : (propertyName[0] === "_" ? propertyName.slice(1) : propertyName));
             default: throw new Error("Unkown input");
         }
     }
@@ -33,16 +34,12 @@ class StandardTokenizerHelper implements ITokenizerHelper {
         }
     }
     
-    getTokensForObject(input: any): ITokenizerResult {
-        var result = {
-            className: input.name,
-            tokens: []
-        }
-        var value = input.value;
-        for (var propertyName in value) {
-            if (value.hasOwnProperty(propertyName)) {
-                var property = value[propertyName];
-                result.tokens.push(new Token(
+    getTokensForObject(input: any): IToken[] {
+        var result = [];
+        for (var propertyName in input) {
+            if (input.hasOwnProperty(propertyName)) {
+                var property = input[propertyName];
+                result.push(new Token(
                     this.getName(propertyName),
                     this.getType(propertyName, property),
                     this.getConstruct(propertyName),
