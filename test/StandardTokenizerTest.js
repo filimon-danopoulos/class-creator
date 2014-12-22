@@ -52,6 +52,11 @@ describe("StandardTokenizer", function() {
                 result = tokenizer.tokenize(input);
             assert(result[0].tokens[0].type === "boolean");    
         }); 
+        it("should return an array when property has an array value", function() {
+            var input = { Test: []},
+                result = tokenizer.tokenize(input);
+            assert(result[0].tokens[0].type === "array");    
+        });
         it("should handle a json blob correctly, test case 1", function () {
             var input = {
                 classOne: {

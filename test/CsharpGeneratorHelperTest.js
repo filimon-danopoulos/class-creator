@@ -66,11 +66,21 @@ describe("CsharpGeneratorHelper", function() {
             var input = { 
                     name: "test",
                     type: "Test",
-                    accessor: "public",
+                    accessor: "private",
                     construct: "field"
                 },
                 result = helper.generateMember(input);
             assert(/^\w*? Test .*?$/.test(result));
+        });
+        it("should return an object array for an array token", function() {
+            var input = {
+                        name: "Test",
+                        type: "array",
+                    accessor: "private",
+                    construct: "field"    
+                }, 
+                result = helper.generateMember(input);
+             assert(/^\w*? object[] \w*?;$/.test(result));    
         });
 
         it("should return a string representing a field for a field token", function(){
