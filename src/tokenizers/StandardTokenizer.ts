@@ -1,6 +1,7 @@
 // <reference path="./contracts/index.d.ts"/>
 
 import StandardTokenizerHelper = require("./StandardTokenizerHelper");
+import TokenizerResult = require("./TokenizerResult");
 
 class StandardTokenizer implements ITokenizer {
     constructor() {
@@ -14,7 +15,7 @@ class StandardTokenizer implements ITokenizer {
         var objects = this.helper.getObjects(input);
         for (var i = 0, l = objects.length; i < l; i++) {
             var current = objects[i];
-            result.push({ className: current.name, tokens: this.helper.getTokensForObject(current.value)});
+            result.push(new TokenizerResult(current.name, this.helper.getTokensForObject(current.value)));
         }
 
         return result; 

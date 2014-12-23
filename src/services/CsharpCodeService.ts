@@ -18,8 +18,14 @@ class CsharpCodeService implements ICodeService {
         return result;
     }       
     getCodeAsStrings(data: any): string[] {
-        throw "Not Implemented";
-        return [""];    
+        var result = [];
+        var parsed = this.parser.parse(data);
+        var tokenized = this.tokenizer.tokenize(parsed);
+        for (var i = 0, l = tokenized.length; i < l; i++) {
+           result.push(this.generator.generate(tokenized[i].className, tokenized[i].tokens));
+        }
+        return result;
+   
     }
     getCodeAsFile(data: any): any {
         throw "Not Implemented";    
