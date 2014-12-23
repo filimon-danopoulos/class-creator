@@ -20,7 +20,4 @@ describe("CsharpGenerator", function () {
             assert(result == expected);
         });
     });
-    describe("generateFile", function() {
-        it("should return a file representing a class");
-    });
 });

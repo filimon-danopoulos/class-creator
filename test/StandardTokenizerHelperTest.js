@@ -95,7 +95,14 @@ describe("StandardTokinezerHelper", function() {
             assert(result === "TEST");    
         });
     });
-    describe("getTokensForObject", function() {
+    describe("getTokensForObject", function() { 
+        it("should return the same number of tokens as there are properties", function() {
+            var result = helper.getTokensForObject({
+                test: "test",
+                test2: "test"
+            });
+            assert(result.length === 2);
+        });
         it("should return the right tokens for an object", function() {
             var input = {
                     stringField: "Test",
@@ -138,10 +145,58 @@ describe("StandardTokinezerHelper", function() {
                     accessor: "private"
                 }];
             assert(JSON.stringify(result) === JSON.stringify(expected));
-        });    
+        });       
     });
     describe("getObjects", function() {
-        it("should return all the objects from a JSON objects, regardless of nesting");    
+        it("should return nothing when no nested classes exist", function() {
+            var input = { test: "test"},
+                result = helper.getObjects(input);
+            assert(result.length === 0);
+        });
+        it("should return a result of length N when the input has N nested objects", function() {
+            var input = {
+                    shouldNotBeReturned: "test",
+                    shouldBeReturned1: {},
+                    shouldBeReturned2: {
+                        shoudlNotBeReturned: "test"    
+                    }
+                },
+                result = helper.getObjects(input);    
+            assert(result.length === 2); 
+        });
+        it("should return all nested objects from the input", function() {
+            var input = {
+                    shouldNotBeReturned: "test",
+                    shouldBeReturned1: {},
+                    shouldBeReturned2: {
+                        shoudlNotBeReturned: "test"    
+                    }
+                },
+                result = helper.getObjects(input);
+            assert(result.length === 2);
+            assert(result[0].name === "shouldBeReturned1");
+            assert(result[1].name === "shouldBeReturned2"); 
+        });
+        it("should return all the objects from the input, regardless of nesting", function() {
+            var input = {
+                    shouldNotBeReturned: "test",
+                    shouldBeReturned1: {
+                        shouldBeReturned2: {
+                            shouldBeReturned3: {}
+                        },
+                        shouldNotBeReturned: "test"
+                    },
+                    shouldBeReturned4: {
+                        shoudlNotBeReturned: "test"    
+                    }
+                },
+                result = helper.getObjects(input);
+            assert(result.length === 4);
+            assert(result[0].name === "shouldBeReturned1");
+            assert(result[1].name === "shouldBeReturned2"); 
+            assert(result[2].name === "shouldBeReturned3");
+            assert(result[3].name === "shouldBeReturned4");    
+        });    
     });
 });
   

@@ -3,6 +3,5 @@
 
 interface ICodeGenerator {
     generate(className: string, tokens: IToken[]) : string;    
-    generateFile(className: string, tokens: IToken[]) : any;
     helper: ICodeGeneratorHelper;
 }

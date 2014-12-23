@@ -20,10 +20,6 @@ class CsharpGenerator implements ICodeGenerator {
 
         return result; 
     }
-    generateFile(className: string, tokens: IToken[]) : any {
-        throw "Not Implemented";
-        return "";    
-    }        
     helper: ICodeGeneratorHelper;
 }
 
