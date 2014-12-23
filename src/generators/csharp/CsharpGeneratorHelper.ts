@@ -34,6 +34,7 @@ function getType(type: string): string {
         case "integer": return "int";
         case "float": return "float";
         case "string": return "string";
+        case "array": return "object[]";
         default: return (type[0].toUpperCase() === type[0] ? type : type[0].toUpperCase()+type.slice(1));    
     }    
 }
