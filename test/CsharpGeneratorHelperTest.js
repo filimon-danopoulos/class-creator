@@ -80,8 +80,6 @@ describe("CsharpGeneratorHelper", function() {
                     construct: "field"    
                 }, 
                 result = helper.generateMember(input);
-
-             console.log(result);
              assert(/^\w*? object\[\] \w*?;$/.test(result));    
         });
 
