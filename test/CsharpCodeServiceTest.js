@@ -110,13 +110,5 @@ describe("CsharpCodeService", function() {
             assert(JSON.stringify(result) === JSON.stringify(expected));
     
         });
-    });
-    describe("getCodeAsFile", function() {
-        it("should return a file that contains ");
-    });
-    describe("getCodeAsFiles", function() {
-        it("should return an array that contains all the classes in separate files");
-    });
-
+    })
 });
-
