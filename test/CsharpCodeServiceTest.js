@@ -18,7 +18,8 @@ describe("CsharpCodeService", function() {
                 nestedTypeTest: {
                     _NestedString: "test"
                 },
-                array: []
+                array: [],
+                _PRIVATE_BOOL_CONST: true
             };
             var result = service.getCodeAsString(input).replace(/\n/g, "");
             var expected = [
@@ -28,6 +29,7 @@ describe("CsharpCodeService", function() {
                     "public static readonly float CONSTANT_TEST;",
                     "public NestedTypeTest nestedTypeTest;",
                     "public object[] array;",
+                    "private static readonly bool PRIVATE_BOOL_CONST;",
                  "}",
                  "public class NestedTypeTest {",
                     "private string NestedString { get; set; }",

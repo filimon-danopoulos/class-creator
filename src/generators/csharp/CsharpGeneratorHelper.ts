@@ -35,6 +35,7 @@ function getType(type: string): string {
         case "float": return "float";
         case "string": return "string";
         case "array": return "object[]";
+        case "boolean": return "bool";
         default: return (type[0].toUpperCase() === type[0] ? type : type[0].toUpperCase()+type.slice(1));    
     }    
 }
