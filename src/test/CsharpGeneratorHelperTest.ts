@@ -1,3 +1,7 @@
+// <reference path="../thirdparty/mocha/mocha.d.ts" />
+// <reference path="../app/contracts/index.d.ts" />
+
+
 var assert = require("assert");
 var CsharpGeneratorHelper = require("../app/generators/csharp/CsharpGeneratorHelper");
 var CsharpClassTemplate = require("../app/generators/csharp/CsharpClassTemplate");

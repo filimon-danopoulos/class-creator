@@ -6,7 +6,7 @@ grunt.initConfig({
     typescript: {
         base: {
             src: ['src/**/*.ts'],
-            dest: 'app/',
+            dest: 'build/',
             options: {
                 //watch: true,
                 module: 'commonjs', 
@@ -23,12 +23,12 @@ grunt.initConfig({
                 reporter: 'spec',
                 clearRequireCache: true // Optionally clear the require cache before running tests (defaults to false)
             },
-            src: ['test/**/*.js']
+            src: ['build/test/**/*.js']
         }
     },
     clean: {
         build: {
-            src: [ 'app' ]
+            src: [ 'build' ]
         }
     } 
 });
