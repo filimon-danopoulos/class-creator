@@ -1,3 +1,3 @@
 interface IParser {
-    parse(input : any): any[];
+    parse(input : {[key: string]:any}): any[];
 }
