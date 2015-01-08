@@ -8,7 +8,7 @@ class CsharpCodeService implements ICodeService {
         this.tokenizer = tokenizer;
         this.generator = new CsharpGenerator(); 
     }
-    getCodeAsString(data: any): string {
+    getCodeAsString(data: {[key: string]: string}): string {
         var result = "";
         var parsed = this.parser.parse(data);
         var tokenized = this.tokenizer.tokenize(parsed);
@@ -17,7 +17,7 @@ class CsharpCodeService implements ICodeService {
         }
         return result;
     }       
-    getCodeAsStrings(data: any): string[] {
+    getCodeAsStrings(data: {[key: string]: string}): string[] {
         var result = [];
         var parsed = this.parser.parse(data);
         var tokenized = this.tokenizer.tokenize(parsed);
@@ -26,13 +26,6 @@ class CsharpCodeService implements ICodeService {
         }
         return result;
    
-    }
-    getCodeAsFile(data: any): any {
-        throw "Not Implemented";    
-    }
-    getCodeAsFiles(data: any): any {
-        throw "Not Implemented";
-        return [];    
     }
     parser: IParser;
     tokenizer: ITokenizer;

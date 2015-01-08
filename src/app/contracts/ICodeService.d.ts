@@ -3,8 +3,8 @@
 // <reference path="./IParser.d.ts" />
 
 interface ICodeService {
-    getCodeAsString(data: any): string;
-    getCodeAsStrings(data: any): string[];
+    getCodeAsString(data: {[key: string]:string}): string;
+    getCodeAsStrings(data: {[key: string]:string}): string[];
     parser: IParser;
     tokenizer: ITokenizer;
     generator: ICodeGenerator;
