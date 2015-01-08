@@ -1,8 +1,8 @@
 // <reference path="../thirdparty/mocha/mocha.d.td" />
 // <reference path="../app/contracts/index.d.ts" />
 
-var assert = require("assert");
-var StandardTokenizer = require("../app/tokenizers/StandardTokenizer");
+import assert = require("assert");
+import StandardTokenizer = require("../app/tokenizers/StandardTokenizer");
 
 describe("StandardTokenizer", function() {
     "use strict";

@@ -2,11 +2,11 @@
 // <reference path="../app/contracts/index.d.ts" />
 
 
-var assert = require("assert");
-var CsharpTemplateFactory = require("../app/generators/csharp/CsharpTemplateFactory");
-var CsharpPropertyTemplate = require("../app/generators/csharp/CsharpPropertyTemplate");
-var CsharpFieldTemplate = require("../app/generators/csharp/CsharpFieldTemplate");
-var CsharpConstantTemplate = require("../app/generators/csharp/CsharpConstantTemplate");
+import assert = require("assert");
+import CsharpTemplateFactory = require("../app/generators/csharp/CsharpTemplateFactory");
+import CsharpPropertyTemplate = require("../app/generators/csharp/CsharpPropertyTemplate");
+import CsharpFieldTemplate = require("../app/generators/csharp/CsharpFieldTemplate");
+import CsharpConstantTemplate = require("../app/generators/csharp/CsharpConstantTemplate");
 
 describe("CsharpTemplateFactory", function() {
     var factory = new CsharpTemplateFactory();

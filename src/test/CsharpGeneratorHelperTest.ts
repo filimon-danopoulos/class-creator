@@ -2,9 +2,9 @@
 // <reference path="../app/contracts/index.d.ts" />
 
 
-var assert = require("assert");
-var CsharpGeneratorHelper = require("../app/generators/csharp/CsharpGeneratorHelper");
-var CsharpClassTemplate = require("../app/generators/csharp/CsharpClassTemplate");
+import assert = require("assert");
+import CsharpGeneratorHelper = require("../app/generators/csharp/CsharpGeneratorHelper");
+import CsharpClassTemplate = require("../app/generators/csharp/CsharpClassTemplate");
 
 describe("CsharpGeneratorHelper", function() {
     var helper = new CsharpGeneratorHelper();

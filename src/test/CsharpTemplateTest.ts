@@ -1,12 +1,12 @@
 // <reference path="../thirdparty/mocha/mocha.d.td" />
 // <reference path="../app/contracts/index.d.ts" />
 
-var assert = require("assert");
+import assert = require("assert");
 
-var CsharpConstantTemplate = require("../app/generators/csharp/CsharpConstantTemplate");
-var CsharpPropertyTemplate = require("../app/generators/csharp/CsharpPropertyTemplate");
-var CsharpFieldTemplate = require("../app/generators/csharp/CsharpFieldTemplate");
-var CsharpClassTemplate = require("../app/generators/csharp/CsharpClassTemplate");
+import CsharpConstantTemplate = require("../app/generators/csharp/CsharpConstantTemplate");
+import CsharpPropertyTemplate = require("../app/generators/csharp/CsharpPropertyTemplate");
+import CsharpFieldTemplate = require("../app/generators/csharp/CsharpFieldTemplate");
+import CsharpClassTemplate = require("../app/generators/csharp/CsharpClassTemplate");
 
 var validPlaceHolders = ["accessor", "construct", "name", "type"];
 
