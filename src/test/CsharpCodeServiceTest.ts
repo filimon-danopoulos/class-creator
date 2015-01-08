@@ -1,11 +1,11 @@
 // <reference path="../thirdparty/mocha/mocha.d.ts" />
 // <reference path="../app/contracts/index.d.ts" />
 
-var assert = require("assert");
+import assert = require("assert");
 
-var CsharpCodeService = require("../app/services/CsharpCodeService");
-var JsonParser = require("../app/parsers/JsonParser");
-var StandardTokenizer = require("../app/tokenizers/StandardTokenizer");
+import CsharpCodeService = require("../app/services/CsharpCodeService");
+import JsonParser = require("../app/parsers/JsonParser");
+import StandardTokenizer = require("../app/tokenizers/StandardTokenizer");
 
 describe("CsharpCodeService", function() {
     var service = new CsharpCodeService(
@@ -14,7 +14,7 @@ describe("CsharpCodeService", function() {
     );
     describe("getCodeAsString", function() {
         it("should return a class when called with a single class", function() {
-            var input = {
+            var input:{[key:string]:any} = {
                     testString: "Test",
                     _testInt: 2,
                     TEST_BOOL: true,
@@ -32,7 +32,7 @@ describe("CsharpCodeService", function() {
              assert(result === expected);
         });
         it("should return a single string containing all the classes when called with nested classes", function() {
-            var input = {
+            var input:{[key:string]:any} = {
                 IntTest: 5,
                 _stringTest: "test",
                 CONSTANT_TEST: "4.0",
@@ -61,14 +61,14 @@ describe("CsharpCodeService", function() {
     });
     describe("getCodeAsStrings", function() {
         it("should return an array of length one when called with a single class", function() {
-            var input = {
+            var input:{[key:string]:any} = {
                     Test: "test"
                 },
                 result = service.getCodeAsStrings(input);
             assert(result.length === 1);
         });
         it("should return an array that contains a single class when called with a single class", function() {
-            var input = {
+            var input:{[key:string]:any} = {
                 testString: "Test",
                 _testInt: 2,
                 TEST_BOOL: true,
@@ -86,7 +86,7 @@ describe("CsharpCodeService", function() {
             assert(JSON.stringify(result) === JSON.stringify(expected));
         });
         it("should return an array that contains all the classes from the input in separate strings", function() {
-            var input = {
+            var input:{[key:string]:any} = {
                 IntTest: 5,
                 _stringTest: "test",
                 CONSTANT_TEST: "4.0",
