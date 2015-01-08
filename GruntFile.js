@@ -8,7 +8,6 @@ grunt.initConfig({
             src: ['src/**/*.ts'],
             dest: 'build/',
             options: {
-                //watch: true,
                 module: 'commonjs', 
                 target: 'es5', 
                 basePath: 'src/',
@@ -28,18 +27,50 @@ grunt.initConfig({
     },
     clean: {
         build: {
-            src: [ 'build' ]
+            src: [ 'build' ],
+            force: true
         }
-    } 
+    },
+    watch: {
+        files: 'src/**/*.ts',
+        tasks: ['build'],
+        options: {
+            spawn: false    
+        }
+    },
+    nodemon: {
+        dev: {
+            script: 'server.js',
+            options: {
+                cwd: 'build/app/server/',
+                ignore: ['node_modules/**', 'src/**'],
+                delay: 100
+            }
+        }
+    },
+    concurrent: {
+        dev: [            
+            'watch',
+            'nodemon'
+        ],
+        options: {
+            logConcurrentOutput: true
+        }
+    }
 });
 
 grunt.loadNpmTasks('grunt-typescript');
 grunt.loadNpmTasks('grunt-mocha-test');
 grunt.loadNpmTasks('grunt-contrib-clean');
+grunt.loadNpmTasks('grunt-contrib-watch');
+grunt.loadNpmTasks('grunt-nodemon');
+grunt.loadNpmTasks('grunt-concurrent');
 
 // Default task(s).
-grunt.registerTask('default', ['clean', 'typescript', 'mochaTest']);
-grunt.registerTask('compile', ['clean', 'typescript']);
-grunt.registerTask('test', ['mochaTest']);
+grunt.registerTask('default', ['build']);
+grunt.registerTask('run', ['build', 'concurrent']);
+
+grunt.registerTask('build', ['compile', 'mochaTest']);
+grunt.registerTask('compile', [/* 'clean', DOES NOT WORK ON WINDOWS */ 'typescript']);
 
 };
