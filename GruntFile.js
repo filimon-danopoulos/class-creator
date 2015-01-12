@@ -32,10 +32,12 @@ grunt.initConfig({
         }
     },
     watch: {
-        files: 'src/**/*.ts',
-        tasks: ['build'],
-        options: {
-            spawn: false    
+        typescript: {
+            files: 'src/**/*.ts',
+            tasks: ['build'],
+            options: {
+                spawn: false    
+            }
         }
     },
     nodemon: {
@@ -50,7 +52,7 @@ grunt.initConfig({
     },
     concurrent: {
         dev: [            
-            'watch',
+            'watch:typescript',
             'nodemon'
         ],
         options: {
