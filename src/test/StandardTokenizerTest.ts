@@ -60,6 +60,39 @@ describe("StandardTokenizer", function() {
                 result = tokenizer.tokenize(input);
             assert(result[0].tokens[0].type === "array");    
         });
+        it("should return a correctly formated name for private class fields", function() {
+            var input = {
+                    _test: {
+                        innerField1: "test",
+                        innerField2: 1    
+                    }    
+                },
+                expected = [{
+                    className: "rootClass", 
+                    tokens: [{
+                        name: "test",
+                        type: "test",
+                        construct: "field",
+                        accessor: "private"    
+                    }]   
+                }, {
+                    className: "test",
+                    tokens: [{
+                        name: "innerField1",
+                        type: "string",
+                        construct: "field",
+                        accessor: "public"
+                    }, {
+                        name: "innerField2",
+                        type: "integer", 
+                        construct: "field", 
+                        accessor: "public"    
+                    }] 
+                }],
+                result = tokenizer.tokenize(input);    
+            assert(JSON.stringify(result) === JSON.stringify(expected));
+
+        });
         it("should handle a json blob correctly, test case 1", function () {
             var input = {
                 classOne: {
