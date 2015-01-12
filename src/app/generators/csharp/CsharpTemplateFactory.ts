@@ -1,4 +1,4 @@
-// <reference path="../contracts/index.d.ts" />
+// <reference path="../../contracts/index.d.ts" />
 
 import CsharpPropertyTemplate = require("./CsharpPropertyTemplate");
 import CsharpFieldTemplate = require("./CsharpFieldTemplate");

@@ -1,4 +1,4 @@
-// <reference path="../app/contracts/index.d.ts" />
+// <reference path="../../contracts/index.d.ts" />
 
 class CsharpPropertyTemplate implements ICodeTemplate {
     getTemplate(): string {
