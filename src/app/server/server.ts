@@ -11,4 +11,4 @@ app.use("/api/csharp", CsharpRouter);
 
 app.listen(port);
 
-console.log("Listening on: http://127.0.0.1:"+port);
+console.log("Up and listening on: http://127.0.0.1:"+port);
