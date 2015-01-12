@@ -1,6 +1,6 @@
 // <reference path="../../contracts/index.d.ts" />
 
-class CsharpConstantTemplate implements ICodeTemplate {
+class TypeScriptConstantTemplate implements ICodeTemplate {
     getTemplate(): string {
         return "{{accessor}} static {{name}}:{{type}};";    
     }
@@ -10,4 +10,4 @@ class CsharpConstantTemplate implements ICodeTemplate {
     }
 }
 
-export = CsharpConstantTemplate;
+export = TypeScriptConstantTemplate;
