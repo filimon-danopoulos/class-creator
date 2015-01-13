@@ -1,6 +1,5 @@
 // <reference path="../../contracts/index.d.ts" />
 
-import TypeScriptConstantTemplate = require("./TypeScriptConstantTemplate");
 import TypeScriptMemberTemplate = require("./TypeScriptMemberTemplate");
 
 class TypeScriptTemplateFactory implements ICodeTemplateFactory {
@@ -8,7 +7,7 @@ class TypeScriptTemplateFactory implements ICodeTemplateFactory {
         switch (member.construct) {
             case "property": return new TypeScriptMemberTemplate();
             case "field": return new TypeScriptMemberTemplate();
-            case "constant": return new TypeScriptConstantTemplate();
+            case "constant": return new TypeScriptMemberTemplate();
             default: throw "Not implemented";
         }    
         
