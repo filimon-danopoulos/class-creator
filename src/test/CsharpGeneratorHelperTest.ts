@@ -139,4 +139,34 @@ describe("CsharpGeneratorHelper", function() {
             assert(result === expected);
         });
     });
+    describe("getType", function() {
+        it("should return int for integer", function() {
+            var result = helper.getType("integer");
+            assert(result === "int");    
+        });
+        it("should return float for float", function() {
+            var result = helper.getType("float");
+            assert(result === "float");    
+        });
+        it("should return string for string", function() {
+            var result = helper.getType("string");
+            assert(result === "string");    
+        });
+        it("should return object[] for array", function() {
+            var result = helper.getType("array");
+            assert(result === "object[]");    
+        });
+        it("should return bool for boolean", function() {
+            var result = helper.getType("boolean");
+            assert(result === "bool");
+        });
+        it("should return a class name with leading upper case letter for input that starts with a lower case", function() {
+            var result = helper.getType("test");
+            assert(result === "Test");
+        });
+        it("should return a class name with leading upper case letter for input that starts with an upper case", function() {
+            var result = helper.getType("Test");
+            assert(result === "Test");
+        });
+    });
 });

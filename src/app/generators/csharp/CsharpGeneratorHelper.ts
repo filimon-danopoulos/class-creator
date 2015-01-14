@@ -19,25 +19,25 @@ class CsharpGeneratorHelper implements ICodeGeneratorHelper {
             var parts = templateString.split("{{"+placeHolder+"}}");
             var value = token[placeHolder];    
             if(placeHolder === "type") {
-                value = getType(value);    
+                value = this.getType(value);    
             }
             templateString = [parts[0], value, parts[1]].join("");
         }
 
         return templateString; 
     }
-    templateFactory: ICodeTemplateFactory
-}
+    getType(type: string): string {
+        switch(type) {
+            case "integer": return "int";
+            case "float": return "float";
+            case "string": return "string";
+            case "array": return "object[]";
+            case "boolean": return "bool";
+            default: return (type[0].toUpperCase() === type[0] ? type : type[0].toUpperCase()+type.slice(1));    
+        }    
+    }
 
-function getType(type: string): string {
-    switch(type) {
-        case "integer": return "int";
-        case "float": return "float";
-        case "string": return "string";
-        case "array": return "object[]";
-        case "boolean": return "bool";
-        default: return (type[0].toUpperCase() === type[0] ? type : type[0].toUpperCase()+type.slice(1));    
-    }    
+    templateFactory: ICodeTemplateFactory
 }
 
 export = CsharpGeneratorHelper;
