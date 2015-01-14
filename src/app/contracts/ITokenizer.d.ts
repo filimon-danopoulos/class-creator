@@ -1,6 +1,7 @@
-// <reference path="IToken.d.ts" />;
-// <reference path="ITokenizerHelper.d.ts" />;
+/// <reference path="IToken.d.ts" />
+/// <reference path="ITokenizerHelper.d.ts" />
+
 interface ITokenizer {
-    tokenize(input: any) : ITokenizerResult[];
-    helper: ITokenizerHelper;  
+    tokenize(input: any): ITokenizerResult[];
+    helper: ITokenizerHelper;
 }    

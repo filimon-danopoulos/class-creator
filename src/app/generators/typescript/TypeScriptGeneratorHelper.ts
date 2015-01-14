@@ -1,1 +1,1 @@
-// <reference path="../../contracts/index." />
+/// <reference path="../../contracts/index.d.ts" />

@@ -1,5 +1,5 @@
-// <reference path="../thirdparty/mocha/mocha.d.ts" />
-// <reference path="../app/contracts/index.d.ts" />
+/// <reference path="../thirdparty/mocha/mocha.d.ts" />
+/// <reference path="../app/contracts/index.d.ts" />
 
 import assert = require("assert");
 import CsharpGenerator = require("../app/generators/csharp/CsharpGenerator");

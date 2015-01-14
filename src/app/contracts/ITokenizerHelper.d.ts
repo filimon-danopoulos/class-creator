@@ -1,4 +1,4 @@
-// <reference path="./ITokenizerResult.d.ts" />
+/// <reference path="./ITokenizerResult.d.ts" />
 
 interface ITokenizerHelper {
     getName(propertyName: string): string;

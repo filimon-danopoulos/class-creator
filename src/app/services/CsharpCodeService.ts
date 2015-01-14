@@ -1,4 +1,4 @@
-// <reference path="../contracts/index.d.ts" />
+/// <reference path="../contracts/index.d.ts" />
 
 import CsharpGenerator = require("../generators/csharp/CsharpGenerator");
 

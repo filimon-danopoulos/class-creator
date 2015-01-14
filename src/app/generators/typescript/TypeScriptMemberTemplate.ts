@@ -1,4 +1,4 @@
-// <reference path="../../contracts/index.d.ts" />
+/// <reference path="../../contracts/index.d.ts" />
 
 class TypeScriptMemberTemplate implements ICodeTemplate {
     getTemplate(): string {

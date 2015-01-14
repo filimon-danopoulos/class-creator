@@ -1,4 +1,4 @@
-// <reference path="../contracts/index.d.ts" />
+/// <reference path="../contracts/index.d.ts" />
 
 class TokenizerResult implements ITokenizerResult {
     constructor(className, tokens) {

@@ -1,6 +1,6 @@
-// <reference path="./ICodeGenerators.d.ts" />
-// <reference path="./ITokeninzer.d.ts" />
-// <reference path="./IParser.d.ts" />
+/// <reference path="ICodeGenerator.d.ts" />
+/// <reference path="ITokenizer.d.ts" />
+/// <reference path="IParser.d.ts" />
 
 interface ICodeService {
     getCodeAsString(data: {[key: string]:string}): string;

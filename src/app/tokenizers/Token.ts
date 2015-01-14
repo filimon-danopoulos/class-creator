@@ -1,4 +1,4 @@
-// <reference path="../contracts/index.d.ts" />
+/// <reference path="../contracts/index.d.ts" />
 
 class Token implements IToken {
     constructor(name: string, type: string, construct: string, accessor: string) {

@@ -1,4 +1,4 @@
-// <reference path="./contracts/index.d.ts"/>
+/// <reference path="../contracts/index.d.ts"/>
 
 import StandardTokenizerHelper = require("./StandardTokenizerHelper");
 import TokenizerResult = require("./TokenizerResult");
