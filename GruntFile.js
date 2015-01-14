@@ -71,6 +71,7 @@ grunt.loadNpmTasks('grunt-concurrent');
 // Default task(s).
 grunt.registerTask('default', ['build']);
 grunt.registerTask('run', ['build', 'concurrent']);
+grunt.registerTask('dev', ['build', 'watch']);
 
 grunt.registerTask('build', ['compile', 'mochaTest']);
 grunt.registerTask('compile', [/* 'clean', DOES NOT WORK ON WINDOWS */ 'typescript']);
