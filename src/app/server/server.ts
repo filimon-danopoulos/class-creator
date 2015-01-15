@@ -3,11 +3,13 @@
 
 import express = require("express");
 import CsharpRouter = require("./routers/CsharpRouter");
+import TypeScript = require("./routers/TypeScriptRouter");
 
 var app = express();
 var port = process.env.PORT || 8080;
 
 app.use("/api/csharp", CsharpRouter);
+app.use("/api/typescript", TypeScript);
 
 app.listen(port);
 
