@@ -25,7 +25,7 @@ describe("TypeScriptCodeService", function() {
                     "class RootClass {",
                         "public testString:string;",
                         "private testInt:number;",
-                        "public TEST_BOOL:boolean;",
+                        "public static TEST_BOOL:boolean;",
                         "private TestArray:any[];",
                     "}"
                 ].join("");
@@ -47,10 +47,10 @@ describe("TypeScriptCodeService", function() {
                 "class RootClass {",
                     "public IntTest:number;",
                     "private stringTest:string;",
-                    "public CONSTANT_TEST:number;",
+                    "public static CONSTANT_TEST:number;",
                     "public nestedTypeTest:NestedTypeTest;",
                     "public array:any[];",
-                    "private PRIVATE_BOOL_CONST:boolean;",
+                    "private static PRIVATE_BOOL_CONST:boolean;",
                  "}",
                  "class NestedTypeTest {",
                     "private NestedString:string;",
@@ -79,7 +79,7 @@ describe("TypeScriptCodeService", function() {
                 "class RootClass {",
                     "public testString:string;",
                     "private testInt:number;",
-                    "public TEST_BOOL:boolean;",
+                    "public static TEST_BOOL:boolean;",
                     "private TestArray:any[];",
                 "}"
             ].join("")];
@@ -101,10 +101,10 @@ describe("TypeScriptCodeService", function() {
                 "class RootClass {",
                     "public IntTest:number;",
                     "private stringTest:string;",
-                    "public CONSTANT_TEST:number;",
+                    "public static CONSTANT_TEST:number;",
                     "public nestedTypeTest:NestedTypeTest;",
                     "public array:any[];",
-                    "private PRIVATE_BOOL_CONST:boolean;",
+                    "private static PRIVATE_BOOL_CONST:boolean;",
                  "}"].join(""),
                  ["class NestedTypeTest {",
                     "private NestedString:string;",

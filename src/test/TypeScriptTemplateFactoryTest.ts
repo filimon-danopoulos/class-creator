@@ -5,6 +5,7 @@
 import assert = require("assert");
 import TypeScriptTemplateFactory = require("../app/generators/typescript/TypeScriptTemplateFactory");
 import TypeScriptMemberTemplate = require("../app/generators/typescript/TypeScriptMemberTemplate");
+import TypeScriptConstantTemplate = require("../app/generators/typescript/TypeScriptConstantTemplate");
 
 describe("TypeScriptTemplateFactory", function() {
     var factory = new TypeScriptTemplateFactory();
@@ -27,14 +28,14 @@ describe("TypeScriptTemplateFactory", function() {
             });
             assert(result instanceof TypeScriptMemberTemplate);
         });
-        it("should return a TypeScriptMemberTemplate for a token that is a constant", function() {
+        it("should return a TypeScriptConstantTemplate for a token that is a constant", function() {
             var result = factory.getTemplate({
                 name: "TEST", 
                 type: "string",
                 accessor: "private",
                 construct: "constant"
             });
-            assert(result instanceof TypeScriptMemberTemplate);
+            assert(result instanceof TypeScriptConstantTemplate);
         });
     });    
 });

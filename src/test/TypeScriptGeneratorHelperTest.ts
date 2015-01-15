@@ -155,7 +155,7 @@ describe("TypeScriptGeneratorHelper", function() {
                     construct: "constant"
                 }, 
                 result = helper.generateMember(input),
-                expected = "private TEST:number;";
+                expected = "private static TEST:number;";
             assert(result === expected);    
         });
     });
