@@ -3,6 +3,15 @@ module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+        copy: {
+            dev: {
+                files: [{
+                    expand: true,
+                    src: 'src/app/public/**/*',
+                    dest: 'build/app/public/'
+                }]    
+            }    
+        },
 		typescript: {
 			base: {
 				src: ['src/**/*.ts'],
@@ -20,7 +29,7 @@ module.exports = function(grunt) {
 			test: {
 				options: {
 					reporter: 'spec',
-					clearRequireCache: true // Optionally clear the require cache before running tests (defaults to false)
+					clearRequireCache: true
 				},
 				src: ['build/test/**/*.js']
 			}
@@ -67,6 +76,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-copy');
 
 	// Default task(s).
 	grunt.registerTask('default', ['build']);
@@ -74,6 +84,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('dev', ['build', 'watch']);
 
 	grunt.registerTask('build', ['compile', 'mochaTest']);
-	grunt.registerTask('compile', [/* 'clean', DOES NOT WORK ON WINDOWS */ 'typescript']);
+	grunt.registerTask('compile', [/* 'clean', DOES NOT WORK ON WINDOWS */ 'typescript', 'copy:dev']);
 
 };
