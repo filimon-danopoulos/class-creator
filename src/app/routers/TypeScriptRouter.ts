@@ -10,7 +10,7 @@ import StandardTokenizer = require("../../lib/tokenizers/StandardTokenizer");
 var router = express.Router();
 var service = new TypeScriptCodeService(new JsonParser(), new StandardTokenizer());
 
-router.get("/test", function(req, res) {
+router.get("/string", function(req, res) {
     if (!("json" in req.query)) {
         res.send("Invalid input");
         return;
