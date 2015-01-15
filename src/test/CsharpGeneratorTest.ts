@@ -1,8 +1,8 @@
 /// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../app/contracts/index.d.ts" />
+/// <reference path="../lib/contracts/index.d.ts" />
 
 import assert = require("assert");
-import CsharpGenerator = require("../app/generators/csharp/CsharpGenerator");
+import CsharpGenerator = require("../lib/generators/csharp/CsharpGenerator");
 
 describe("CsharpGenerator", function () {
     var generator = new CsharpGenerator();

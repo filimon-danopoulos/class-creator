@@ -1,11 +1,11 @@
 /// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../app/contracts/index.d.ts" />
+/// <reference path="../lib/contracts/index.d.ts" />
 
 import assert = require("assert");
 
-import TypeScriptCodeService = require("../app/services/TypeScriptCodeService");
-import JsonParser = require("../app/parsers/JsonParser");
-import StandardTokenizer = require("../app/tokenizers/StandardTokenizer");
+import TypeScriptCodeService = require("../lib/services/TypeScriptCodeService");
+import JsonParser = require("../lib/parsers/JsonParser");
+import StandardTokenizer = require("../lib/tokenizers/StandardTokenizer");
 
 describe("TypeScriptCodeService", function() {
     var service = new TypeScriptCodeService(

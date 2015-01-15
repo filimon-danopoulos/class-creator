@@ -1,12 +1,12 @@
 /// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../app/contracts/index.d.ts" />
+/// <reference path="../lib/contracts/index.d.ts" />
 
 
 import assert = require("assert");
-import CsharpTemplateFactory = require("../app/generators/csharp/CsharpTemplateFactory");
-import CsharpPropertyTemplate = require("../app/generators/csharp/CsharpPropertyTemplate");
-import CsharpFieldTemplate = require("../app/generators/csharp/CsharpFieldTemplate");
-import CsharpConstantTemplate = require("../app/generators/csharp/CsharpConstantTemplate");
+import CsharpTemplateFactory = require("../lib/generators/csharp/CsharpTemplateFactory");
+import CsharpPropertyTemplate = require("../lib/generators/csharp/CsharpPropertyTemplate");
+import CsharpFieldTemplate = require("../lib/generators/csharp/CsharpFieldTemplate");
+import CsharpConstantTemplate = require("../lib/generators/csharp/CsharpConstantTemplate");
 
 describe("CsharpTemplateFactory", function() {
     var factory = new CsharpTemplateFactory();

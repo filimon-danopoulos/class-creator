@@ -1,8 +1,8 @@
 /// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../app/contracts/index.d.ts" />
+/// <reference path="../lib/contracts/index.d.ts" />
 
 import assert = require("assert");
-import StandardTokenizerHelper = require("../app/tokenizers/StandardTokenizerHelper");
+import StandardTokenizerHelper = require("../lib/tokenizers/StandardTokenizerHelper");
 
 describe("StandardTokinezerHelper", function() {
     var helper = new StandardTokenizerHelper();

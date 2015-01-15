@@ -1,5 +1,5 @@
-/// <reference path="../../thirdparty/express/express.d.ts" />
-/// <reference path="../../thirdparty/node/node.d.ts" />
+/// <reference path="../thirdparty/express/express.d.ts" />
+/// <reference path="../thirdparty/node/node.d.ts" />
 
 import express = require("express");
 import CsharpRouter = require("./routers/CsharpRouter");

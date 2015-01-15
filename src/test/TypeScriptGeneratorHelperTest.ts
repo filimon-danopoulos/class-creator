@@ -1,10 +1,10 @@
 /// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../app/contracts/index.d.ts" />
+/// <reference path="../lib/contracts/index.d.ts" />
 
 
 import assert = require("assert");
-import TypeScriptGeneratorHelper = require("../app/generators/typescript/TypeScriptGeneratorHelper");
-import TypeScriptClassTemplate = require("../app/generators/typescript/TypeScriptClassTemplate");
+import TypeScriptGeneratorHelper = require("../lib/generators/typescript/TypeScriptGeneratorHelper");
+import TypeScriptClassTemplate = require("../lib/generators/typescript/TypeScriptClassTemplate");
 
 describe("TypeScriptGeneratorHelper", function() {
     var helper = new TypeScriptGeneratorHelper();

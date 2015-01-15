@@ -1,10 +1,10 @@
 /// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../app/contracts/index.d.ts" />
+/// <reference path="../lib/contracts/index.d.ts" />
 
 
 import assert = require("assert");
-import CsharpGeneratorHelper = require("../app/generators/csharp/CsharpGeneratorHelper");
-import CsharpClassTemplate = require("../app/generators/csharp/CsharpClassTemplate");
+import CsharpGeneratorHelper = require("../lib/generators/csharp/CsharpGeneratorHelper");
+import CsharpClassTemplate = require("../lib/generators/csharp/CsharpClassTemplate");
 
 describe("CsharpGeneratorHelper", function() {
     var helper = new CsharpGeneratorHelper();

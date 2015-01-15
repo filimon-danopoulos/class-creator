@@ -1,11 +1,11 @@
-/// <reference path="../../../thirdparty/express/express.d.ts" />
-/// <reference path="../../../thirdparty/node/node.d.ts" />
+/// <reference path="../../thirdparty/express/express.d.ts" />
+/// <reference path="../../thirdparty/node/node.d.ts" />
 
 import express = require("express");
 
-import TypeScriptCodeService = require("../../services/TypeScriptCodeService");
-import JsonParser = require("../../parsers/JsonParser");
-import StandardTokenizer = require("../../tokenizers/StandardTokenizer");
+import TypeScriptCodeService = require("../../lib/services/TypeScriptCodeService");
+import JsonParser = require("../../lib/parsers/JsonParser");
+import StandardTokenizer = require("../../lib/tokenizers/StandardTokenizer");
 
 var router = express.Router();
 var service = new TypeScriptCodeService(new JsonParser(), new StandardTokenizer());

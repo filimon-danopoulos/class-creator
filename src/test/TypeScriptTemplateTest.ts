@@ -1,11 +1,11 @@
 /// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../app/contracts/index.d.ts" />
+/// <reference path="../lib/contracts/index.d.ts" />
 
 import assert = require("assert");
 
-import TypeScriptClassTemplate = require("../app/generators/typescript/TypeScriptClassTemplate");
-import TypeScriptConstantTemplate = require("../app/generators/typescript/TypeScriptConstantTemplate");
-import TypeScriptMemberTemplate = require("../app/generators/typescript/TypeScriptMemberTemplate");
+import TypeScriptClassTemplate = require("../lib/generators/typescript/TypeScriptClassTemplate");
+import TypeScriptConstantTemplate = require("../lib/generators/typescript/TypeScriptConstantTemplate");
+import TypeScriptMemberTemplate = require("../lib/generators/typescript/TypeScriptMemberTemplate");
 
 var validPlaceHolders = ["accessor", "construct", "name", "type"];
 

@@ -1,8 +1,8 @@
 /// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../app/contracts/index.d.ts" />
+/// <reference path="../lib/contracts/index.d.ts" />
 
 import assert = require("assert");
-import TypeScriptGenerator = require("../app/generators/typescript/TypeScriptGenerator");
+import TypeScriptGenerator = require("../lib/generators/typescript/TypeScriptGenerator");
 
 describe("TypeScriptGenerator", function () {
     var generator = new TypeScriptGenerator();

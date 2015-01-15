@@ -1,11 +1,11 @@
 /// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../app/contracts/index.d.ts" />
+/// <reference path="../lib/contracts/index.d.ts" />
 
 
 import assert = require("assert");
-import TypeScriptTemplateFactory = require("../app/generators/typescript/TypeScriptTemplateFactory");
-import TypeScriptMemberTemplate = require("../app/generators/typescript/TypeScriptMemberTemplate");
-import TypeScriptConstantTemplate = require("../app/generators/typescript/TypeScriptConstantTemplate");
+import TypeScriptTemplateFactory = require("../lib/generators/typescript/TypeScriptTemplateFactory");
+import TypeScriptMemberTemplate = require("../lib/generators/typescript/TypeScriptMemberTemplate");
+import TypeScriptConstantTemplate = require("../lib/generators/typescript/TypeScriptConstantTemplate");
 
 describe("TypeScriptTemplateFactory", function() {
     var factory = new TypeScriptTemplateFactory();
