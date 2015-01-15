@@ -7,7 +7,8 @@ module.exports = function(grunt) {
             dev: {
                 files: [{
                     expand: true,
-                    src: 'src/app/public/**/*',
+                    cwd: 'src/app/public/',
+                    src: '**',
                     dest: 'build/app/public/'
                 }]    
             }    
@@ -74,9 +75,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-mocha-test');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-concurrent');
-    grunt.loadNpmTasks('grunt-copy');
 
 	// Default task(s).
 	grunt.registerTask('default', ['build']);
