@@ -1,0 +1,17 @@
+{
+  "name": "class-generator",
+  "version": "0.1.0",
+  "description": "Generates classes from JSON",
+  "keywords": [
+    "JSON",
+    "generation",
+    "classes",
+    "angular"
+  ],
+  "author": "Filimon Danopoulos",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.3.9"
+  },
+  "private": true
+}

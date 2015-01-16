@@ -2,15 +2,15 @@
   "name": "class-generator",
   "version": "0.1.0",
   "description": "Generates classes from JSON",
-  "main": "server.js",
-  "scripts": {
-    "test": "mocha build/test/"
-  },
   "keywords": [
     "JSON",
     "generation",
     "classes"
   ],
+  "scripts": {
+    "preinstall": "npm install -g grunt-cli bower",
+    "postinstall": "bower install"
+  },
   "author": "Filimon Danopoulos",
   "license": "MIT",
   "devDependencies": {
