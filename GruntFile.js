@@ -18,7 +18,8 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
         /* grunt-browserify */
         browserify: {
-            /* Bundles all the compiled javascript to a single file that is easy to include in the HTML 
+            /* 
+             * Bundles all the compiled javascript to a single file that is easy to include in the HTML 
              * Includes sourcemaps, should only be called after typescript:client-dev.
              * */
             'client-dev': { 
