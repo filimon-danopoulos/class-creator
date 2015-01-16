@@ -9,14 +9,29 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-browserify');
 
 	/*
      * Configure NPM dependencies for the project
      * */
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-
-        /* grun-contrib-copy configuration */
+        /* grunt-browserify */
+        browserify: {
+            /* Bundles all the compiled javascript to a single file that is easy to include in the HTML 
+             * Includes sourcemaps, should only be called after typescript:client-dev.
+             * */
+            'client-dev': { 
+                src: 'build/app/public/scripts/Main.js',
+                dest: 'build/app/public/scripts/bundle.js',
+                options: {
+                    browserifyOptions: {
+                        debug: true    
+                    }    
+                }
+            }
+        },
+        /* grunt-contrib-copy configuration */
         copy: {
             /*
              * Copies all the public static client content for development
@@ -25,9 +40,9 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/app/public/',
-                    src: '**',
+                    src: ['**/*', '!**/*.ts'],
                     dest: 'build/app/public/'
-                }]    
+                }]
             }    
         },
 
@@ -60,7 +75,19 @@ module.exports = function(grunt) {
 					sourceMap: false,
 					declaration: false
 				}
-			}
+			},
+            'client-dev': {
+                src: ['src/app/public/scripts/**/*.ts'],
+                dest: 'build/app/public/scripts/',
+				options: {
+                    module: 'commonjs',
+					target: 'es5',
+                    basePath: 'src/app/public/scripts/',
+                    sourceMap: false,
+                    declaration: false
+				}
+                    
+            }
 		},
         /* grunt-mocha-test configuration */
 		mochaTest: {
@@ -159,10 +186,15 @@ module.exports = function(grunt) {
     grunt.registerTask('test-succint', ['build-dev', 'mochaTest:short-output']);
 
     /* Build tasks, clean does not work properly in windows. */
-    grunt.registerTask('build-dev', [/*'clean:build', */'compile-dev', 'copy:client-dev']);
+    grunt.registerTask('build-dev', ['clean:build', 'compile-dev', 'copy:client-dev']);
     
     /* Compilation tasks */
 	grunt.registerTask('compile-dev', ['typescript-dev']);
-    grunt.registerTask('typescript-dev', ['typescript:library-dev', 'typescript:server-dev']);
+    grunt.registerTask('typescript-dev', [
+        'typescript:library-dev', 
+        'typescript:server-dev', 
+        'typescript:client-dev', 
+        'browserify:client-dev' 
+    ]);
 
 };
