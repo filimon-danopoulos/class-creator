@@ -9,10 +9,14 @@ module App {
 
     
     export function init() {
-         // Create and register modules and dependencies
+         // Set up dependencies
         var dependencies =  ['ngRoute'];
-        angular.module('App.Controller', []);
-        angular.module('App', dependencies.concat(['App.Controller']));
+        // Define and instantiate all the submodules
+        var modules = ['App.Controller'];
+        module.forEach(x => angular.module(x, []));
+
+        // Define the application module and inject all dependencies and modules. 
+        angular.module('App', dependencies.concat(modules));
         
         // Set up routes
         angular.module('App').config(['$routeProvider', function routes($routeProvider:ng.route.IRouteProvider) {
