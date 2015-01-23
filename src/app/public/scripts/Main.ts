@@ -1,3 +1,4 @@
+/// <reference path="../../../thirdparty/angular/angular-all.d.ts" />
 
 // Create and register modules
 var modules = ['App.Controllers','App.Directives', 'App.Filters', 'App.Services'];
@@ -5,8 +6,7 @@ modules.forEach((module) => angular.module(module, []));
 angular.module('App', modules);
 
 // Url routing
-angular.module('App').config(['$routeProvider',
-function routes($routeProvider: ng.IRouteProvider) {
+angular.module('App').config(['$routeProvider', function routes($routeProvider:ng.route.IRouteProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'views/HomeView.html',
@@ -22,7 +22,7 @@ module App {
 
     export class BaseController {
         dependencies: string[];
-        constructor(dependecies: string[]) {
+        constructor(dependencies: string[]) {
             this.dependencies = dependencies;
 		    var className = this.constructor.toString().match(/function +?(\w*?)\(/)[1];
             var controllerName = "App.Controller."+className;
