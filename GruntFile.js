@@ -41,10 +41,26 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/app/public/',
-                    src: ['**/*', '!**/*.ts'],
+                    src: ['**/*', '!**/*.ts', '!**/*.swp'],
                     dest: 'build/app/public/'
                 }]
-            }    
+            },
+            /*
+             * Copies all the thrird party libraries managed by bower.
+             * */
+            'client-bower-dev': {
+                files: [{
+                    expand: true,
+                    cwd: 'bower_components/angular/',
+                    src: ['angular.js'],
+                    dest: 'build/app/public/lib/angular/'
+                }, {
+                    expand: true,
+                    cwd: 'bower_components/angular-route/',
+                    src: ['angular-route.js'],
+                    dest: 'build/app/public/lib/angular/'    
+                }]   
+            }
         },
 
         /* grunt-typescript configuration */
@@ -79,9 +95,8 @@ module.exports = function(grunt) {
 			},
             'client-dev': {
                 src: ['src/app/public/scripts/**/*.ts'],
-                dest: 'build/app/public/scripts/',
+                dest: 'build/app/public/scripts/bundle.js',
 				options: {
-                    module: 'commonjs',
 					target: 'es5',
                     basePath: 'src/app/public/scripts/',
                     sourceMap: false,
@@ -187,15 +202,15 @@ module.exports = function(grunt) {
     grunt.registerTask('test-succint', ['build-dev', 'mochaTest:short-output']);
 
     /* Build tasks, clean does not work properly in windows. */
-    grunt.registerTask('build-dev', ['clean:build', 'compile-dev', 'copy:client-dev']);
+    grunt.registerTask('build-dev', ['clean:build', 'compile-dev', 'copy:client-dev', 'copy:client-bower-dev']);
     
     /* Compilation tasks */
 	grunt.registerTask('compile-dev', ['typescript-dev']);
     grunt.registerTask('typescript-dev', [
         'typescript:library-dev', 
         'typescript:server-dev', 
-        'typescript:client-dev', 
-        'browserify:client-dev' 
+        'typescript:client-dev'/*, 
+        'browserify:client-dev' */
     ]);
 
 };

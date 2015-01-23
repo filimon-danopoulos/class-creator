@@ -1,10 +1,11 @@
 /// <reference path="../Main.ts" />
 
 module App.Controller {
-    export class HomeController extends App.BaseController {
+    export class HomeController {
         constructor($scope) {
             $scope.test = "Test";
-            super(["$scope"]);    
-        }        
-    }    
-}
+        }
+    }        
+} 
+
+App.registerController("HomeController", ["$scope"]);

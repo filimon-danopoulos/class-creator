@@ -1,4 +1,4 @@
-<html>
+<html ng-app="App">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -6,9 +6,9 @@
         
     </head>
     <body>
-        <div>
-            TEST
-        </div>    
+        <div ng-view></div> 
+        <script src="lib/angular/angular.js"></script>
+        <script src="lib/angular/angular-route.js"></script>
         <script src="scripts/bundle.js"></script>
     </body>
 </html>
