@@ -30,7 +30,7 @@ module.exports = function(grunt) {
                 ],
                 dest: 'build/app/public/thirdparty/bundle.js',
                 options: {
-                    sourceMap: true    
+                    sourceMap: true
                 }
             }    
         },
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/app/public/',
-                    src: ['**/*', '!**/*.swp'],
+                    src: ['**/*', '!**/*.ts', '!**/*.swp'],
                     dest: 'build/app/public/'
                 }]
             },
@@ -227,7 +227,8 @@ module.exports = function(grunt) {
         'clean:build', 
         'copy-dev',
         'compile-dev',
-        'concat:client-js-dev'
+        'concat:client-js-dev',
+        'modify-typescript-sourcemaps'
     ]);
     
     /* Compilation tasks */
@@ -243,4 +244,19 @@ module.exports = function(grunt) {
         'copy:client-dev', 
         'copy:client-bower-dev'
     ]);
+
+    /* Manual tasks */    
+    grunt.registerTask('modify-typescript-sourcemaps', 'Fixes typescript source maps so that they all look the same.', function() {
+        /* This is a temporary solution untill I can build something a bit more stable */
+        var fs = require('fs');
+        var sourcemapPath = 'build/app/public/scripts/app.js.map';
+        var sourcemap = JSON.parse(fs.readFileSync(sourcemapPath, 'utf8'));   
+        sourcemap.sourcesContent = sourcemap.sources.map(function(x) {
+            var filePath = 'src'+x.split('src')[1];
+            return fs.readFileSync(filePath, 'utf8');
+        });
+        sourcemap.sources = sourcemap.sources.map(function(x) {return "src"+x.split("scripts")[1]; });
+        delete sourcemap.sourceRoot;
+        fs.writeFileSync(sourcemapPath, JSON.stringify(sourcemap), 'utf8');
+    });
 };
