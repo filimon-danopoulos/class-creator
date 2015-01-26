@@ -9,29 +9,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-concurrent');
-    grunt.loadNpmTasks('grunt-browserify');
 
 	/*
      * Configure NPM dependencies for the project
      * */
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-        /* grunt-browserify */
-        browserify: {
-            /* 
-             * Bundles all the compiled javascript to a single file that is easy to include in the HTML 
-             * Includes sourcemaps, should only be called after typescript:client-dev.
-             * */
-            'client-dev': { 
-                src: 'build/app/public/scripts/Main.js',
-                dest: 'build/app/public/scripts/bundle.js',
-                options: {
-                    browserifyOptions: {
-                        debug: true    
-                    }    
-                }
-            }
-        },
         /* grunt-contrib-copy configuration */
         copy: {
             /*
@@ -59,6 +42,13 @@ module.exports = function(grunt) {
                     cwd: 'bower_components/angular-route/',
                     src: ['angular-route.js'],
                     dest: 'build/app/public/lib/angular/'    
+                }, {
+                    expand: true,
+                    cwd: 'bower_components/angular-bootstrap/',
+                    src: ['ui-bootstrap-tpls.js'],
+                    dest: 'build/app/public/lib/angular/'    
+                }, {
+                    
                 }]   
             }
         },
@@ -93,6 +83,9 @@ module.exports = function(grunt) {
 					declaration: false
 				}
 			},
+            /*
+             * Compiles all client side typescript files into a bundle.
+             * */
             'client-dev': {
                 src: ['src/app/public/scripts/**/*.ts'],
                 dest: 'build/app/public/scripts/bundle.js',
@@ -209,8 +202,7 @@ module.exports = function(grunt) {
     grunt.registerTask('typescript-dev', [
         'typescript:library-dev', 
         'typescript:server-dev', 
-        'typescript:client-dev'/*, 
-        'browserify:client-dev' */
+        'typescript:client-dev'
     ]);
 
 };
