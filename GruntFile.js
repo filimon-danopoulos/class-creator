@@ -2,19 +2,38 @@ module.exports = function(grunt) {
     /*
      * Load all NPM dependencies
      * */
-	grunt.loadNpmTasks('grunt-typescript');
-	grunt.loadNpmTasks('grunt-mocha-test');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-concurrent');
+	grunt.loadNpmTasks('grunt-typescript');
+	grunt.loadNpmTasks('grunt-mocha-test');
 
 	/*
      * Configure NPM dependencies for the project
      * */
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+        /* grunt-contrib-concat configuration */
+        concat: {
+            /*
+             * Concatenates all third party script into a file called lib.js. 
+             * This is so that the index.html file can be agnostic of what libraries are used.
+             * */
+            'client-js-dev': {
+                src: [ 
+                    // Have to specifiy angular separately since it is a dependency and has to be loaded first
+                    'build/app/public/thirdparty/angular/angular.js',
+                    'build/app/public/thirdparty/**/*.js'
+                ],
+                dest: 'build/app/public/thirdparty/bundle.js',
+                options: {
+                    sourceMap: true    
+                }
+            }    
+        },
         /* grunt-contrib-copy configuration */
         copy: {
             /*
@@ -24,7 +43,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/app/public/',
-                    src: ['**/*', '!**/*.ts', '!**/*.swp'],
+                    src: ['**/*', '!**/*.swp'],
                     dest: 'build/app/public/'
                 }]
             },
@@ -36,19 +55,27 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: 'bower_components/angular/',
                     src: ['angular.js'],
-                    dest: 'build/app/public/lib/angular/'
+                    dest: 'build/app/public/thirdparty/angular/'
                 }, {
                     expand: true,
                     cwd: 'bower_components/angular-route/',
                     src: ['angular-route.js'],
-                    dest: 'build/app/public/lib/angular/'    
+                    dest: 'build/app/public/thirdparty/angular/'    
                 }, {
                     expand: true,
                     cwd: 'bower_components/angular-bootstrap/',
                     src: ['ui-bootstrap-tpls.js'],
-                    dest: 'build/app/public/lib/angular/'    
+                    dest: 'build/app/public/thirdparty/bootstrap/js/'    
                 }, {
-                    
+                    expand: true,
+                    cwd: 'bower_components/bootstrap/dist/',
+                    src: [
+                        'css/bootstrap-theme.css', 
+                        'css/bootstrap-theme.css.map', 
+                        'css/bootstrap.css', 
+                        'css/bootstrap.css.map', 
+                        'fonts/*'],
+                    dest: 'build/app/public/thirdparty/bootstrap/'
                 }]   
             }
         },
@@ -63,8 +90,8 @@ module.exports = function(grunt) {
 				dest: 'build/',
 				options: {
 					module: 'commonjs', 
-					target: 'es5', 
-					basePath: 'src/',
+					target: 'es5',
+                    basePath: 'src/', 
 					sourceMap: false,
 					declaration: false
 				}
@@ -78,21 +105,21 @@ module.exports = function(grunt) {
 				options: {
 					module: 'commonjs', 
 					target: 'es5', 
-					basePath: 'src/',
+                    basePath: 'src/', 
 					sourceMap: false,
 					declaration: false
 				}
-			},
+			},   
             /*
              * Compiles all client side typescript files into a bundle.
              * */
             'client-dev': {
                 src: ['src/app/public/scripts/**/*.ts'],
-                dest: 'build/app/public/scripts/bundle.js',
+                dest: 'build/app/public/scripts/app.js',
 				options: {
 					target: 'es5',
                     basePath: 'src/app/public/scripts/',
-                    sourceMap: false,
+                    sourceMap: true,
                     declaration: false
 				}
                     
@@ -153,7 +180,7 @@ module.exports = function(grunt) {
                     spawn: false    
                  }
             }
-		},
+        },
         /* grunt-nodemon configuration */
 		nodemon: {
             /*
@@ -164,7 +191,8 @@ module.exports = function(grunt) {
 				options: {
 					cwd: 'build/app/',
 					ignore: ['node_modules/**', 'src/**'],
-					delay: 500
+					delay: 500,
+                    ext: 'js,html,css'
 				}
 			}
 		},
@@ -195,7 +223,12 @@ module.exports = function(grunt) {
     grunt.registerTask('test-succint', ['build-dev', 'mochaTest:short-output']);
 
     /* Build tasks, clean does not work properly in windows. */
-    grunt.registerTask('build-dev', ['clean:build', 'compile-dev', 'copy:client-dev', 'copy:client-bower-dev']);
+    grunt.registerTask('build-dev', [
+        'clean:build', 
+        'copy-dev',
+        'compile-dev',
+        'concat:client-js-dev'
+    ]);
     
     /* Compilation tasks */
 	grunt.registerTask('compile-dev', ['typescript-dev']);
@@ -205,4 +238,9 @@ module.exports = function(grunt) {
         'typescript:client-dev'
     ]);
 
+    /* Copying tasks */
+    grunt.registerTask('copy-dev', [
+        'copy:client-dev', 
+        'copy:client-bower-dev'
+    ]);
 };

@@ -3,12 +3,17 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
         <title>Class Creator</title>
-        
+        <link rel="stylesheet" href="thirdparty/bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" href="thirdparty/bootstrap/css/bootstrap-theme.css" />
     </head>
     <body>
-        <div ng-view></div> 
-        <script src="lib/angular/angular.js"></script>
-        <script src="lib/angular/angular-route.js"></script>
-        <script src="scripts/bundle.js"></script>
+        <div class="jumbotron">
+            <h1>Some Sort of Title</h1>
+        </div>
+        <div class="container">
+            <div ng-view></div> 
+        </div>
+        <script src="thirdparty/bundle.js"></script>
+        <script src="scripts/app.js"></script>
     </body>
 </html>

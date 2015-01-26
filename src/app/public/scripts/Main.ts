@@ -13,7 +13,7 @@ module App {
         var dependencies =  ['ngRoute'];
         // Define and instantiate all the submodules
         var modules = ['App.Controller'];
-        module.forEach(x => angular.module(x, []));
+        modules.forEach(x => angular.module(x, []));
 
         // Define the application module and inject all dependencies and modules. 
         angular.module('App', dependencies.concat(modules));
