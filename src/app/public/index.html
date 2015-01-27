@@ -7,9 +7,17 @@
         <link rel="stylesheet" href="thirdparty/bootstrap/css/bootstrap-theme.css" />
     </head>
     <body>
-        <div class="jumbotron">
-            <h1>Some Sort of Title</h1>
+        <div class="navbar navbar-default" ng-controller="NavigationController">
+            <ul class="nav navbar-nav">
+                <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
+                <li ng-class="{ active: isActive('/about')}"><a href="#/about">About</a></li>
+            </ul>
         </div>
+        <div class="jumbotron">
+            <h1>Super awesome title</h1>
+            <p>Super aswesome description that will only bother people, yeah!</p>
+        </div>
+
         <div class="container">
             <div ng-view></div> 
         </div>
