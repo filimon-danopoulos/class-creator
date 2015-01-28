@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                 options: {
                     sourceMap: true
                 }
-            }    
+            }
         },
         /* grunt-contrib-copy configuration */
         copy: {
@@ -61,11 +61,6 @@ module.exports = function(grunt) {
                     cwd: 'bower_components/angular-route/',
                     src: ['angular-route.js'],
                     dest: 'build/app/public/thirdparty/angular/'    
-                }, {
-                    expand: true,
-                    cwd: 'bower_components/angular-bootstrap/',
-                    src: ['ui-bootstrap-tpls.js'],
-                    dest: 'build/app/public/thirdparty/bootstrap/js/'    
                 }, {
                     expand: true,
                     cwd: 'bower_components/bootstrap/dist/',

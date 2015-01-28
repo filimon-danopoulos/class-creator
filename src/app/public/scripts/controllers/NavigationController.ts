@@ -2,13 +2,19 @@
 
 module App.Controller {
     export class NavigationController {
-        constructor($scope) {
+        constructor($scope, $window) {
+            this.scope = $scope;
+            this.window = $window;
+
             $scope.isActive = this.isActive;
         }
-        private isActive(hash: string) : boolean {
-            return hash === window.location.hash.slice(1);
-        }
-    }        
-} 
+                
+        private scope;
+        
+        private window;
 
-App.registerController("NavigationController", ["$scope"]);
+        private isActive = (hash: string): boolean => {
+            return hash === this.window.location.hash.slice(1);
+        }
+    }       
+} 
