@@ -9,11 +9,12 @@ module App.Controller {
         disabled?: boolean;    
     }
     export class HomeController {
-        constructor($scope) {
+        constructor($scope, CsharpService) {
             this.scope = $scope;
             this.scope.tabs = this.tabs;
             $scope.selectedTab = this.tabs[0];
             $scope.setSelectedTab = this.setSelectedTab;
+            console.log(CsharpService.test());
         }
 
         private scope;

@@ -14,25 +14,35 @@ module App {
         // Set up dependencies
         var dependencies =  ['ngRoute'];
 
-        // Define and instantiate all the submodules
-        var modules = ['App.Controller'];
-        modules.forEach(x => angular.module(x, []));
-        
-        // Register the controller module with angular.
+        // Register the service module in a similar way to the controller module. 
+        angular.module("App.Service", [])
+            .config(["$provide", function($provide) {
+                Object.keys(App.Service)
+                    .filter( p => App.Service.hasOwnProperty(p) && 
+                                  typeof App.Service[p] === "function" && 
+                                  (new App.Service[p] instanceof App.Service.AngularService)
+                           )
+                    .forEach( s => $provide.service(s, getDependencies(App.Service, s)));
+            }]);
+        // Add the service module as a dependency
+        dependencies.push("App.Service");
+
+
+        // Register the controller module with angular as the angular module "App.Controller".
         angular.module("App.Controller", [])
             .config(["$controllerProvider", function($controllerProvider) {
+                // Get all controllers and register them via the $controllerProvider. 
+                // We have to use $controllerProvider in the config section since the application is already bootstraped. 
+                // If you would have tried to add them as usual via .controller(...) they would not be found by angular. 
                 Object.keys(App.Controller)
                     .filter( p => App.Controller.hasOwnProperty(p))
-                    .forEach( c => {
-                        var dependencies = getDependencies(App.Controller, c);
-                        $controllerProvider.register(c, dependencies);
-                    });
+                    .forEach( c => $controllerProvider.register(c, getDependencies(App.Controller, c)));
             }]);
         // Add the controller module as a dependency
-        modules.push("App.Controller");
+        dependencies.push("App.Controller");
 
-        // Define the application module and inject all dependencies and modules. 
-        var app = angular.module('App', dependencies.concat(modules));
+        // Define the application module and inject all dependencies 
+        var app = angular.module('App', dependencies);
 
         app.config(["$routeProvider", function ($routeProvider:ng.route.IRouteProvider) {
             App.Routes.setUp($routeProvider);
