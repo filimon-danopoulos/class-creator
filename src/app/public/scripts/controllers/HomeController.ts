@@ -20,14 +20,14 @@ module App.Controller {
         private scope;
         
         private tabs: ITab[] = [{
+            title: "Define JSON",
+            description: "Provide your own JSON", 
+            partial: "views/Home/JSONForm.html"
+        }, {
             title: "Simple URL",
             description: "Point the app to an URL that represents a JSON endpoint.",
             partial: "views/Home/SimpleURLForm.html",
             active: true
-        }, {
-            title: "Define JSON",
-            description: "Provide your own JSON", 
-            partial: "views/Home/JSONForm.html"
         }];
 
         private setSelectedTab = (tab: any): void => {
