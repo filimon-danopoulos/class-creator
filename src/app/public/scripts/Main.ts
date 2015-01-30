@@ -17,12 +17,11 @@ module App {
         // Register the service module in a similar way to the controller module. 
         angular.module("App.Service", [])
             .config(["$provide", function($provide) {
+                // ns for namespace
+                var ns = App.Service;
                 Object.keys(App.Service)
-                    .filter( p => App.Service.hasOwnProperty(p) && 
-                                  typeof App.Service[p] === "function" && 
-                                  (new App.Service[p] instanceof App.Service.AngularService)
-                           )
-                    .forEach( s => $provide.service(s, getDependencies(App.Service, s)));
+                    .filter( p => ns.hasOwnProperty(p) && ns.AngularService.prototype.isPrototypeOf(ns[p].prototype) )
+                    .forEach( s => $provide.service(s, getDependencies(ns, s)));
             }]);
         // Add the service module as a dependency
         dependencies.push("App.Service");
