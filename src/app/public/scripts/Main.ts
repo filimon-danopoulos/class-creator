@@ -35,11 +35,14 @@ module App {
         // Set up dependencies
         var dependencies =  ['ngRoute'];
 
-        // Register the service module in a similar way to the controller module. 
+        // Register the service module as the angular module "App.Service". 
         angular.module("App.Service", [])
             .config(["$provide", function($provide) {
                 // ns for namespace
                 var ns = App.Service;
+                // Get all service from the App.Service namespace and register them with angular.
+                // Since application is bootstraped already we have to use $provide.service() 
+                // If you would have tried to register them via .service() angular would have crashed. 
                 Object.keys(App.Service)
                     .filter( p => ns.hasOwnProperty(p) && ns.AngularService.prototype.isPrototypeOf(ns[p].prototype) )
                     .forEach( s => $provide.service(getServiceName(s), getDependencies(ns, s)));
@@ -53,7 +56,8 @@ module App {
             .config(["$controllerProvider", function($controllerProvider) {
                 // Get all controllers and register them via the $controllerProvider. 
                 // We have to use $controllerProvider in the config section since the application is already bootstraped. 
-                // If you would have tried to add them as usual via .controller(...) they would not be found by angular. 
+                // Similarly to the service case if you would have tried to add them as usual 
+                // via .controller() they would not be found by angular. 
                 Object.keys(App.Controller)
                     .filter( p => App.Controller.hasOwnProperty(p))
                     .forEach( c => $controllerProvider.register(c, getDependencies(App.Controller, c)));
