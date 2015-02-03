@@ -1,5 +1,5 @@
-/// <reference path="../Main.ts" />
 /// <reference path="./INavigationController.d.ts" />
+/// <reference path="../../../../thirdparty/angular/angular-all.d.ts" />
 
 module App.Controller {
 

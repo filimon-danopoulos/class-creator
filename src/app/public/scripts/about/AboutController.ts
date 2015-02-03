@@ -1,4 +1,3 @@
-/// <reference path="../Main.ts" />
 /// <reference path="./IAboutController.d.ts" />
 
 module App.Controller {
