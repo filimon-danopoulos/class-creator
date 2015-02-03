@@ -4,15 +4,13 @@
 
 module App.Service {
     export class CsharpService extends AngularService { 
-        constructor($http: ng.IHttpService ) {
-            this.http = $http;
+        constructor(private $http: ng.IHttpService ) {
             super()
         }
-        private http;
         private getCodeStringFromJSON(method: ServiceMethod, json: string): ng.IPromise<string> { 
             switch (method) {
                 case ServiceMethod.GET:
-                    return this.http.get("/api/csharp/string/", {
+                    return this.$http.get("/api/csharp/string/", {
                         params: {
                             json: json    
                         }

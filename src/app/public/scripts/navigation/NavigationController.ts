@@ -4,13 +4,10 @@
 module App.Controller {
 
     export class NavigationController implements INavigationController {
-        constructor($window: ng.IWindowService) {
-            this.window = $window;
-        }
+        constructor(private $window: ng.IWindowService) { }
+
         public isActive = (hash: string): boolean => {
-            return hash === this.window.location.hash.slice(1);
+            return hash === this.$window.location.hash.slice(1);
         }
-        
-        private window: ng.IWindowService;
     }       
 } 
