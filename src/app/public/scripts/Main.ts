@@ -43,15 +43,27 @@ module App {
                 // Get all service from the App.Service namespace and register them with angular.
                 // Since application is bootstraped already we have to use $provide.service() 
                 // If you would have tried to register them via .service() angular would have crashed. 
-                Object.keys(App.Service)
+                Object.keys(ns)
                     .filter( p => ns.hasOwnProperty(p) && ns.AngularService.prototype.isPrototypeOf(ns[p].prototype) )
                     .forEach( s => $provide.service(getServiceName(s), getDependencies(ns, s)));
             }]);
         // Add the service module as a dependency
         dependencies.push("App.Service");
+        
+        // Register factory module as the angular module "App.Factory".
+        angular.module("App.Factory", [])
+            .config(["$provide", function($provide) {
+                // This is very similar to the service example above.
+                // For an analogous explanation see that comment.
+                var ns = App.Factory;
+                Object.keys(ns)
+                    .filter( p => ns.hasOwnProperty(p) && (typeof ns[p]) === "function")
+                    .forEach( f => $provide.factory(f, getDependencies(ns, f)));
+            }]);
+        // Again add the angular module to the dependency list.
+        dependencies.push("App.Factory");
 
-
-        // Register the controller module with angular as the angular module "App.Controller".
+        // Register the controller module as the angular module "App.Controller".
         angular.module("App.Controller", [])
             .config(["$controllerProvider", function($controllerProvider) {
                 // Get all controllers and register them via the $controllerProvider. 
