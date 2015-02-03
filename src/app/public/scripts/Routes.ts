@@ -6,11 +6,13 @@ module App {
             routeProvider
                 .when('/', {
                     templateUrl: 'views/Home/HomeView.html',
-                    controller: 'HomeController'
+                    controller: 'HomeController',
+                    controllerAs: 'home'
                 })
                 .when('/about', {
                     templateUrl: 'views/About/AboutView.html',
-                    controller: 'AboutController'    
+                    controller: 'AboutController',
+                    controllerAs: 'about' 
                 })
                 .otherwise({
                     redirectTo: '/'

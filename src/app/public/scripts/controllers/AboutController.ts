@@ -1,11 +1,18 @@
 /// <reference path="../Main.ts" />
 
 module App.Controller {
-    export class AboutController {
-        constructor($scope) {
-            this.scope = $scope;
-            $scope.message = "Testar om min koola grej fungerar!";
+    interface IAboutScope {
+        message: string;
+    }
+
+    export class AboutController implements IAboutScope {
+        constructor() {
+            this.init();
         }
-        private scope; 
+        public message: string;
+
+        private init() {
+            this.message = "Testar om min koola grej fungerar!";
+        }
     }       
 } 

@@ -1,20 +1,18 @@
 /// <reference path="../Main.ts" />
 
 module App.Controller {
+    interface INavigationScope {
+        isActive: (hash: string) => boolean;    
+    }
+
     export class NavigationController {
-        constructor($scope, $window) {
-            this.scope = $scope;
+        constructor($window: ng.IWindowService) {
             this.window = $window;
-
-            $scope.isActive = this.isActive;
         }
-                
-        private scope;
-        
-        private window;
-
-        private isActive = (hash: string): boolean => {
+        public isActive = (hash: string): boolean => {
             return hash === this.window.location.hash.slice(1);
         }
+        
+        private window: ng.IWindowService;
     }       
 } 

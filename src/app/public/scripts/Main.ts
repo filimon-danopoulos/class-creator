@@ -3,11 +3,32 @@
 
 module App {
     function getDependencies(module: Object, name: string) {
-        var dependencies = /\((.*?)\)/.exec(module[name].toString())[1]
-            .replace(/ /g, "")
-            .split(",");
+        var dependencies = [],
+            dependencyString = /\((.*?)\)/.exec(module[name].toString())[1]
+            .replace(/ /g, "");
+        // A component is not required to have any dependecies.
+        if (dependencyString) {
+            dependencies = dependencies.concat(dependencyString.split(","));
+        }
+        // Always add the actual function last so that it follows the angular standard:
+        // ["dep1", "dep2", ... , function(dep1, dep2, ...) { }
         dependencies.push(module[name]);
         return dependencies;
+    }
+
+    function getServiceName(serviceName: string) {
+        // When registering services we are registering a constructor that angular calls. 
+        // This means that we request a singleton instance of the service, so we would want to 
+        // register the service as a component with a lower case leading character so that 
+        // we can avoid the akward: 
+        // class SomeController(SomeService) {
+        //    SomeService.serviceMember(...);
+        // }
+        // In favor for the much more logical:
+        // class SomeController(someService) {
+        //    someService.serviceMember(...);    
+        // }
+        return serviceName[0].toLowerCase()+serviceName.slice(1);  
     }
 
     export function init() {
@@ -21,7 +42,7 @@ module App {
                 var ns = App.Service;
                 Object.keys(App.Service)
                     .filter( p => ns.hasOwnProperty(p) && ns.AngularService.prototype.isPrototypeOf(ns[p].prototype) )
-                    .forEach( s => $provide.service(s, getDependencies(ns, s)));
+                    .forEach( s => $provide.service(getServiceName(s), getDependencies(ns, s)));
             }]);
         // Add the service module as a dependency
         dependencies.push("App.Service");
@@ -43,7 +64,7 @@ module App {
         // Define the application module and inject all dependencies 
         var app = angular.module('App', dependencies);
 
-        app.config(["$routeProvider", function ($routeProvider:ng.route.IRouteProvider) {
+        app.config(["$routeProvider", function ($routeProvider: ng.route.IRouteProvider) {
             App.Routes.setUp($routeProvider);
         }]);
     }

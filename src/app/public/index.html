@@ -8,10 +8,10 @@
         <link rel="stylesheet" href="styles/app.css" />
     </head>
     <body>
-        <div class="navbar navbar-default" ng-controller="NavigationController">
+        <div class="navbar navbar-default" ng-controller="NavigationController as navigation">
             <ul class="nav navbar-nav">
-                <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
-                <li ng-class="{ active: isActive('/about')}"><a href="#/about">About</a></li>
+                <li ng-class="{ active: navigation.isActive('/')}"><a href="#/">Home</a></li>
+                <li ng-class="{ active: navigation.isActive('/about')}"><a href="#/about">About</a></li>
             </ul>
         </div>
 
