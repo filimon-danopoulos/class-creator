@@ -1,11 +1,9 @@
 /// <reference path="../Main.ts" />
+/// <reference path="./INavigationController.d.ts" />
 
 module App.Controller {
-    interface INavigationScope {
-        isActive: (hash: string) => boolean;    
-    }
 
-    export class NavigationController {
+    export class NavigationController implements INavigationController {
         constructor($window: ng.IWindowService) {
             this.window = $window;
         }

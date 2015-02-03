@@ -5,12 +5,12 @@ module App {
         public static setUp(routeProvider) {
             routeProvider
                 .when('/', {
-                    templateUrl: 'views/Home/HomeView.html',
+                    templateUrl: 'views/home/HomeView.html',
                     controller: 'HomeController',
                     controllerAs: 'home'
                 })
                 .when('/about', {
-                    templateUrl: 'views/About/AboutView.html',
+                    templateUrl: 'views/about/AboutView.html',
                     controller: 'AboutController',
                     controllerAs: 'about' 
                 })

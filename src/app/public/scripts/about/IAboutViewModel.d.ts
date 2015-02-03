@@ -1,0 +1,3 @@
+interface IAboutViewModel {
+    message: string;
+}
