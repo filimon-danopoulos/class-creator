@@ -1,10 +1,10 @@
 /// <reference path="./IHomeController.d.ts" />
+/// <rerefence path="../services/ICsharpService.ts" />
 
 module App.Controller {
     export class HomeController implements IHomeController {
         /* @ngInject */
-        constructor(private csharpService, private homeTabFactory) {
-            console.log(this.csharpService.test());
+        constructor(private csharpService: App.Service.ICsharpService, private homeTabFactory) {
             this.init();
         }
         
