@@ -2,20 +2,6 @@
 /// <reference path="./Routes.ts" />
 
 module App {
-    function getDependencies(module: Object, name: string) {
-        var dependencies = [],
-            dependencyString = /\((.*?)\)/.exec(module[name].toString())[1]
-            .replace(/ /g, "");
-        // A component is not required to have any dependecies.
-        if (dependencyString) {
-            dependencies = dependencies.concat(dependencyString.split(","));
-        }
-        // Always add the actual function last so that it follows the angular standard:
-        // ["dep1", "dep2", ... , function(dep1, dep2, ...) { }
-        dependencies.push(module[name]);
-        return dependencies;
-    }
-
     function getServiceName(serviceName: string) {
         // When registering services we are registering a constructor that angular calls. 
         // This means that we request a singleton instance of the service, so we would want to 
@@ -38,14 +24,13 @@ module App {
         // Register the service module as the angular module "App.Service". 
         angular.module("App.Service", [])
             .config(["$provide", function($provide) {
-                // ns for namespace
-                var ns = App.Service;
                 // Get all service from the App.Service namespace and register them with angular.
                 // Since application is bootstraped already we have to use $provide.service() 
                 // If you would have tried to register them via .service() angular would have crashed. 
-                Object.keys(ns)
-                    .filter( p => ns.hasOwnProperty(p) && ns.AngularService.prototype.isPrototypeOf(ns[p].prototype) )
-                    .forEach( s => $provide.service(getServiceName(s), getDependencies(ns, s)));
+                Object.keys(App.Service)
+                    .filter(p => App.Service.hasOwnProperty(p) &&
+                                 App.Service.AngularService.prototype.isPrototypeOf(App.Service[p].prototype) )
+                    .forEach(s => $provide.service(getServiceName(s), App.Service[s]));
             }]);
         // Add the service module as a dependency
         dependencies.push("App.Service");
@@ -55,10 +40,9 @@ module App {
             .config(["$provide", function($provide) {
                 // This is very similar to the service example above.
                 // For an analogous explanation see that comment.
-                var ns = App.Factory;
-                Object.keys(ns)
-                    .filter( p => ns.hasOwnProperty(p) && (typeof ns[p]) === "function")
-                    .forEach( f => $provide.factory(f, getDependencies(ns, f)));
+                Object.keys(App.Factory)
+                    .filter(p => App.Factory.hasOwnProperty(p) && (typeof App.Factory[p]) === "function")
+                    .forEach(f => $provide.factory(f, App.Factory[f]));
             }]);
         // Again add the angular module to the dependency list.
         dependencies.push("App.Factory");
@@ -71,8 +55,8 @@ module App {
                 // Similarly to the service case if you would have tried to add them as usual 
                 // via .controller() they would not be found by angular. 
                 Object.keys(App.Controller)
-                    .filter( p => App.Controller.hasOwnProperty(p))
-                    .forEach( c => $controllerProvider.register(c, getDependencies(App.Controller, c)));
+                    .filter(p => App.Controller.hasOwnProperty(p))
+                    .forEach(c => $controllerProvider.register(c, App.Controller[c]));
             }]);
         // Add the controller module as a dependency
         dependencies.push("App.Controller");
@@ -85,5 +69,5 @@ module App {
         }]);
     }
 }
-
+// Initialize application
 App.init();

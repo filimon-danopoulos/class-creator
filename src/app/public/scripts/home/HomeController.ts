@@ -2,6 +2,7 @@
 
 module App.Controller {
     export class HomeController implements IHomeController {
+        /* @ngInject */
         constructor(private csharpService, private homeTabFactory) {
             console.log(this.csharpService.test());
             this.init();
@@ -29,6 +30,4 @@ module App.Controller {
             };
         }
     }        
-
-
 } 

@@ -3,7 +3,8 @@
 /// <rererence path="./ServiceMethod.ts" />
 
 module App.Service {
-    export class CsharpService extends AngularService { 
+    export class CsharpService extends AngularService {
+        /* @ngInject */ 
         constructor(private $http: ng.IHttpService ) {
             super()
         }

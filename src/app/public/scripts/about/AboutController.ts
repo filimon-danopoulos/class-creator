@@ -2,6 +2,7 @@
 
 module App.Controller {
     export class AboutController implements IAboutController {
+        /* @ngInject */
         constructor() {
             this.init();
         }

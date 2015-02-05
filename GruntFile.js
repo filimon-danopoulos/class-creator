@@ -10,12 +10,24 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-typescript');
 	grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-ng-annotate');
 
 	/*
      * Configure NPM dependencies for the project
      * */
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+        /* grunt-ng-annotate configuration */
+        ngAnnotate: {
+            options: {
+                add: true
+            },
+            dev: {
+                files: {
+                    'build/app/public/scripts/app.js': ['build/app/public/scripts/app.js']
+                }
+            }
+        },
         /* grunt-contrib-concat configuration */
         concat: {
             /*
@@ -231,7 +243,8 @@ module.exports = function(grunt) {
     grunt.registerTask('typescript-dev', [
         'typescript:library-dev', 
         'typescript:server-dev', 
-        'typescript:client-dev'
+        'typescript:client-dev',
+        'ngAnnotate:dev'
     ]);
 
     /* Copying tasks */
