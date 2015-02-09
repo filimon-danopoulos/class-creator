@@ -10,24 +10,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-typescript');
 	grunt.loadNpmTasks('grunt-mocha-test');
-    grunt.loadNpmTasks('grunt-ng-annotate');
 
 	/*
      * Configure NPM dependencies for the project
      * */
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-        /* grunt-ng-annotate configuration */
-        ngAnnotate: {
-            options: {
-                add: true
-            },
-            dev: {
-                files: {
-                    'build/app/public/scripts/app.js': ['build/app/public/scripts/app.js']
-                }
-            }
-        },
         /* grunt-contrib-concat configuration */
         concat: {
             /*
@@ -127,7 +115,10 @@ module.exports = function(grunt) {
 					target: 'es5',
                     basePath: 'src/app/public/scripts/',
                     sourceMap: true,
-                    declaration: false
+                    declaration: false,
+                    references: [
+                        "src/thirdarty/**/*.ts"
+                    ]
 				}
                     
             }
@@ -178,11 +169,31 @@ module.exports = function(grunt) {
 				}
 			},
             /*
-             * Watches for typescript changes and runs the build task
+             * Watches for client typescript changes and runs the compile task
              * */
-            'typescript-serve': {
-                 files: 'src/**/*.ts',
-                 tasks: ['build-dev'],
+            'typescript-client-dev': {
+                 files: 'src/app/public/**/*.ts',
+                 tasks: ['typescript:client-dev', 'modify-typescript-sourcemaps'],
+                 options: {
+                    spawn: false    
+                 }
+            },
+            /*
+             * Watches for server typescript changes and runs the compile task
+             * */
+            'typescript-server-dev': {
+                 files: ['src/app/**/*.ts', '!src/app/public/**/*.ts'],
+                 tasks: ['typescript:server-dev'],
+                 options: {
+                    spawn: false    
+                 }
+            },
+            /*
+             * Watches for libary typescript changes and runs the compile task
+             * */
+            'typescript-library-dev': {
+                 files: ['src/lib/**/*.ts'],
+                 tasks: ['typescript:library-dev'],
                  options: {
                     spawn: false    
                  }
@@ -193,13 +204,13 @@ module.exports = function(grunt) {
             /*
              * Monitors the dev build server folder for javascript changes and restarts the node process.
              * */
-			serve: {
+			'serve-dev': {
 				script: 'server.js',
 				options: {
 					cwd: 'build/app/',
-					ignore: ['node_modules/**', 'src/**'],
+					ignore: ['node_modules/**', 'src/**', 'build/app/public/scripts/**'],
 					delay: 500,
-                    ext: 'js,html,css'
+                    ext: 'js'
 				}
 			}
 		},
@@ -209,8 +220,10 @@ module.exports = function(grunt) {
              * Runs the a watch task and nodemon in parallel 
              * */
 			'serve-dev': [            
-				'watch:typescript-serve',
-				'nodemon:serve'
+                'watch:typescript-library-dev',
+                'watch:typescript-server-dev',
+				'watch:typescript-client-dev',
+				'nodemon:serve-dev'
 			],
 			options: {
 				logConcurrentOutput: true
@@ -229,7 +242,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test-verbose', ['build-dev', 'mochaTest:long-output']);
     grunt.registerTask('test-succint', ['build-dev', 'mochaTest:short-output']);
 
-    /* Build tasks, clean does not work properly in windows. */
+    /* Build tasks */
     grunt.registerTask('build-dev', [
         'clean:build', 
         'copy-dev',
@@ -243,8 +256,7 @@ module.exports = function(grunt) {
     grunt.registerTask('typescript-dev', [
         'typescript:library-dev', 
         'typescript:server-dev', 
-        'typescript:client-dev',
-        'ngAnnotate:dev'
+        'typescript:client-dev'
     ]);
 
     /* Copying tasks */
