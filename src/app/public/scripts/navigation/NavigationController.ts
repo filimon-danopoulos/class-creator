@@ -1,9 +1,9 @@
-/// <reference path="./INavigationController.d.ts" />
+/// <reference path="./INavigationController" />
 /// <reference path="../../../../thirdparty/angular/angular-all.d.ts" />
 
 module App.Controller {
     export class NavigationController implements INavigationController {
-        /* @ngInject */
+        static $inject = ["$window"];
         constructor(private $window: ng.IWindowService) { }
 
         public isActive = (hash: string): boolean => {

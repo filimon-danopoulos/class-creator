@@ -1,8 +1,8 @@
-/// <reference path="./IHomeTab.d.ts" />
+/// <reference path="./IHomeTab" />
 
 module App.Factory {
     export function homeTabFactory() {
-        function createHomeTabs(): IHomeTab[] {
+        function createHomeTabs(): App.Data.IHomeTab[] {
             return [{
                 title: "Define JSON",
                 description: "Provide your own JSON", 

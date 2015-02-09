@@ -1,6 +1,7 @@
 /// <reference path="../../contracts/index.d.ts" />
 
 class TypeScriptClassTemplate implements ICodeTemplate {
+
     getTemplate(): string {
         return [
             "class {{className}} {",

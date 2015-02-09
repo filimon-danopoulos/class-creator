@@ -1,11 +1,11 @@
 /// <reference path="../../../../thirdparty/angular/angular-all.d.ts" />
-/// <reference path="./AngularService.ts" />
-/// <reference path="./ServiceMethod.ts" />
-/// <reference path="./ICsharpService.ts" />
+/// <reference path="./AngularService" />
+/// <reference path="./ServiceMethod" />
+/// <reference path="./ICsharpService" />
 
 module App.Service {
     export class CsharpService extends AngularService implements ICsharpService {
-        /* @ngInject */ 
+        static $inject = ["$http"]; 
         constructor(private $http: ng.IHttpService ) {
             super()
         }

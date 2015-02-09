@@ -1,5 +1,5 @@
 /// <reference path="../../../thirdparty/angular/angular-all.d.ts" />
-/// <reference path="./Routes.ts" />
+/// <reference path="./Routes" />
 
 module App {
     function getServiceName(serviceName: string) {
@@ -18,6 +18,7 @@ module App {
     }
 
     export function init() {
+        console.info("Intitializing...");
         // Set up dependencies
         var dependencies =  ['ngRoute'];
 
@@ -63,7 +64,8 @@ module App {
 
         // Define the application module and inject all dependencies 
         var app = angular.module('App', dependencies);
-
+        
+        // Configure routing
         app.config(["$routeProvider", function ($routeProvider: ng.route.IRouteProvider) {
             App.Routes.setUp($routeProvider);
         }]);

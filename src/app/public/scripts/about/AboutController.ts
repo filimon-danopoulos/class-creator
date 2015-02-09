@@ -1,12 +1,11 @@
-/// <reference path="./IAboutController.d.ts" />
+/// <reference path="./IAboutController" />
 
 module App.Controller {
     export class AboutController implements IAboutController {
-        /* @ngInject */
         constructor() {
             this.init();
         }
-        public vm: IAboutViewModel;
+        public vm: App.Data.IAboutViewModel;
 
         private init() {
             this.vm = {

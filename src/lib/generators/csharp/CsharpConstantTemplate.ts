@@ -10,6 +10,4 @@ class CsharpConstantTemplate implements ICodeTemplate {
     }
 }
 
-
-
 export = CsharpConstantTemplate;
