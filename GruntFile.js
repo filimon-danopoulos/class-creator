@@ -2,20 +2,20 @@ module.exports = function(grunt) {
     /*
      * Load all NPM dependencies
      * */
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-nodemon');
-	grunt.loadNpmTasks('grunt-concurrent');
-	grunt.loadNpmTasks('grunt-typescript');
-	grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-typescript');
+    grunt.loadNpmTasks('grunt-mocha-test');
 
-	/*
+    /*
      * Configure NPM dependencies for the project
      * */
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
         /* grunt-contrib-concat configuration */
         concat: {
             /*
@@ -76,65 +76,65 @@ module.exports = function(grunt) {
         },
 
         /* grunt-typescript configuration */
-		typescript: {
+        typescript: {
             /*
              * Compiles all the typescript files that are used by the core library and all associated tests.
              * */
-			'library-dev': {
-				src: ['src/thirdparty/**/*.ts', 'src/lib/**/*.ts', 'src/test/**/*.ts'],
-				dest: 'build/',
-				options: {
-					module: 'commonjs', 
-					target: 'es5',
+            'library-dev': {
+                src: ['src/thirdparty/**/*.ts', 'src/lib/**/*.ts', 'src/test/**/*.ts'],
+                dest: 'build/',
+                options: {
+                    module: 'commonjs', 
+                    target: 'es5',
                     basePath: 'src/', 
-					sourceMap: false,
-					declaration: false
-				}
-			},
+                    sourceMap: false,
+                    declaration: false
+                }
+            },
             /*
              * Compiles all the typescript files that are used by the server.
              * */
-			'server-dev': {
-				src: ['src/thirdparty/**/*.ts', 'src/app/routers/**/*.ts', 'src/app/server.ts'],
-				dest: 'build/',
-				options: {
-					module: 'commonjs', 
-					target: 'es5', 
+            'server-dev': {
+                src: ['src/thirdparty/**/*.ts', 'src/app/routers/**/*.ts', 'src/app/server.ts'],
+                dest: 'build/',
+                options: {
+                    module: 'commonjs',
+                    target: 'es5', 
                     basePath: 'src/', 
-					sourceMap: false,
-					declaration: false
-				}
-			},   
+                    sourceMap: false,
+                    declaration: false
+                }
+            }, 
             /*
              * Compiles all client side typescript files into a bundle.
              * */
             'client-dev': {
                 src: ['src/app/public/scripts/**/*.ts'],
                 dest: 'build/app/public/scripts/app.js',
-				options: {
-					target: 'es5',
+                options: {
+                    target: 'es5',
                     basePath: 'src/app/public/scripts/',
                     sourceMap: true,
                     declaration: false,
                     references: [
                         "src/thirdarty/**/*.ts"
                     ]
-				}
+                }
                     
             }
-		},
+        },
         /* grunt-mocha-test configuration */
-		mochaTest: {
+        mochaTest: {
             /* 
              * Runs all library tests and reports the result in a dot-matrix.
              * */
-			'short-output': {
-				options: {
-					reporter: 'dot',
-					clearRequireCache: true
-				},
-				src: ['build/test/**/*.js']
-			},
+            'short-output': {
+                options: {
+                    reporter: 'dot',
+                    clearRequireCache: true
+                },
+                src: ['build/test/**/*.js']
+            },
             /*
              * Runs all library test and reports the result as a BDD spec.
              * */
@@ -145,29 +145,29 @@ module.exports = function(grunt) {
                 },
                 src: ['build/test/**/*.js']    
             }
-		},
+        },
         /* grunt-contrib-clean configuration */
-		clean: {
+        clean: {
             /*
              * Removes the build folder. 
              * */
             build: {
-				src: [ 'build/' ],
-				force: true
+                src: [ 'build/' ],
+                force: true
             }
-		},
+        },
         /* grunt-contrib-watch configuration */ 
-		watch: {
+        watch: {
             /*
              * Watches for typescript changes and runs the build-verbose task
              * */
-			'typescript-test': {
-				files: 'src/**/*.ts',
-				tasks: ['test-verbose'],
-				options: {
-					spawn: false    
-				}
-			},
+            'typescript-test': {
+                files: 'src/**/*.ts',
+                tasks: ['test-verbose'],
+                options: {
+                    spawn: false    
+                }
+            },
             /*
              * Watches for client typescript changes and runs the compile task
              * */
@@ -200,43 +200,43 @@ module.exports = function(grunt) {
             }
         },
         /* grunt-nodemon configuration */
-		nodemon: {
+        nodemon: {
             /*
              * Monitors the dev build server folder for javascript changes and restarts the node process.
              * */
-			'serve-dev': {
-				script: 'server.js',
-				options: {
-					cwd: 'build/app/',
-					ignore: ['node_modules/**', 'src/**', 'build/app/public/scripts/**'],
-					delay: 500,
+            'serve-dev': {
+                script: 'server.js',
+                options: {
+                    cwd: 'build/app/',
+                    ignore: ['node_modules/**', 'src/**', 'build/app/public/scripts/**'],
+                    delay: 500,
                     ext: 'js'
-				}
-			}
-		},
+                }
+            }
+        },
         /* grunt-concurent configuration*/
-		concurrent: {
+        concurrent: {
             /*
              * Runs the a watch task and nodemon in parallel 
              * */
-			'serve-dev': [            
+            'serve-dev': [            
                 'watch:typescript-library-dev',
                 'watch:typescript-server-dev',
-				'watch:typescript-client-dev',
-				'nodemon:serve-dev'
-			],
-			options: {
-				logConcurrentOutput: true
-			}
-		}
-	});
+                'watch:typescript-client-dev',
+                'nodemon:serve-dev'
+            ],
+            options: {
+                logConcurrentOutput: true
+            }
+        }
+    });
     
     /* Default task */
-	grunt.registerTask('default', ['test-verbose']);
+    grunt.registerTask('default', ['test-verbose']);
 
     /* Main tasks */
-	grunt.registerTask('serve', ['build-dev', 'concurrent:serve-dev']);
-	grunt.registerTask('test', ['test-verbose', 'watch:typescript-test']);
+    grunt.registerTask('serve', ['build-dev', 'concurrent:serve-dev']);
+    grunt.registerTask('test', ['test-verbose', 'watch:typescript-test']);
 
     /* Test tasks */
     grunt.registerTask('test-verbose', ['build-dev', 'mochaTest:long-output']);
@@ -252,7 +252,7 @@ module.exports = function(grunt) {
     ]);
     
     /* Compilation tasks */
-	grunt.registerTask('compile-dev', ['typescript-dev']);
+    grunt.registerTask('compile-dev', ['typescript-dev']);
     grunt.registerTask('typescript-dev', [
         'typescript:library-dev', 
         'typescript:server-dev', 
