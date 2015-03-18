@@ -18,4 +18,4 @@ app.use(express.static(path.join(__dirname,"public/")));
 
 app.listen(port);
 
-console.log("Server is up and listening on: http://127.0.0.1:"+port);
+console.log("Server  is up and listening on: http://127.0.0.1:"+port);

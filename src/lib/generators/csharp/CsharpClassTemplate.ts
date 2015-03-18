@@ -15,3 +15,4 @@ class CsharpClassTemplate implements ICodeTemplate {
 }
 
 export = CsharpClassTemplate;
+

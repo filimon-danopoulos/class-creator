@@ -1,4 +1,4 @@
-module App.Service {
+module App.Common {
     export enum ServiceMethod{
         GET,
         POST    

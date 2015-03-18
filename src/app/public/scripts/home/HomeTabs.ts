@@ -1,8 +1,7 @@
-/// <reference path="./IHomeTab" />
+module App.Home {
 
-module App.Factory {
-    export function homeTabFactory() {
-        function createHomeTabs(): App.Data.IHomeTab[] {
+    export class HomeTabs extends Main.AngularValue<IHomeTab[]> {
+        getValue(): IHomeTab[] {
             return [{
                 title: "Define JSON",
                 description: "Provide your own JSON", 
@@ -11,11 +10,7 @@ module App.Factory {
                 title: "Simple URL",
                 description: "Point the app to an URL that represents a JSON endpoint.",
                 partial: "views/home/SimpleURLForm.html"
-            }];   
+            }];    
         }
-
-        return {
-            createHomeTabs: createHomeTabs  
-        };
-    }    
+    }
 }

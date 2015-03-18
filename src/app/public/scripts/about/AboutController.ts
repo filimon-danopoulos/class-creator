@@ -1,16 +1,15 @@
-/// <reference path="./IAboutController" />
+module App.About {
+    
+    export interface IAboutController {
+        message: string;
+    }
 
-module App.Controller {
-    export class AboutController implements IAboutController {
+    export class AboutController extends Main.AngularController implements IAboutController {
         constructor() {
-            this.init();
+            this.message = "Testar om min koola grej fungerar!";
+            super();
         }
-        public vm: App.Data.IAboutViewModel;
 
-        private init() {
-            this.vm = {
-                message: "Testar om min koola grej fungerar!"
-            };
-        }
+        public message: string;
     }       
 } 
