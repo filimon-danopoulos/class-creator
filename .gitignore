@@ -36,3 +36,4 @@ bower_components
 # Build files
 build
 src/**/*.js
+src/app/public/thirdparty/**/*

@@ -14,24 +14,25 @@ module App.Home {
         submitJSON: () => void;
         selectedTab: IHomeTab;
         tabs: IHomeTab[];
+        hasResult: boolean;
         JSONInput?: string;
     }
 
     export class HomeController extends Main.AngularController implements IHomeController {
-        static $inject = ["csharpService", "tabs"];
+        public static $inject = ["csharpService", "tabs"];
         constructor(private csharpService: App.Services.ICsharpService, public tabs: IHomeTab[]) {
             super();
-
             var initiallyActiveTab: number;
-
             initiallyActiveTab = 0;
 
-            tabs[initiallyActiveTab].active = true;
+            this.tabs[initiallyActiveTab].active = true;
             this.selectedTab = this.tabs[initiallyActiveTab];
+            this.hasResult = false;
         }
 
         public selectedTab: IHomeTab;
         public JSONInput: string;
+        public hasResult: boolean;
 
         public setSelectedTab = (tab: IHomeTab): void => {
             this.selectedTab = tab;
