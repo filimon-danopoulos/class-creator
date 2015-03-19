@@ -12,11 +12,11 @@ module App {
                 .when('/about', {
                     templateUrl: 'views/about/AboutView.html',
                     controller: 'AboutController',
-                    controllerAs: 'about' 
+                    controllerAs: 'about'
                 })
                 .otherwise({
                     redirectTo: '/'
                 });
-        }    
+        }
     }
 }

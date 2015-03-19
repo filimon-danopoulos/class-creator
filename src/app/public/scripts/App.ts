@@ -1,6 +1,5 @@
 /// <reference path="../../../thirdparty/angular/angular-all.d.ts" />
 /// <reference path="./Routes" />
-/// <reference path="./Main" />
 
 
 module App {
@@ -12,7 +11,7 @@ module App {
         modules = Main.init("App");
         dependencies = dependencies.concat(modules);
 
-        // Define the application module and inject all dependencies 
+        // Define the application module and inject all dependencies
         angular.module('App', dependencies)
             .config(["$routeProvider", function ($routeProvider: ng.route.IRouteProvider) {
                 // Set up routing

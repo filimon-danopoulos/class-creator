@@ -15,7 +15,7 @@ module Main {
 
         application = window[applicationNameSpace];
         modules = Object.keys(application)
-            .filter(key => application.hasOwnProperty(key));
+            .filter(key => application.hasOwnProperty(key) && typeof(application[key]) === "object");
 
         for (var i = 0, iMax = modules.length; i < iMax; i++) {
             currentModuleName = modules[i];
@@ -31,40 +31,33 @@ module Main {
     }
 
     export class AngularService implements IAngularComponent {
-        getComponentType(): ComponentType {
+        public getComponentType(): ComponentType {
             return ComponentType.AngularService;
         }
-        getServiceName(): string {
-            if (this.serviceName) {
-                return this.serviceName;
-            }
-            throw new Error("No serviceName provided for AngularService sub-class. All sub-class must implement serviceName.");
-        }
-        serviceName: string;
+        public static serviceName: string;
     }
 
     export class AngularFactory<TIn, TOut> implements IAngularComponent {
-        getComponentType(): ComponentType {
+        public getComponentType(): ComponentType {
             return ComponentType.AngularFactory;
         }
-        factory(dependencies: TIn): TOut {
+        public factory(dependencies: TIn): TOut {
             throw new Error("No factory method implementation in AngularFactory sub-class. All sub-classes must implement factory.")
         }
     }
 
     export class AngularController implements IAngularComponent {
-        getComponentType(): ComponentType {
+        public getComponentType(): ComponentType {
             return ComponentType.AngularController;
         }
     }
 
-    export class AngularValue<T> implements IAngularComponent {
-        getComponentType(): ComponentType {
+    export class AngularValue implements IAngularComponent {
+        public getComponentType(): ComponentType {
             return ComponentType.AngularValue;
         }
-        getValue(): T {
-            throw new Error("No getValue method implementation in AngularValue sub-class. All sub-classes must implement getValue.");    
-        }
+        public name: string;
+        public value: any;
     }
 
     export enum ComponentType {
@@ -78,40 +71,42 @@ module Main {
 
     /**
     * Responsible for registering an entire module.
-    * @param module The module to register any angular compoments from.
+    * @param applicationModule The module to register any angular compoments from.
     **/
-    function registerModule(module: any, moduleName: string): void {
+    function registerModule(applicationModule: any, moduleName: string): void {
         var moduleMembers: string[], angularModule: any;
 
-        moduleMembers = Object.keys(module).filter(x => module.hasOwnProperty(x));
+        moduleMembers = Object.keys(applicationModule)
+            .filter(x => applicationModule.hasOwnProperty(x) && typeof(applicationModule[x]) === "function");
         angularModule = angular.module(moduleName, []);
 
         for (var i = 0, iMax = moduleMembers.length; i < iMax ; i++) {
-            registerComponent(angularModule, moduleMembers[i]);
+            registerComponent(angularModule, applicationModule, moduleMembers[i]);
         }
     }
 
     /**
     * Registers an individual angular component
-    * @param module The parent angular module.
+    * @param angularModule The angular module the component belongs to
+    * @param applicationModule The parent application module.
     * @param componentName The name of the component to register.
     **/
-    function registerComponent(module: any, componentName: string): void {
-        var component: IAngularComponent,
+    function registerComponent(angularModule: any, applicationModule: any, componentName: string): void {
+        var component: any,
             componentType: ComponentType;
 
-        component = <IAngularComponent> module[componentName];
-        if (typeof(component.getComponentType) !== "function") {
+        component = applicationModule[componentName];
+        if (typeof(component.prototype.getComponentType) !== "function") {
             return;
         }
 
-        componentType = component.getComponentType();
+        componentType = component.prototype.getComponentType();
 
         switch (componentType) {
-            case ComponentType.AngularService: registerService(module, <AngularService> component); break;
-            case ComponentType.AngularFactory: registerFactory(module, componentName, <AngularFactory<any, any>> component); break;
-            case ComponentType.AngularController: registerController(module, componentName, <AngularController> component); break;
-            case ComponentType.AngularValue: registerValue(module, componentName, <AngularValue<any>> component); break;
+            case ComponentType.AngularService: registerService(angularModule, componentName, component); break;
+            case ComponentType.AngularFactory: registerFactory(angularModule, componentName, component); break;
+            case ComponentType.AngularController: registerController(angularModule, componentName, component); break;
+            case ComponentType.AngularValue: registerValue(angularModule, componentName, component); break;
         }
     }
 
@@ -120,8 +115,11 @@ module Main {
     * @param module The angular module the service belongs to.
     * @param serviceComponent The Agnular serice to register.
     **/
-    function registerService(angularModule: any, serviceComponent: AngularService): void {
-        var serviceName = serviceComponent.getServiceName();
+    function registerService(angularModule: any, componentName: string, serviceComponent: any): void {
+        var serviceName = serviceComponent.serviceName;
+        if (!serviceName) {
+            throw new Error(componentName+" does not provide the static property serviceName.");
+        }
         angularModule.config(["$provide", ($provide) => $provide.service(serviceName, serviceComponent)]);
     }
 
@@ -131,7 +129,7 @@ module Main {
     * @param factoryName The name of the factory class.
     * @param factoryComponent The Angular factory to register.
     **/
-    function registerFactory(angularModule: any, factoryName: string, factoryComponent: AngularFactory<any, any>): void {
+    function registerFactory(angularModule: any, factoryName: string, factoryComponent: any): void {
         var factoryRegistrationName : string;
         // Since we are leaving angular convention slightly with factories and are utilizing classes,
         // the names of factories need to be adjusted slightly.
@@ -145,7 +143,7 @@ module Main {
     * @param controllerName The name the controller will be registered with.
     * @param controllerComponent The Angular controller to register.
     **/
-    function registerController(angularModule: any, controllerName: string, controllerComponent: AngularController): void {
+    function registerController(angularModule: any, controllerName: string, controllerComponent: any): void {
         angularModule.config(["$controllerProvider", ($controllerProvider) => $controllerProvider.register(controllerName, controllerComponent)]);
     }
 
@@ -155,8 +153,23 @@ module Main {
     * @param valueName The name of the value
     * @param valueComponent The value component to register.
     **/
-    function registerValue(angularModule: any, valueName: string, valueComponent: AngularValue<any>): void {
-        angularModule.config(["$provide", ($provide) => $provide.value(valueName, valueComponent.getValue())]);
+    function registerValue(angularModule: any, valueName: string, valueComponent: any): void {
+        var valueInstance: AngularValue,
+            name: string,
+            value: any;
+
+        valueInstance = <AngularValue> new valueComponent();
+        name = valueInstance.name;
+        value = valueInstance.value;
+
+        if (!name) {
+            throw new Error(valueName + " does not provide a name property");
+        }
+        if (!value) {
+            throw new Error(valueName + " does not propvide a value property");
+        }
+
+        angularModule.config(["$provide", ($provide) => $provide.value(name, value)]);
     }
 
 }

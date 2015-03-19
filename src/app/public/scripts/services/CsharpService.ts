@@ -1,5 +1,4 @@
 /// <reference path="../../../../thirdparty/angular/angular-all.d.ts" />
-/// <reference path="../common/HTTPMethod" />
 
 module App.Services {
 
@@ -8,22 +7,22 @@ module App.Services {
     }
 
     export class CsharpService extends Main.AngularService implements ICsharpService {
-        static $inject = ["$http"]; 
+        static $inject = ["$http"];
         constructor(private $http: ng.IHttpService ) {
             super()
         }
-        public serviceName: string = "csharpService";
+        public static serviceName: string = "csharpService";
 
-        public getCodeStringFromJSON(method: Common.ServiceMethod, json: string): ng.IPromise<string> { 
+        public getCodeStringFromJSON(method: Common.ServiceMethod, json: string): ng.IPromise<string> {
             switch (method) {
                 case Common.ServiceMethod.GET:
                     return this.$http.get("/api/csharp/string/", {
                         params: {
-                            json: json    
+                            json: json
                         }
                     });
-                default: throw "Not Implemented";    
+                default: throw "Not Implemented";
             }
         }
-    }    
+    }
 }
