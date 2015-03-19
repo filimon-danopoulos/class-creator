@@ -1,9 +1,7 @@
-/// <reference path="../../../../thirdparty/angular/angular-all.d.ts" />
-
 module App.Navigation {
 
     export interface INavigationController {
-        isActive: (hash: string) => boolean;    
+        isActive: (hash: string) => boolean;
     }
 
     export class NavigationController extends Main.AngularController implements INavigationController {
@@ -15,5 +13,5 @@ module App.Navigation {
         public isActive = (hash: string): boolean => {
             return hash === this.$window.location.hash.slice(1);
         }
-    }       
-} 
+    }
+}

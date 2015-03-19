@@ -1,5 +1,3 @@
-/// <rerefence path="../services/ICsharpService" />
-
 module App.Home {
     export interface IHomeTab {
         title: string;

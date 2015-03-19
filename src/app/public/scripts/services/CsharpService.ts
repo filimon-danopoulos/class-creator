@@ -7,7 +7,7 @@ module App.Services {
     }
 
     export class CsharpService extends Main.AngularService implements ICsharpService {
-        static $inject = ["$http"];
+        public static $inject = ["$http"];
         constructor(private $http: ng.IHttpService ) {
             super()
         }

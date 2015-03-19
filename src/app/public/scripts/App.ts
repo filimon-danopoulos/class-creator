@@ -1,7 +1,3 @@
-/// <reference path="../../../thirdparty/angular/angular-all.d.ts" />
-/// <reference path="./Routes" />
-
-
 module App {
     export function init() {
         // Set up dependencies

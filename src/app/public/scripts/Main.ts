@@ -1,5 +1,3 @@
-/// <reference path="../../../thirdparty/angular/angular-all.d.ts" />
-
 module Main {
     /// "Public" members" ///
 

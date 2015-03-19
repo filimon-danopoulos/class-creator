@@ -1,6 +1,3 @@
-/// <reference path="../../thirdparty/express/express.d.ts" />
-/// <reference path="../../thirdparty/node/node.d.ts" />
-
 import express = require("express");
 
 import CsharpCodeService = require("../../lib/services/CsharpCodeService");
@@ -17,11 +14,9 @@ router.get("/string", function(req, res) {
     }
     var input = <{[key:string]: any}> JSON.parse(req.query.json);
     var code = service.getCodeAsString(input);
-    res.send(code);    
+    res.send(code);
 });
 
 
 
 export = router;
-
-

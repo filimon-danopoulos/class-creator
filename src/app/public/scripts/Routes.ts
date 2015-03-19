@@ -1,5 +1,3 @@
-/// <reference path="../../../thirdparty/angular/angular-all.d.ts" />
-
 module App {
     export class Routes {
         public static setUp(routeProvider) {

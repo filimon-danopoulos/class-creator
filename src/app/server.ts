@@ -1,6 +1,3 @@
-/// <reference path="../thirdparty/express/express.d.ts" />
-/// <reference path="../thirdparty/node/node.d.ts" />
-
 import express = require("express");
 import path = require('path');
 
