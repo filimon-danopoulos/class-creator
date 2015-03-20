@@ -124,7 +124,7 @@ module.exports = function(grunt) {
             'serve-dev': [
                 'watch:client-dev',
                 'nodemon:serve-dev'
-
+            ],
             options: {
                 logConcurrentOutput: true
             }
