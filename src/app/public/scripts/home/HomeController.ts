@@ -18,10 +18,10 @@ module App.Home {
     }
 
     export class HomeController extends Main.AngularController implements IHomeController {
-        public static $inject = ["csharpService" /*, "logger"*/, "tabs"];
+        public static $inject = ["csharpService", "logger", "tabs"];
         constructor(
             private csharpService: App.Services.ICsharpService,
-            //private logger: App.Common.ILogger,
+            private logger: App.Common.ILogger,
             public tabs: IHomeTab[]
             ) {
             super();
@@ -46,11 +46,12 @@ module App.Home {
 
         public submitJSON = () => {
             this.csharpService.getCodeStringFromJSON(Common.ServiceMethod.GET, this.JSONInput)
-                .then((result) => {
+                .then(result => {
                     this.result = result;
                     this.hasResult = true;
-                }, (x) => {
-                    //this.logger.error("Could not retrieve class with the provided JSON. Error: " + JSON.stringify(x));
+                    this.logger.success("Class generated!");
+                }, error => {
+                    this.logger.error("Could not retrieve class with the provided JSON. Error: " + error);
                 });
         };
     }

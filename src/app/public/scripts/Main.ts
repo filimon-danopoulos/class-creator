@@ -13,7 +13,7 @@ module Main {
 
         application = window[applicationNameSpace];
         modules = Object.keys(application)
-            .filter(key => application.hasOwnProperty(key) && typeof(application[key]) === "object");
+            .filter(key => application.hasOwnProperty(key) && typeof (application[key]) === "object");
 
         for (var i = 0, iMax = modules.length; i < iMax; i++) {
             currentModuleName = modules[i];
@@ -35,11 +35,11 @@ module Main {
         public static serviceName: string;
     }
 
-    export class AngularFactory<TIn, TOut> implements IAngularComponent {
+    export class AngularFactory<T> implements IAngularComponent {
         public getComponentType(): ComponentType {
             return ComponentType.AngularFactory;
         }
-        public factory(dependencies: TIn): TOut {
+        public factory(...dependencies: any[]): T {
             throw new Error("No factory method implementation in AngularFactory sub-class. All sub-classes must implement factory.")
         }
     }
@@ -77,10 +77,10 @@ module Main {
         var moduleMembers: string[], angularModule: any;
 
         moduleMembers = Object.keys(applicationModule)
-            .filter(x => applicationModule.hasOwnProperty(x) && typeof(applicationModule[x]) === "function");
+            .filter(x => applicationModule.hasOwnProperty(x) && typeof (applicationModule[x]) === "function");
         angularModule = angular.module(moduleName, []);
 
-        for (var i = 0, iMax = moduleMembers.length; i < iMax ; i++) {
+        for (var i = 0, iMax = moduleMembers.length; i < iMax; i++) {
             registerComponent(angularModule, applicationModule, moduleMembers[i]);
         }
     }
@@ -96,7 +96,7 @@ module Main {
             componentType: ComponentType;
 
         component = applicationModule[componentName];
-        if (typeof(component.prototype.getComponentType) !== "function") {
+        if (typeof (component.prototype.getComponentType) !== "function") {
             return;
         }
 
@@ -118,7 +118,7 @@ module Main {
     function registerService(angularModule: any, componentName: string, serviceComponent: any): void {
         var serviceName = serviceComponent.serviceName;
         if (!serviceName) {
-            throw new Error(componentName+" does not provide the static property serviceName.");
+            throw new Error(componentName + " does not provide the static property serviceName.");
         }
         angularModule.config(["$provide", ($provide) => $provide.service(serviceName, serviceComponent)]);
     }
@@ -130,11 +130,16 @@ module Main {
     * @param factoryComponent The Angular factory to register.
     **/
     function registerFactory(angularModule: any, factoryName: string, factoryComponent: any): void {
-        var factoryRegistrationName : string;
+        var factoryRegistrationName: string,
+            factoryContainer: AngularFactory<any>;
+        factoryContainer = new factoryComponent();
         // Since we are leaving angular convention slightly with factories and are utilizing classes,
         // the names of factories need to be adjusted slightly.
-        factoryRegistrationName= factoryName[0].toUpperCase() + factoryName.slice(1);
-        angularModule.config(["$provide", ($provide) => $provide.factory(factoryRegistrationName, factoryComponent.factory)]);
+        factoryRegistrationName = factoryName[0].toLowerCase() + factoryName.slice(1);
+        if (factoryComponent.$inject) {
+            factoryContainer.factory.$inject = factoryComponent.$inject;
+        }
+        angularModule.config(["$provide", ($provide) => $provide.factory(factoryRegistrationName, factoryContainer.factory)]);
     }
 
     /**
