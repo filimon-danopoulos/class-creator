@@ -6,6 +6,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-concurrent');
 
     /**
      * Configure NPM dependencies for the project
@@ -96,10 +98,35 @@ module.exports = function(grunt) {
                 script: 'server.js',
                 options: {
                     cwd: 'src/app/',
-                    ignore: ['node_modules/**'],
+                    ignore: ['node_modules/**', 'src/app/public/**'],
                     delay: 500,
                     ext: 'js'
                 }
+            }
+        },/* grunt-contrib-watch configuration */
+        watch: {
+            /*
+             * Watches for client typescript changes and runs the concat task
+             * */
+            'client-dev': {
+                 files: 'src/app/public/**/*.js',
+                 tasks: ['concat:app-js-dev'],
+                 options: {
+                    spawn: false
+                 }
+            }
+        },
+        /* grunt-concurent configuration*/
+        concurrent: {
+            /*
+             * Runs the a watch task and nodemon in parallel
+             * */
+            'serve-dev': [
+                'watch:client-dev',
+                'nodemon:serve-dev'
+
+            options: {
+                logConcurrentOutput: true
             }
         }
     });
@@ -108,23 +135,21 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['test']);
 
     /* Main tasks */
-    grunt.registerTask('serve', ['concat:app-js-dev', 'nodemon:serve-dev']);
+    grunt.registerTask('serve', ['build-dev', 'concurrent:serve-dev']);
 
     /* Test tasks */
-    grunt.registerTask('test', ['concat:app-js-dev', 'mochaTest:long-output']);
-    grunt.registerTask('test-succint', ['concat:app-js-dev', 'mochaTest:short-output']);
+    grunt.registerTask('test', ['build-dev', 'mochaTest:long-output']);
+    grunt.registerTask('test-succint', ['build-dev', 'mochaTest:short-output']);
+
+    /* Build tasks */
+    grunt.registerTask('build-dev', [
+        'init-thirdparty',
+        'concat:app-js-dev'
+    ]);
 
     grunt.registerTask('init-thirdparty', [
         'concat:thirdparty-js-dev',
         'concat:thirdparty-css-dev',
         'copy:thirdparty-misc-dev'
-    ]);
-
-    /* Build tasks */
-    grunt.registerTask('build-dev', [
-        'concat:thirdparty-js-dev',
-        'concat:thirdparty-css-dev',
-        'copy:thirdparty-misc-dev',
-        'concat:app-js-dev'
     ]);
 };
