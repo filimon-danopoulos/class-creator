@@ -13,12 +13,17 @@ module App.Home {
         selectedTab: IHomeTab;
         tabs: IHomeTab[];
         hasResult: boolean;
-        JSONInput?: string;
+        result: string;
+        JSONInput: string;
     }
 
     export class HomeController extends Main.AngularController implements IHomeController {
-        public static $inject = ["csharpService", "tabs"];
-        constructor(private csharpService: App.Services.ICsharpService, public tabs: IHomeTab[]) {
+        public static $inject = ["csharpService" /*, "logger"*/, "tabs"];
+        constructor(
+            private csharpService: App.Services.ICsharpService,
+            //private logger: App.Common.ILogger,
+            public tabs: IHomeTab[]
+            ) {
             super();
             var initiallyActiveTab: number;
             initiallyActiveTab = 0;
@@ -31,6 +36,7 @@ module App.Home {
         public selectedTab: IHomeTab;
         public JSONInput: string;
         public hasResult: boolean;
+        public result: string;
 
         public setSelectedTab = (tab: IHomeTab): void => {
             this.selectedTab = tab;
@@ -39,7 +45,13 @@ module App.Home {
         }
 
         public submitJSON = () => {
-            alert(this.JSONInput);
+            this.csharpService.getCodeStringFromJSON(Common.ServiceMethod.GET, this.JSONInput)
+                .then((result) => {
+                    this.result = result;
+                    this.hasResult = true;
+                }, (x) => {
+                    //this.logger.error("Could not retrieve class with the provided JSON. Error: " + JSON.stringify(x));
+                });
         };
     }
 }

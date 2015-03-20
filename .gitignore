@@ -36,4 +36,5 @@ bower_components
 # Build files
 build
 src/**/*.js
+src/**/*.js.map
 src/app/public/thirdparty/**/*

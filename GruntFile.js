@@ -58,7 +58,10 @@ module.exports = function(grunt) {
                     '!src/app/public/scripts/App.js',
                     'src/app/public/scripts/App.js'
                 ],
-                dest: 'src/app/public/scripts/bundle.js'
+                dest: 'src/app/public/scripts/bundle.js',
+                options: {
+                    sourceMap: true
+                }
             }
         },
         /* grunt-mocha-test configuration */
