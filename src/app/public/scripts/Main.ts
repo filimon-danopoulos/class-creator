@@ -50,12 +50,14 @@ module Main {
         }
     }
 
-    export class AngularValue implements IAngularComponent {
+    export class AngularValue<T> implements IAngularComponent {
         public getComponentType(): ComponentType {
             return ComponentType.AngularValue;
         }
         public name: string;
-        public value: any;
+        public value(): T {
+            return null;
+        }
     }
 
     export enum ComponentType {
@@ -152,13 +154,13 @@ module Main {
     * @param valueComponent The value component to register.
     **/
     function registerValue(angularModule: any, valueName: string, valueComponent: any): void {
-        var valueInstance: AngularValue,
+        var valueInstance: AngularValue<any>,
             name: string,
             value: any;
 
-        valueInstance = <AngularValue> new valueComponent();
+        valueInstance = <AngularValue<any>> new valueComponent();
         name = valueInstance.name;
-        value = valueInstance.value;
+        value = valueInstance.value();
 
         if (!name) {
             throw new Error(valueName + " does not provide a name property");
