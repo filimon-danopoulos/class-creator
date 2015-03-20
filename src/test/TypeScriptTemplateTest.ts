@@ -1,6 +1,3 @@
-/// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../lib/contracts/index.d.ts" />
-
 import assert = require("assert");
 
 import TypeScriptClassTemplate = require("../lib/generators/typescript/TypeScriptClassTemplate");
@@ -20,7 +17,7 @@ describe("TypeScriptClassTemplate ", function() {
                 var current = placeHolders[i];
                 assert(validPlaceHolders.indexOf(current) !== -1, current+" is not a valid placeholder");
             }
-        });    
+        });
     });
 });
 
@@ -33,7 +30,7 @@ describe("TypeScriptConstantTemplate", function() {
                 var current = placeHolders[i];
                 assert(validPlaceHolders.indexOf(current) !== -1, current+" is not a valid placeholder");
             }
-        });    
+        });
     });
 });
 
@@ -46,6 +43,6 @@ describe("TypeScriptMemberTemplate", function() {
                 var current = placeHolders[i];
                 assert(validPlaceHolders.indexOf(current) !== -1, current+" is not a valid placeholder");
             }
-        });    
+        });
     });
 });

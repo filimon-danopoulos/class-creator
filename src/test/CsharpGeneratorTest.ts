@@ -1,6 +1,3 @@
-/// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../lib/contracts/index.d.ts" />
-
 import assert = require("assert");
 import CsharpGenerator = require("../lib/generators/csharp/CsharpGenerator");
 
@@ -9,9 +6,9 @@ describe("CsharpGenerator", function () {
     describe("generate",  function() {
         it("should return a string representing a class, test 1", function() {
             var tokens = [{
-                name: "Test", 
-                type: "string", 
-                construct: "property", 
+                name: "Test",
+                type: "string",
+                construct: "property",
                 accessor: "public"
             }];
             var result = generator.generate("TestClass", tokens);

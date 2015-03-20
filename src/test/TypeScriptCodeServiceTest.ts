@@ -1,6 +1,3 @@
-/// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../lib/contracts/index.d.ts" />
-
 import assert = require("assert");
 
 import TypeScriptCodeService = require("../lib/services/TypeScriptCodeService");
@@ -9,7 +6,7 @@ import StandardTokenizer = require("../lib/tokenizers/StandardTokenizer");
 
 describe("TypeScriptCodeService", function() {
     var service = new TypeScriptCodeService(
-        new JsonParser(), 
+        new JsonParser(),
         new StandardTokenizer()
     );
     describe("getCodeAsString", function() {
@@ -18,8 +15,8 @@ describe("TypeScriptCodeService", function() {
                     testString: "Test",
                     _testInt: 2,
                     TEST_BOOL: true,
-                    _TestArray: []    
-                }, 
+                    _TestArray: []
+                },
                 result = service.getCodeAsString(input).replace(/\n/g, ""),
                 expected = [
                     "class RootClass {",
@@ -72,8 +69,8 @@ describe("TypeScriptCodeService", function() {
                 testString: "Test",
                 _testInt: 2,
                 TEST_BOOL: true,
-                _TestArray: []    
-            }, 
+                _TestArray: []
+            },
             result = service.getCodeAsStrings(input).map(function(x) { return x.replace(/\n/g, "")}),
             expected = [[
                 "class RootClass {",
@@ -111,7 +108,7 @@ describe("TypeScriptCodeService", function() {
                  "}"].join("")
             ];
             assert(JSON.stringify(result) === JSON.stringify(expected));
-    
+
         });
     })
 });

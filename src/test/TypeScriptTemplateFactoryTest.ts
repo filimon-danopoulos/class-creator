@@ -1,7 +1,3 @@
-/// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../lib/contracts/index.d.ts" />
-
-
 import assert = require("assert");
 import TypeScriptTemplateFactory = require("../lib/generators/typescript/TypeScriptTemplateFactory");
 import TypeScriptMemberTemplate = require("../lib/generators/typescript/TypeScriptMemberTemplate");
@@ -30,12 +26,12 @@ describe("TypeScriptTemplateFactory", function() {
         });
         it("should return a TypeScriptConstantTemplate for a token that is a constant", function() {
             var result = factory.getTemplate({
-                name: "TEST", 
+                name: "TEST",
                 type: "string",
                 accessor: "private",
                 construct: "constant"
             });
             assert(result instanceof TypeScriptConstantTemplate);
         });
-    });    
+    });
 });

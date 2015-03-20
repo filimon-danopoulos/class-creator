@@ -1,7 +1,3 @@
-/// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../lib/contracts/index.d.ts" />
-
-
 import assert = require("assert");
 import TypeScriptGeneratorHelper = require("../lib/generators/typescript/TypeScriptGeneratorHelper");
 import TypeScriptClassTemplate = require("../lib/generators/typescript/TypeScriptClassTemplate");
@@ -16,7 +12,7 @@ describe("TypeScriptGeneratorHelper", function() {
     });
     describe("generateMember", function() {
         it("should return a string representing a private member for a private token", function() {
-            var input = { 
+            var input = {
                     name: "test",
                     type: "string",
                     accessor: "private",
@@ -26,17 +22,17 @@ describe("TypeScriptGeneratorHelper", function() {
             assert(/^private .*?$/.test(result));
         });
         it("should return a string representing a public member for a public token", function() {
-            var input = { 
+            var input = {
                     name: "test",
                     type: "string",
                     accessor: "public",
                     construct: "field"
                 },
                 result = helper.generateMember(input);
-            assert(/^public .*?$/.test(result)); 
+            assert(/^public .*?$/.test(result));
         });
         it("should return a string representing a string member for a string token", function() {
-            var input = { 
+            var input = {
                     name: "test",
                     type: "string",
                     accessor: "private",
@@ -46,7 +42,7 @@ describe("TypeScriptGeneratorHelper", function() {
             assert(/^.*?\:string;$/.test(result));
         });
         it("should return a string representing an number member for an integer token", function() {
-            var input = { 
+            var input = {
                     name: "test",
                     type: "integer",
                     accessor: "private",
@@ -56,7 +52,7 @@ describe("TypeScriptGeneratorHelper", function() {
             assert(/^.*?\:number;$/.test(result));
         });
         it("should return a string representing a number for a float token", function() {
-            var input = { 
+            var input = {
                     name: "test",
                     type: "float",
                     accessor: "private",
@@ -66,7 +62,7 @@ describe("TypeScriptGeneratorHelper", function() {
             assert(/^.*?\:number;$/.test(result));
         });
         it("should return a string representing a custom type for custom type token", function() {
-            var input = { 
+            var input = {
                     name: "test",
                     type: "Test",
                     accessor: "private",
@@ -80,10 +76,10 @@ describe("TypeScriptGeneratorHelper", function() {
                     name: "test",
                     type: "array",
                     accessor: "private",
-                    construct: "field"    
-                }, 
+                    construct: "field"
+                },
                 result = helper.generateMember(input);
-             assert(/^.*?\:any\[\];$/.test(result));    
+             assert(/^.*?\:any\[\];$/.test(result));
         });
         it("should return a string representing a boolean for a boolean token", function() {
             var input = {
@@ -93,10 +89,10 @@ describe("TypeScriptGeneratorHelper", function() {
                     construct: "field"
                 },
                 result = helper.generateMember(input);
-             assert(/.*?\:boolean;/.test(result));       
+             assert(/.*?\:boolean;/.test(result));
         });
         it("should return a string representing a member for a field token", function(){
-            var input = { 
+            var input = {
                     name: "test",
                     type: "float",
                     accessor: "private",
@@ -106,7 +102,7 @@ describe("TypeScriptGeneratorHelper", function() {
             assert(/^\w*? .*?\:.*?;$/.test(result));
         });
         it("should return a string representing a member for a field property", function() {
-            var input = { 
+            var input = {
                     name: "test",
                     type: "float",
                     accessor: "private",
@@ -116,7 +112,7 @@ describe("TypeScriptGeneratorHelper", function() {
             assert(/^\w*? .*?\:.*?;$/.test(result));
         });
         it("should return a string representing a member for a constant token", function() {
-            var input = { 
+            var input = {
                     name: "test",
                     type: "float",
                     accessor: "private",
@@ -133,7 +129,7 @@ describe("TypeScriptGeneratorHelper", function() {
                     construct: "property"
                 },
                 result = helper.generateMember(input),
-                expected = "private Test:string;";    
+                expected = "private Test:string;";
             assert(result === expected);
         });
         it("should handle a field token correctly", function() {
@@ -144,7 +140,7 @@ describe("TypeScriptGeneratorHelper", function() {
                     construct: "field"
                 },
                 result = helper.generateMember(input),
-                expected = "public test:number;";    
+                expected = "public test:number;";
             assert(result === expected);
         });
         it("should handle a constant token correctly", function() {
@@ -153,28 +149,28 @@ describe("TypeScriptGeneratorHelper", function() {
                     type: "float",
                     accessor: "private",
                     construct: "constant"
-                }, 
+                },
                 result = helper.generateMember(input),
                 expected = "private static TEST:number;";
-            assert(result === expected);    
+            assert(result === expected);
         });
     });
     describe("getType", function() {
         it("should return number for integer", function() {
             var result = helper.getType("integer");
-            assert(result === "number");    
+            assert(result === "number");
         });
         it("should return number for float", function() {
             var result = helper.getType("float");
-            assert(result === "number");    
+            assert(result === "number");
         });
         it("should return string for string", function() {
             var result = helper.getType("string");
-            assert(result === "string");    
+            assert(result === "string");
         });
         it("should return any[] for array", function() {
             var result = helper.getType("array");
-            assert(result === "any[]");    
+            assert(result === "any[]");
         });
         it("should return boolean for boolean", function() {
             var result = helper.getType("boolean");

@@ -1,29 +1,26 @@
-/// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../lib/contracts/index.d.ts" />
-
 import assert = require("assert");
 import StandardTokenizer = require("../lib/tokenizers/StandardTokenizer");
 
 describe("StandardTokenizer", function() {
     "use strict";
     var tokenizer = new StandardTokenizer();
-    describe("tokenize", function() {      
+    describe("tokenize", function() {
         it("should return a private when the property starts with a _", function() {
             var input = { _TEST: "test" },
                 result = tokenizer.tokenize(input);
             assert(result[0].tokens[0].accessor === "private");
-        });   
+        });
         it("should return a public when property doesn't start with a _", function() {
             var input = { TEST: "1.0" },
                 result = tokenizer.tokenize(input);
             assert(result[0].tokens[0].accessor === "public");
-        }); 
+        });
 
         it("should return a constant when property is all upper case", function() {
             var input = { _TEST: "1.0" },
                 result = tokenizer.tokenize(input);
             assert(result[0].tokens[0].construct === "constant");
-        }); 
+        });
         it("should return a field when property starts a lower case letter", function() {
             var input = { _test: "test" },
                 result = tokenizer.tokenize(input);
@@ -53,28 +50,28 @@ describe("StandardTokenizer", function() {
         it("should return a boolean when property has a boolean value", function() {
             var input = { Test: true },
                 result = tokenizer.tokenize(input);
-            assert(result[0].tokens[0].type === "boolean");    
-        }); 
+            assert(result[0].tokens[0].type === "boolean");
+        });
         it("should return an array when property has an array value", function() {
             var input = { Test: []},
                 result = tokenizer.tokenize(input);
-            assert(result[0].tokens[0].type === "array");    
+            assert(result[0].tokens[0].type === "array");
         });
         it("should return a correctly formated name for private class fields", function() {
             var input = {
                     _test: {
                         innerField1: "test",
-                        innerField2: 1    
-                    }    
+                        innerField2: 1
+                    }
                 },
                 expected = [{
-                    className: "rootClass", 
+                    className: "rootClass",
                     tokens: [{
                         name: "test",
                         type: "test",
                         construct: "field",
-                        accessor: "private"    
-                    }]   
+                        accessor: "private"
+                    }]
                 }, {
                     className: "test",
                     tokens: [{
@@ -84,12 +81,12 @@ describe("StandardTokenizer", function() {
                         accessor: "public"
                     }, {
                         name: "innerField2",
-                        type: "integer", 
-                        construct: "field", 
-                        accessor: "public"    
-                    }] 
+                        type: "integer",
+                        construct: "field",
+                        accessor: "public"
+                    }]
                 }],
-                result = tokenizer.tokenize(input);    
+                result = tokenizer.tokenize(input);
             assert(JSON.stringify(result) === JSON.stringify(expected));
 
         });
@@ -97,17 +94,17 @@ describe("StandardTokenizer", function() {
             var input = {
                 classOne: {
                     intField: 1,
-                    _privateStringField: "test"    
+                    _privateStringField: "test"
                 },
                 IntProperty: 3,
                 ClassTwo: {
-                    _PrivateFloatProperty: "4.0", 
-                    CONSTANT_STRING: "test", 
+                    _PrivateFloatProperty: "4.0",
+                    CONSTANT_STRING: "test",
                     CLASS_THREE: {
                         stringField: "test",
-                        _PRIVATE_CONSTANT_INT: 7    
-                    }    
-                }   
+                        _PRIVATE_CONSTANT_INT: 7
+                    }
+                }
             };
             var result = tokenizer.tokenize(input);
             var expected = [{
@@ -115,7 +112,7 @@ describe("StandardTokenizer", function() {
                 tokens: [{
                     name: "classOne",
                     type: "classOne",
-                    construct: "field",    
+                    construct: "field",
                     accessor: "public"
                 }, {
                     name: "IntProperty",
@@ -125,9 +122,9 @@ describe("StandardTokenizer", function() {
                 }, {
                     name: "ClassTwo",
                     type: "ClassTwo",
-                    construct: "property", 
+                    construct: "property",
                     accessor: "public"
-                }]    
+                }]
             }, {
                 className: "classOne",
                 tokens: [{
@@ -138,9 +135,9 @@ describe("StandardTokenizer", function() {
                 }, {
                     name: "privateStringField",
                     type: "string",
-                    construct: "field", 
+                    construct: "field",
                     accessor: "private"
-                }]    
+                }]
             }, {
                 className: "ClassTwo",
                 tokens: [{
@@ -158,7 +155,7 @@ describe("StandardTokenizer", function() {
                     type: "CLASS_THREE",
                     construct: "constant",
                     accessor: "public"
-                }]    
+                }]
             }, {
                 className: "CLASS_THREE",
                 tokens: [{
@@ -171,7 +168,7 @@ describe("StandardTokenizer", function() {
                     type: "integer",
                     construct: "constant",
                     accessor: "private"
-                }]    
+                }]
             }];
             assert(JSON.stringify(result) === JSON.stringify(expected));
         });

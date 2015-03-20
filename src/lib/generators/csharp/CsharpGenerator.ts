@@ -1,11 +1,9 @@
-/// <reference path="../../contracts/index.d.ts" />
-
 import CsharpGeneratorHelper = require("./CsharpGeneratorHelper");
 
 class CsharpGenerator implements ICodeGenerator {
     constructor() {
-        this.helper = new CsharpGeneratorHelper();    
-    } 
+        this.helper = new CsharpGeneratorHelper();
+    }
     generate(className: string, tokens: IToken[]) : string {
         var classTemplate = this.helper.getTemplate();
         var members: string[] = [];
@@ -18,7 +16,7 @@ class CsharpGenerator implements ICodeGenerator {
         result = result.replace("{{className}}", className);
         result = result.replace("{{members}}", classContent);
 
-        return result; 
+        return result;
     }
     helper: ICodeGeneratorHelper;
 }

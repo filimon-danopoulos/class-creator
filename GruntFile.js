@@ -71,7 +71,7 @@ module.exports = function(grunt) {
                     reporter: 'dot',
                     clearRequireCache: true
                 },
-                src: ['build/test/**/*.js']
+                src: ['src/test/**/*.js']
             },
             /**
              * Runs all library test and reports the result as a BDD spec.
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
                     reporter: 'spec',
                     clearRequireCache: true
                 },
-                src: ['build/test/**/*.js']
+                src: ['src/test/**/*.js']
             }
         },
         /* grunt-nodemon configuration */

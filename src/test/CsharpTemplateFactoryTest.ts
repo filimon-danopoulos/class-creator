@@ -1,7 +1,3 @@
-/// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../lib/contracts/index.d.ts" />
-
-
 import assert = require("assert");
 import CsharpTemplateFactory = require("../lib/generators/csharp/CsharpTemplateFactory");
 import CsharpPropertyTemplate = require("../lib/generators/csharp/CsharpPropertyTemplate");
@@ -31,12 +27,12 @@ describe("CsharpTemplateFactory", function() {
         });
         it("should return a CsharpConstantTemplate for a token that is a constant", function() {
             var result = factory.getTemplate({
-                name: "TEST", 
+                name: "TEST",
                 type: "string",
                 accessor: "private",
                 construct: "constant"
             });
             assert(result instanceof CsharpConstantTemplate);
         });
-    });    
+    });
 });

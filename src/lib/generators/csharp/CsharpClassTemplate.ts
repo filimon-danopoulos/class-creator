@@ -1,5 +1,3 @@
-/// <reference path="../../contracts/index.d.ts" />
-
 class CsharpClassTemplate implements ICodeTemplate {
     getTemplate(): string {
         return [
@@ -7,7 +5,7 @@ class CsharpClassTemplate implements ICodeTemplate {
                 "{{members}}",
             "}"
         ].join('\n')
-    }        
+    }
     getPlaceHolders(): string[] {
         var template = this.getTemplate();
         return template.match(/\{\{(.*?)\}\}/g).map(x => x.slice(2,-2));
@@ -15,4 +13,3 @@ class CsharpClassTemplate implements ICodeTemplate {
 }
 
 export = CsharpClassTemplate;
-

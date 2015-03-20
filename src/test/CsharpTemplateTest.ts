@@ -1,6 +1,3 @@
-/// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../lib/contracts/index.d.ts" />
-
 import assert = require("assert");
 
 import CsharpConstantTemplate = require("../lib/generators/csharp/CsharpConstantTemplate");
@@ -19,7 +16,7 @@ describe("CsharpConstantTemplate", function() {
                 var current = placeHolders[i];
                 assert(validPlaceHolders.indexOf(current) !== -1, current+" is not a valid placeholder");
             }
-        });    
+        });
     });
 
 });
@@ -33,7 +30,7 @@ describe("CsharpPropertyTemplate ", function() {
                 var current = placeHolders[i];
                 assert(validPlaceHolders.indexOf(current) !== -1, current+" is not a valid placeholder");
             }
-        });    
+        });
     });
 
 });
@@ -47,7 +44,7 @@ describe("CsharpFieldTemplate ", function() {
                 var current = placeHolders[i];
                 assert(validPlaceHolders.indexOf(current) !== -1, current+" is not a valid placeholder");
             }
-        });    
+        });
     });
 
 });
@@ -62,8 +59,7 @@ describe("CsharpClassTemplate ", function() {
                 var current = placeHolders[i];
                 assert(validPlaceHolders.indexOf(current) !== -1, current+" is not a valid placeholder");
             }
-        });    
+        });
     });
 
 });
-

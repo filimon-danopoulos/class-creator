@@ -1,12 +1,10 @@
-/// <reference path="../contracts/index.d.ts" />
-
 import CsharpGenerator = require("../generators/csharp/CsharpGenerator");
 
 class CsharpCodeService implements ICodeService {
     constructor(parser: IParser, tokenizer: ITokenizer) {
         this.parser = parser;
         this.tokenizer = tokenizer;
-        this.generator = new CsharpGenerator(); 
+        this.generator = new CsharpGenerator();
     }
     getCodeAsString(data: {[key: string]: string}): string {
         var result = "";
@@ -16,7 +14,7 @@ class CsharpCodeService implements ICodeService {
            result += "\n"+this.generator.generate(tokenized[i].className, tokenized[i].tokens);
         }
         return result;
-    }       
+    }
     getCodeAsStrings(data: {[key: string]: string}): string[] {
         var result = [];
         var parsed = this.parser.parse(data);
@@ -25,7 +23,7 @@ class CsharpCodeService implements ICodeService {
            result.push(this.generator.generate(tokenized[i].className, tokenized[i].tokens));
         }
         return result;
-   
+
     }
     parser: IParser;
     tokenizer: ITokenizer;

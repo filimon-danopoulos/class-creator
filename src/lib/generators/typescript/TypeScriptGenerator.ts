@@ -1,10 +1,8 @@
-/// <reference path="../../contracts/index.d.ts" />
-
 import TypeScriptGeneratorHelper = require("./TypeScriptGeneratorHelper");
 
 class TypeScriptGenerator implements ICodeGenerator {
     constructor() {
-        this.helper = new TypeScriptGeneratorHelper();    
+        this.helper = new TypeScriptGeneratorHelper();
     }
     generate(className: string, tokens: IToken[]) : string {
         var classTemplate = this.helper.getTemplate();
@@ -18,9 +16,9 @@ class TypeScriptGenerator implements ICodeGenerator {
         result = result.replace("{{className}}", className);
         result = result.replace("{{members}}", classContent);
 
-        return result; 
+        return result;
 
-    } 
+    }
     helper: ICodeGeneratorHelper;
 }
 

@@ -1,6 +1,3 @@
-/// <reference path="../thirdparty/mocha/mocha.d.ts" />
-/// <reference path="../lib/contracts/index.d.ts" />
-
 import assert = require("assert");
 import StandardTokenizerHelper = require("../lib/tokenizers/StandardTokenizerHelper");
 
@@ -13,14 +10,14 @@ describe("StandardTokinezerHelper", function() {
         });
         it("should return public if first char is not _", function() {
            var result = helper.getAccessor("test");
-           assert(result === "public"); 
+           assert(result === "public");
         });
     });
-    describe("getConstruct", function() { 
+    describe("getConstruct", function() {
         it("should return constant when all chars are upper case", function() {
             var result = helper.getConstruct("TEST");
             assert(result === "constant");
-        }); 
+        });
         it("should return constant when first char is _ and all other chars are upper case", function() {
             var result = helper.getConstruct("TEST");
             assert(result === "constant");
@@ -74,31 +71,31 @@ describe("StandardTokinezerHelper", function() {
             assert(result === "integer");
         });
         it("should return float for a string value that is a number with a decimal", function() {
-            var result = helper.getType("test", "4.0");    
+            var result = helper.getType("test", "4.0");
             assert(result === "float");
         });
         it("should return string for a non-numeric string", function() {
             var result = helper.getType("test", "test");
-            assert(result === "string");    
+            assert(result === "string");
         });
         it("should return boolean for a boolean", function() {
             var result = helper.getType("test", true);
-            assert(result === "boolean");    
+            assert(result === "boolean");
         });
         it("should return array for an array", function() {
-            var result = helper.getType("test", ["test"]);    
+            var result = helper.getType("test", ["test"]);
             assert(result === "array");
         });
         it("should return an object name when an object is passed", function() {
             var result = helper.getType("test", {});
             assert(result === "test");
-        }); 
+        });
         it("should return a custom class name without a leading _ an object is passed that has a leading _ in the name.", function() {
             var result = helper.getType("_TEST", {});
-            assert(result === "TEST");    
+            assert(result === "TEST");
         });
     });
-    describe("getTokensForObject", function() { 
+    describe("getTokensForObject", function() {
         it("should return the same number of tokens as there are properties", function() {
             var result = helper.getTokensForObject({
                 test: "test",
@@ -120,27 +117,27 @@ describe("StandardTokinezerHelper", function() {
                     name: "stringField",
                     type: "string",
                     construct: "field",
-                    accessor: "public"    
+                    accessor: "public"
                 }, {
                     name: "privateFloatField",
                     type: "float",
                     construct: "field",
-                    accessor: "private"    
+                    accessor: "private"
                 }, {
                     name: "IntProperty",
                     type: "integer",
                     construct: "property",
-                    accessor: "public"    
+                    accessor: "public"
                 }, {
                     name: "PrivateBoolProperty",
                     type: "boolean",
                     construct: "property",
-                    accessor: "private"    
+                    accessor: "private"
                 }, {
                     name: "ARRAY_CONSTANT",
                     type: "array",
                     construct: "constant",
-                    accessor: "public"    
+                    accessor: "public"
                 }, {
                     name: "PRIVATE_OBJECT_CONSTANT",
                     type: "PRIVATE_OBJECT_CONSTANT",
@@ -148,7 +145,7 @@ describe("StandardTokinezerHelper", function() {
                     accessor: "private"
                 }];
             assert(JSON.stringify(result) === JSON.stringify(expected));
-        });       
+        });
     });
     describe("getObjects", function() {
         it("should return nothing when no nested classes exist", function() {
@@ -161,24 +158,24 @@ describe("StandardTokinezerHelper", function() {
                     shouldNotBeReturned: "test",
                     shouldBeReturned1: {},
                     shouldBeReturned2: {
-                        shoudlNotBeReturned: "test"    
+                        shoudlNotBeReturned: "test"
                     }
                 },
-                result = helper.getObjects(input);    
-            assert(result.length === 2); 
+                result = helper.getObjects(input);
+            assert(result.length === 2);
         });
         it("should return all nested objects from the input", function() {
             var input = {
                     shouldNotBeReturned: "test",
                     shouldBeReturned1: {},
                     shouldBeReturned2: {
-                        shoudlNotBeReturned: "test"    
+                        shoudlNotBeReturned: "test"
                     }
                 },
                 result = helper.getObjects(input);
             assert(result.length === 2);
             assert(result[0].name === "shouldBeReturned1");
-            assert(result[1].name === "shouldBeReturned2"); 
+            assert(result[1].name === "shouldBeReturned2");
         });
         it("should return all the objects from the input, regardless of nesting", function() {
             var input = {
@@ -190,16 +187,15 @@ describe("StandardTokinezerHelper", function() {
                         shouldNotBeReturned: "test"
                     },
                     shouldBeReturned4: {
-                        shoudlNotBeReturned: "test"    
+                        shoudlNotBeReturned: "test"
                     }
                 },
                 result = helper.getObjects(input);
             assert(result.length === 4);
             assert(result[0].name === "shouldBeReturned1");
-            assert(result[1].name === "shouldBeReturned2"); 
+            assert(result[1].name === "shouldBeReturned2");
             assert(result[2].name === "shouldBeReturned3");
-            assert(result[3].name === "shouldBeReturned4");    
-        });    
+            assert(result[3].name === "shouldBeReturned4");
+        });
     });
 });
-  

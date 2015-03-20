@@ -1,13 +1,12 @@
-/// <reference path="../contracts/index.d.ts" />
 import Token = require("./Token");
 
 class StandardTokenizerHelper implements ITokenizerHelper {
-    getName(propertyName: string) {  
+    getName(propertyName: string) {
         if (propertyName[0] === '_') {
             propertyName = propertyName.slice(1);
         }
         return propertyName;
-    }  
+    }
     getType(propertyName: string, property: any) {
         switch (typeof property) {
             case "boolean": return "boolean";
@@ -22,18 +21,18 @@ class StandardTokenizerHelper implements ITokenizerHelper {
     }
     getConstruct(propertyName) {
         if (propertyName[0] === '_') {
-            propertyName = propertyName.slice(1);    
+            propertyName = propertyName.slice(1);
         }
 
         if (propertyName.toUpperCase() === propertyName) {
-            return "constant";    
+            return "constant";
         } else if (propertyName[0].toUpperCase() !== propertyName[0]) {
             return "field";
         } else {
             return "property";
         }
     }
-    
+
     getTokensForObject(input: any): IToken[] {
         var result = [];
         for (var propertyName in input) {
@@ -48,9 +47,9 @@ class StandardTokenizerHelper implements ITokenizerHelper {
             }
         }
         return result;
-    } 
+    }
 
-    
+
     getObjects(input: any): any[] {
         var result = [];
         var keys = Object.keys(input);

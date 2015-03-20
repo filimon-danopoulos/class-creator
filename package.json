@@ -1,28 +1,28 @@
 {
-  "name": "class-generator",
-  "version": "0.1.0",
-  "description": "Generates classes from JSON",
-  "keywords": [
-    "JSON",
-    "generation",
-    "classes"
-  ],
-  "scripts": {
-    "postinstall": "bower install"
-  },
-  "author": "Filimon Danopoulos",
-  "license": "MIT",
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-copy": "^0.7.0",
-    "grunt-mocha-test": "^0.12.7",
-    "grunt-nodemon": "^0.3.0",
-    "mocha": "^2.1.0",
-    "typescript": "^1.4.1"
-  },
-  "dependencies": {
-    "body-parser": "^1.10.2",
-    "express": "^4.11.1"
-  }
+    "name": "class-generator",
+    "version": "0.1.0",
+    "description": "Generates classes from JSON",
+    "keywords": [
+        "JSON",
+        "generation",
+        "classes"
+    ],
+    "scripts": {
+        "postinstall": "bower install && grunt init-thirdparty"
+    },
+    "author": "Filimon Danopoulos",
+    "license": "MIT",
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-contrib-concat": "^0.5.0",
+        "grunt-contrib-copy": "^0.7.0",
+        "grunt-mocha-test": "^0.12.7",
+        "grunt-nodemon": "^0.3.0",
+        "mocha": "^2.1.0",
+        "typescript": "^1.4.1"
+    },
+    "dependencies": {
+        "body-parser": "^1.10.2",
+        "express": "^4.11.1"
+    }
 }
