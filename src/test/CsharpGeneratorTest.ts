@@ -14,7 +14,7 @@ describe("CsharpGenerator", function () {
             var result = generator.generate("TestClass", tokens);
             var expected = [
                 "public class TestClass {",
-                    "public string Test { get; set; }",
+                "    public string Test { get; set; }",
                 "}"
             ].join("\n");
             assert(result == expected);

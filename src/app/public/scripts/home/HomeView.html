@@ -1,8 +1,13 @@
 <div class="nav nav-tabs">
-    <li ng-repeat="tab in home.tabs" ng-class="{active: tab.active}" ng-click="home.setSelectedTab(tab)"><a>{{tab.title}}</a></li>
+    <li ng-repeat="tab in home.tabs" ng-class="{active: tab.active}" ng-click="home.setSelectedTab(tab)">
+      <a>{{tab.title}}</a>
+    </li>
 </div>
 <div class="input-content" ng-include="home.selectedTab.partial"></div>
 <div ng-show="home.hasResult">
     <h1>Result</h1>
     <hr />
+    <pre>
+      {{home.result}}
+    </pre>
 </div>
