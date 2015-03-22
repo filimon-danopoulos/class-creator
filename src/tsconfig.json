@@ -19,6 +19,7 @@
         "./app/public/scripts/about/AboutController.ts",
         "./app/public/scripts/common/HTTPMethod.ts",
         "./app/public/scripts/common/Logger.ts",
+        "./app/public/scripts/common/Vendor.ts",
         "./app/public/scripts/home/HomeController.ts",
         "./app/public/scripts/home/HomeTabs.ts",
         "./app/public/scripts/navigation/NavigationController.ts",
@@ -75,6 +76,7 @@
         "./thirdparty/express/express.d.ts",
         "./thirdparty/jquery/jquery.d.ts",
         "./thirdparty/mocha/mocha.d.ts",
-        "./thirdparty/node/node.d.ts"
+        "./thirdparty/node/node.d.ts",
+        "./thirdparty/toastr/toastr.d.ts"
     ]
 }

@@ -136,6 +136,8 @@ module Main {
         // Since we are leaving angular convention slightly with factories and are utilizing classes,
         // the names of factories need to be adjusted slightly.
         factoryRegistrationName = factoryName[0].toLowerCase() + factoryName.slice(1);
+        // Remove any "Factory" suffix
+        factoryRegistrationName = factoryRegistrationName.replace(/[fF]actory$/, "");
         if (factoryComponent.$inject) {
             factoryContainer.factory.$inject = factoryComponent.$inject;
         }

@@ -6,25 +6,23 @@ module App.Common {
         log(string): void;
     }
 
-    export class Logger extends Main.AngularFactory<ILogger> implements ILogger {
-        public factory(): ILogger {
-            return this;
-        }
-
-        public success(message: string): void {
-            console.log(message);
-        }
-
-        public error(message: string): void {
-            console.log(message);
-        }
-
-        public info(message: string): void {
-            console.log(message);
-        }
-
-        public log(message: string): void {
-            console.log(message);
+    export class LoggerFactory extends Main.AngularFactory<ILogger> {
+        public static $inject = ["$log", "toastr"];
+        public factory($log: ng.ILogService, toastr: Toastr): ILogger {
+            return {
+                success: (message: string): void => {
+                    toastr.success(message, "Success!");
+                },
+                error: (message: string): void => {
+                    toastr.error(message, "Oops...");
+                },
+                info: (message: string): void => {
+                    toastr.info(message, "Information:.");
+                },
+                log: (message: string): void => {
+                    $log.log(message);
+                }
+            };
         }
     }
 }

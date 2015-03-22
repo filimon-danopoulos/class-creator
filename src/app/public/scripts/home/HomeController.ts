@@ -8,13 +8,15 @@ module App.Home {
     }
 
     export interface IHomeController {
-        setSelectedTab: (tab: IHomeTab) => void;
-        submitJSON: () => void;
         selectedTab: IHomeTab;
         tabs: IHomeTab[];
-        hasResult: boolean;
         result: string;
         JSONInput: string;
+
+        setSelectedTab(tab: IHomeTab): void;
+        submitJSON(): void;
+        hasResult(): boolean;
+        reset(): void;
     }
 
     export class HomeController extends Main.AngularController implements IHomeController {
@@ -30,13 +32,15 @@ module App.Home {
 
             this.tabs[initiallyActiveTab].active = true;
             this.selectedTab = this.tabs[initiallyActiveTab];
-            this.hasResult = false;
         }
 
         public selectedTab: IHomeTab;
         public JSONInput: string;
-        public hasResult: boolean;
         public result: string;
+
+        public hasResult(): boolean {
+            return !!this.result;
+        }
 
         public setSelectedTab = (tab: IHomeTab): void => {
             this.selectedTab = tab;
@@ -47,12 +51,15 @@ module App.Home {
         public submitJSON = () => {
             this.csharpService.getCodeStringFromJSON(Common.ServiceMethod.GET, this.JSONInput)
                 .then(result => {
-                    this.result = result;
-                    this.hasResult = true;
-                    this.logger.success("Class generated!");
-                }, error => {
-                    this.logger.error("Could not retrieve class with the provided JSON. Error: " + error);
+                this.result = result;
+                this.logger.success("Class generated!");
+            }, error => {
+                    this.logger.error("Could not retrieve class with the provided JSON.");
                 });
         };
+
+        public reset(): void {
+            this.result = null;
+        }
     }
 }

@@ -1,23 +1,24 @@
 {
-    "name": "class-generator",
-    "version": "0.1.0",
-    "description": "Generates classes from JSON",
-    "keywords": [
-        "JSON",
-        "generation",
-        "classes",
-        "angular"
-    ],
-    "author": "Filimon Danopoulos",
-    "license": "MIT",
-    "dependencies": {
-        "angular": "~1.3.10",
-        "angular-route": "~1.3.10",
-        "jquery": "~2.1.3",
-        "bootstrap": "~3.3.2"
-    },
-    "private": true,
-    "resolutions": {
-        "angular": "~1.3.10"
-    }
+  "name": "class-generator",
+  "version": "0.1.0",
+  "description": "Generates classes from JSON",
+  "keywords": [
+    "JSON",
+    "generation",
+    "classes",
+    "angular"
+  ],
+  "author": "Filimon Danopoulos",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.3.10",
+    "angular-route": "~1.3.10",
+    "jquery": "~2.1.3",
+    "bootstrap": "~3.3.2",
+    "toastr": "~2.1.1"
+  },
+  "private": true,
+  "resolutions": {
+    "angular": "~1.3.10"
+  }
 }

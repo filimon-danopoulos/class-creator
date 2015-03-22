@@ -40,16 +40,18 @@ module.exports = function(grunt) {
              **/
             'thirdparty-js-dev': {
                 src: [
-                    // Have to specifiy angular separately since it is a dependency and has to be loaded first
+                    'bower_components/jquery/dist/jquery.js',
                     'bower_components/angular/angular.js',
-                    'bower_components/angular-route/angular-route.js'
+                    'bower_components/angular-route/angular-route.js',
+                    'bower_components/toastr/toastr.js'
                 ],
                 dest: 'src/app/public/thirdparty/js/vendor.js'
             },
             'thirdparty-css-dev': {
                 src: [
                     'bower_components/bootstrap/dist/css/bootstrap.css',
-                    'bower_components/bootstrap/dist/css/bootstrap-theme.css'
+                    'bower_components/bootstrap/dist/css/bootstrap-theme.css',
+                    'bower_components/toastr/toastr.css'
                 ],
                 dest: 'src/app/public/thirdparty/css/vendor.css'
             },
@@ -58,6 +60,7 @@ module.exports = function(grunt) {
                     'src/app/public/scripts/Main.js',
                     'src/app/public/scripts/**/*.js',
                     '!src/app/public/scripts/App.js',
+                    '!src/app/public/scripts/bundle.js',
                     'src/app/public/scripts/App.js'
                 ],
                 dest: 'src/app/public/scripts/bundle.js',
@@ -103,17 +106,18 @@ module.exports = function(grunt) {
                     ext: 'js'
                 }
             }
-        },/* grunt-contrib-watch configuration */
+        },
+        /* grunt-contrib-watch configuration */
         watch: {
             /*
              * Watches for client typescript changes and runs the concat task
              * */
             'client-dev': {
-                 files: 'src/app/public/**/*.js',
-                 tasks: ['concat:app-js-dev'],
-                 options: {
+                files: 'src/app/public/**/*.js',
+                tasks: ['concat:app-js-dev'],
+                options: {
                     spawn: false
-                 }
+                }
             }
         },
         /* grunt-concurent configuration*/
