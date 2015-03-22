@@ -1,20 +1,6 @@
 <div class="nav nav-tabs">
-    <li ng-repeat="tab in home.tabs" ng-class="{active: tab.active}" ng-click="home.setSelectedTab(tab)">
+    <li ng-repeat="tab in home.tabs" ng-class="{disabled: tab.disabled, active: tab.active}" ng-click="home.setSelectedTab(tab)">
         <a>{{tab.title}}</a>
     </li>
 </div>
 <div class="input-content" ng-include="home.selectedTab.partial"></div>
-<div ng-show="home.hasResult()">
-    <div class="home-result-header row">
-        <h2 class="col-xs-6">Result</h1>
-        <div class="col-xs-6 text-right">
-            <input type="button" class="btn btn-danger" ng-click="home.reset()" value="Reset"></input>
-        </div>
-    </div>
-    <hr />
-    <div class="home-result">
-        <pre>
-            {{home.result}}
-        </pre>
-    </div>
-</div>

@@ -1,15 +1,15 @@
 module App.Services {
 
-    export interface ICsharpService {
+    export interface ICodeService {
         getCodeStringFromJSON(method: Common.ServiceMethod, json: string): ng.IPromise<string>;
     }
 
-    export class CsharpService extends Main.AngularService implements ICsharpService {
+    export class CodeService extends Main.AngularService implements ICodeService {
         public static $inject = ["$http", "$q"];
         constructor(private $http: ng.IHttpService, private $q: ng.IQService ) {
             super()
         }
-        public static serviceName: string = "csharpService";
+        public static serviceName: string = "codeService";
 
         public getCodeStringFromJSON(method: Common.ServiceMethod, json: string): ng.IPromise<string> {
             var deferred = this.$q.defer(),
