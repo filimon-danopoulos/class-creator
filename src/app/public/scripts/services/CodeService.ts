@@ -1,7 +1,7 @@
 module App.Services {
 
     export enum CodeServiceLanguage {
-        CSharp,
+        CSharp = 1,
         TypeScript
     }
 

@@ -3,12 +3,16 @@ module App.Home {
         submitJSON(): void;
         hasResult(): boolean;
         reset(): void;
+
+        isFormatActive(): boolean;
+        isSubmitActive(): boolean;
+
         JSONInput: string;
         languageInput: string;
-        availableLanguages: [{key:string, value: number}];
+        availableLanguages: [{ key: string, value: number }];
     }
 
-    export class JSONFormController extends Main.AngularController {
+    export class JSONFormController extends Main.AngularController implements IJSONFromController {
         public static $inject = ["codeService", "logger"];
         constructor(
             private codeService: App.Services.ICodeService,
@@ -21,17 +25,35 @@ module App.Home {
         public JSONInput: string;
         public result: string;
         public languageInput: string;
-        public availableLanguages: [{key: string, value: number }];
+        public availableLanguages: [{ key: string, value: number }];
+
+        public isFormatActive(): boolean {
+            return !!this.JSONInput;
+        }
+
+        public isSubmitActive(): boolean {
+            return !!this.JSONInput && !!this.languageInput
+        }
 
         public hasResult(): boolean {
             return !!this.result;
         }
 
         public submitJSON(): void {
-            this.codeService.getCodeStringFromJSON(Common.HTTPMethod.GET, parseInt(this.languageInput, 10), this.JSONInput)
+            var languageInputNo: number;
+            languageInputNo = parseInt(this.languageInput, 10);
+
+            this.codeService.getCodeStringFromJSON(Common.HTTPMethod.GET, languageInputNo, this.JSONInput)
                 .then(result => {
+                    var language: string;
+
+                    language = this.availableLanguages
+                        .filter(x => x.value === languageInputNo)
+                        .shift()
+                        .key;
+
                     this.result = result;
-                    this.logger.success("Class generated!");
+                    this.logger.success(language + " class generated!");
                 }, error => this.logger.error("Could not retrieve class with the provided JSON."));
         }
 
@@ -48,12 +70,13 @@ module App.Home {
             }
             if (obj) {
                 this.JSONInput = JSON.stringify(obj, null, 4);
-                this.logger.info("JSON formated!")
+                this.logger.info("JSON successfully formated.")
             }
         }
 
         public reset(): void {
             this.result = null;
+            this.logger.info("Result cleared.")
         }
     }
 }

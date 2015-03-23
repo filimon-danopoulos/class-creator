@@ -16,10 +16,16 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <a class="btn btn-info" ng-click="vm.formatJSON()">
+                <a class="btn"
+                        ng-class="{'btn-info': vm.isFormatActive(), 'btn-default': !vm.isFormatActive()}"
+                        ng-click="vm.formatJSON()"
+                        ng-disabled="!vm.isFormatActive()">
                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;Format
                 </a>
-                <a class="btn btn-success" ng-click="vm.submitJSON()">
+                <a class="btn"
+                        ng-class="{'btn-success': vm.isFormatActive(), 'btn-default': !vm.isFormatActive()}"
+                        ng-click="vm.submitJSON()"
+                        ng-disabled="!vm.isSubmitActive()">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;&nbsp;Submit
                 </a>
             </div>
