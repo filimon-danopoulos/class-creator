@@ -16,7 +16,7 @@ class PythonGenerator implements ICodeGenerator {
 
         for (var i = 0, l = tokens.length; i < l; i++) {
             token = tokens[i];
-            if(token.type === "constant") {
+            if(token.construct === "constant") {
                 staticMembers.push(this.helper.generateMember(token));
             } else {
                 members.push("    "+this.helper.generateMember(token));

@@ -4,7 +4,7 @@ class PythonClassTemplate implements ICodeTemplate {
         return [
             "class {{className}}:",
             "    def __init__(self):",
-            "    {{members}}"
+            "{{members}}"
         ].join('\n')
     }
     getPlaceHolders(): string[] {

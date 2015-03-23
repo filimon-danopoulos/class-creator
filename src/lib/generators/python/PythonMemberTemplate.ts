@@ -1,6 +1,6 @@
 class PythonMemberTemplate implements ICodeTemplate {
     getTemplate(): string {
-        return "{{accessor}}{{name}}={{type}}";
+        return "    {{accessor}}{{name}}={{type}}";
     }
     getPlaceHolders(): string[] {
         var template = this.getTemplate();
