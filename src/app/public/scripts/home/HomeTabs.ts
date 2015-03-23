@@ -5,7 +5,7 @@ module App.Home {
         public value(): IHomeTab[] {
             return [{
                 title: "Define JSON",
-                description: "Provide your own JSON",
+                description: "Define your own JSON and generate code.",
                 partial: "scripts/home/JSONForm.html"
             }, {
                 title: "Simple URL",

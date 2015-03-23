@@ -1,6 +1,6 @@
-<div class="nav nav-tabs">
+<ul class="nav nav-tabs">
     <li ng-repeat="tab in home.tabs" ng-class="{disabled: tab.disabled, active: tab.active}" ng-click="home.setSelectedTab(tab)">
-        <a>{{tab.title}}</a>
+        <a title="{{tab.description}}">{{tab.title}}</a>
     </li>
-</div>
+</ul>
 <div class="input-content" ng-include="home.selectedTab.partial"></div>

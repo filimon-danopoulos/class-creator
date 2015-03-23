@@ -1,9 +1,11 @@
 module App.Home {
     export interface IJSONFromController {
         submitJSON(): void;
-        JSONInput: string;
         hasResult(): boolean;
         reset(): void;
+        JSONInput: string;
+        languageInput: string;
+        availableLanguages: [{key:string, value: number}];
     }
 
     export class JSONFormController extends Main.AngularController {
@@ -13,17 +15,20 @@ module App.Home {
             private logger: App.Common.ILogger
             ) {
             super();
+            this.availableLanguages = this.codeService.getAvailableLanguages();
         }
 
         public JSONInput: string;
         public result: string;
+        public languageInput: string;
+        public availableLanguages: [{key: string, value: number }];
 
         public hasResult(): boolean {
             return !!this.result;
         }
 
         public submitJSON(): void {
-            this.codeService.getCodeStringFromJSON(Common.ServiceMethod.GET, this.JSONInput)
+            this.codeService.getCodeStringFromJSON(Common.HTTPMethod.GET, parseInt(this.languageInput, 10), this.JSONInput)
                 .then(result => {
                     this.result = result;
                     this.logger.success("Class generated!");

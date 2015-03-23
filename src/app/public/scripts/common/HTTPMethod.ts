@@ -1,5 +1,5 @@
 module App.Common {
-    export enum ServiceMethod{
+    export enum HTTPMethod{
         GET,
         POST
     }
