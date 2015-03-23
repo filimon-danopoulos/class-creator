@@ -1,11 +1,11 @@
 import express = require("express");
 
-import PythonCodeService = require("../../lib/services/PythonCodeService");
+import TypeScriptCodeService = require("../../lib/services/TypeScriptCodeService");
 import JsonParser = require("../../lib/parsers/JsonParser");
 import StandardTokenizer = require("../../lib/tokenizers/StandardTokenizer");
 
 var router = express.Router();
-var service = new PythonCodeService(new JsonParser(), new StandardTokenizer());
+var service = new TypeScriptCodeService(new JsonParser(), new StandardTokenizer());
 
 router.get("/string", function(req, res) {
     if (!("json" in req.query)) {
