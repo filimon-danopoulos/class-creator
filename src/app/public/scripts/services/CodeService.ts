@@ -2,7 +2,8 @@ module App.Services {
 
     export enum CodeServiceLanguage {
         CSharp = 1,
-        TypeScript
+        TypeScript,
+        Python
     }
 
     export interface ICodeService {
@@ -28,6 +29,7 @@ module App.Services {
             switch (language) {
                 case CodeServiceLanguage.CSharp: delegate = this.getCsharpStringFromJSON; break;
                 case CodeServiceLanguage.TypeScript: delegate = this.getTypeScriptStringFromJSON; break;
+                case CodeServiceLanguage.Python: delegate = this.getPythonStringFromJSON; break;
                 default: throw Error("Unkown language provided!");
             }
 
@@ -73,6 +75,13 @@ module App.Services {
                 params: {
                     json: json
 
+                }
+            });
+        };
+        private getPythonStringFromJSON: (string) => ng.IPromise<any> = json => {
+            return this.$http.get("api/python/string", {
+                params: {
+                    json: json
                 }
             });
         };
