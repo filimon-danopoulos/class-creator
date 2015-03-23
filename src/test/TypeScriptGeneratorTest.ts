@@ -19,8 +19,8 @@ describe("TypeScriptGenerator", function () {
             var result = generator.generate("TestClass", tokens);
             var expected = [
                 "class TestClass {",
-                    "public Test:string;",
-                    "private stringTest:number;",
+                "    public Test:string;",
+                "    private stringTest:number;",
                 "}"
             ].join("\n");
             assert(result == expected);
