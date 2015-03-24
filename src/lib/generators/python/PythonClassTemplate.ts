@@ -3,7 +3,6 @@ class PythonClassTemplate implements ICodeTemplate {
     getTemplate(): string {
         return [
             "class {{className}}:",
-            "    def __init__(self):",
             "{{members}}"
         ].join('\n')
     }

@@ -1,6 +1,6 @@
 class PythonConstantTemplate implements ICodeTemplate {
     getTemplate(): string {
-        return "    {{name}}={{type}}";
+        return "    {{name}} = {{type}}";
     }
     getPlaceHolders(): string[] {
         var template = this.getTemplate();

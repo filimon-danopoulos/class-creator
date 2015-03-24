@@ -4,7 +4,7 @@ class PythonGenerator implements ICodeGenerator {
     constructor() {
         this.helper = new PythonGeneratorHelper();
     }
-    generate(className: string, tokens: IToken[]) : string {
+    generate(className: string, tokens: IToken[]): string {
         var classTemplate: ICodeTemplate,
             staticMembers: string[],
             members: string[],
@@ -16,15 +16,16 @@ class PythonGenerator implements ICodeGenerator {
 
         for (var i = 0, l = tokens.length; i < l; i++) {
             token = tokens[i];
-            if(token.construct === "constant") {
+            if (token.construct === "constant") {
                 staticMembers.push(this.helper.generateMember(token));
             } else {
-                members.push("    "+this.helper.generateMember(token));
+                members.push("    " + this.helper.generateMember(token));
             }
         }
-        var classContent = members.concat(staticMembers).join("\n");
+        var classContent = members.length ? "    def __init__(self):\n" : "";
+        classContent += members.concat(staticMembers).join("\n");
         var result = classTemplate.getTemplate();
-        className = (className[0].toUpperCase() === className[0] ? className : className[0].toUpperCase()+className.slice(1));
+        className = (className[0].toUpperCase() === className[0] ? className : className[0].toUpperCase() + className.slice(1));
         result = result.replace("{{className}}", className);
         result = result.replace("{{members}}", classContent);
 

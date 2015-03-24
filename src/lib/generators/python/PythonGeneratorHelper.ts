@@ -15,12 +15,12 @@ class PythonGeneratorHelper implements ICodeGeneratorHelper {
         var placeHolders = template.getPlaceHolders();
         for (var i = 0, iLen = placeHolders.length; i < iLen; i++) {
             var placeHolder = placeHolders[i];
-            var parts = templateString.split("{{"+placeHolder+"}}");
+            var parts = templateString.split("{{" + placeHolder + "}}");
             var value = token[placeHolder];
-            if(placeHolder === "type") {
+            if (placeHolder === "type") {
                 value = this.getType(value);
             }
-            if(placeHolder === "accessor") {
+            if (placeHolder === "accessor") {
                 value = this.getAccessor(value);
             }
             templateString = [parts[0], value, parts[1]].join("");
@@ -30,13 +30,13 @@ class PythonGeneratorHelper implements ICodeGeneratorHelper {
     }
 
     getType(type: string): string {
-        switch(type) {
+        switch (type) {
             case "integer": return "1";
             case "float": return "1.0";
             case "string": return "\"\"";
             case "array": return "[]";
             case "boolean": return "False";
-            default: return (type[0].toUpperCase() === type[0] ? type : type[0].toUpperCase()+type.slice(1));
+            default: return (type[0].toUpperCase() === type[0] ? type : type[0].toUpperCase() + type.slice(1));
         }
     }
 
