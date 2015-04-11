@@ -27,6 +27,6 @@
                 </a>
             </div>
         </div>
-        <div ng-show="vm.hasResult()" ng-include src="'scripts/home/templates/ResultPartial.html'"></div>
+        <app-result ng-show="vm.hasResult()" reset="vm.reset()" result="vm.result" />
     </form>
 </div>

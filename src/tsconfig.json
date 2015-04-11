@@ -22,6 +22,7 @@
         "./app/public/scripts/common/Vendor.ts",
         "./app/public/scripts/home/HomeTabs.ts",
         "./app/public/scripts/home/JSONInputDirective.ts",
+        "./app/public/scripts/home/ResultDirective.ts",
         "./app/public/scripts/home/controllers/HomeController.ts",
         "./app/public/scripts/home/controllers/JSONFormController.ts",
         "./app/public/scripts/navigation/NavigationController.ts",

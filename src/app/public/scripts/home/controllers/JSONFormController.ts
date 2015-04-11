@@ -76,7 +76,7 @@ module App.Home {
 
         public reset(): void {
             this.result = null;
-            this.logger.info("Result cleared.")
+            this.logger.warn("Result cleared.")
         }
     }
 }
