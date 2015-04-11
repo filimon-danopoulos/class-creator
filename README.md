@@ -1,4 +1,4 @@
 class-creator
 =============
 
-Creates classes from JSON
+Creates classes from JSON.
