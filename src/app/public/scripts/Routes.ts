@@ -3,7 +3,7 @@ module App {
         public static setUp(routeProvider) {
             routeProvider
                 .when('/', {
-                    templateUrl: 'scripts/home/HomeView.html',
+                    templateUrl: 'scripts/home/templates/HomeView.html',
                     controller: 'HomeController',
                     controllerAs: 'home'
                 })

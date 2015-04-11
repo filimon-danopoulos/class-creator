@@ -40,7 +40,14 @@ module Main {
             return ComponentType.AngularFactory;
         }
         public factory(...dependencies: any[]): T {
-            throw new Error("No factory method implementation in AngularFactory sub-class. All sub-classes must implement factory.")
+            throw new Error("No factory method in AngularFactory sub-class. All sub-classes must implement factory.")
+        }
+    }
+
+    export class AngularDirective extends AngularFactory<ng.IDirective> {
+        public name: string;
+        public getComponentType(): ComponentType {
+            return ComponentType.AngularDirective
         }
     }
 
@@ -64,7 +71,8 @@ module Main {
         AngularService,
         AngularFactory,
         AngularController,
-        AngularValue
+        AngularValue,
+        AngularDirective
     }
 
     /// Implementation Details ///
@@ -103,10 +111,21 @@ module Main {
         componentType = component.prototype.getComponentType();
 
         switch (componentType) {
-            case ComponentType.AngularService: registerService(angularModule, componentName, component); break;
-            case ComponentType.AngularFactory: registerFactory(angularModule, componentName, component); break;
-            case ComponentType.AngularController: registerController(angularModule, componentName, component); break;
-            case ComponentType.AngularValue: registerValue(angularModule, componentName, component); break;
+            case ComponentType.AngularService:
+                registerService(angularModule, componentName, component);
+                break;
+            case ComponentType.AngularFactory:
+                registerFactory(angularModule, componentName, component);
+                break;
+            case ComponentType.AngularController:
+                registerController(angularModule, componentName, component);
+                break;
+            case ComponentType.AngularValue:
+                registerValue(angularModule, componentName, component);
+                break;
+            case ComponentType.AngularDirective:
+                registerDirective(angularModule, componentName, component);
+                break;
         }
     }
 
@@ -151,7 +170,9 @@ module Main {
     * @param controllerComponent The Angular controller to register.
     **/
     function registerController(angularModule: any, controllerName: string, controllerComponent: any): void {
-        angularModule.config(["$controllerProvider", ($controllerProvider) => $controllerProvider.register(controllerName, controllerComponent)]);
+        angularModule.config(["$controllerProvider", ($controllerProvider) =>
+            $controllerProvider.register(controllerName, controllerComponent)
+        ]);
     }
 
     /**
@@ -177,6 +198,18 @@ module Main {
         }
 
         angularModule.config(["$provide", ($provide) => $provide.value(name, value)]);
+    }
+
+
+    function registerDirective(angularModule: any, directiveName: string, directiveComponent: any): void {
+        var directiveContainer: AngularDirective;
+        directiveContainer = new directiveComponent();
+        if (directiveComponent.$inject) {
+            directiveContainer.factory.$inject = directiveComponent.$inject;
+        }
+        angularModule.config(["$compileProvider", ($compileProvider) =>
+            $compileProvider.directive(directiveContainer.name, directiveContainer.factory)
+        ]);
     }
 
 }
