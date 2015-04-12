@@ -1,13 +1,15 @@
 module App.Navigation {
 
-    export interface INavigationController {
+    export interface INavigationController extends Main.IController {
         isActive: (hash: string) => boolean;
     }
 
-    export class NavigationController extends Main.AngularController implements INavigationController {
+    export class NavigationController implements INavigationController {
         static $inject = ["$window"];
-        constructor(private $window: ng.IWindowService) {
-            super();
+        constructor(private $window: ng.IWindowService) { }
+
+        public getComponentType(): Main.ComponentType {
+            return Main.ComponentType.AngularController;
         }
 
         public isActive = (hash: string): boolean => {

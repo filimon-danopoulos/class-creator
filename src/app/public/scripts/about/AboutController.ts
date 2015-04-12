@@ -1,13 +1,16 @@
 module App.About {
 
-    export interface IAboutController {
+    export interface IAboutController extends Main.IController {
         message: string;
     }
 
-    export class AboutController extends Main.AngularController implements IAboutController {
+    export class AboutController implements IAboutController {
         constructor() {
-            super();
             this.message = "Testar om min koola grej fungerar!";
+        }
+
+        public getComponentType(): Main.ComponentType {
+            return Main.ComponentType.AngularController
         }
 
         public message: string;

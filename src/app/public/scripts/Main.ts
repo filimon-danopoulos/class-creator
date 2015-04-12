@@ -28,43 +28,22 @@ module Main {
         getComponentType(): ComponentType
     }
 
-    export class AngularService implements IAngularComponent {
-        public getComponentType(): ComponentType {
-            return ComponentType.AngularService;
-        }
-        public static serviceName: string;
+    export interface IController extends IAngularComponent {}
+
+    export interface IService extends IAngularComponent {}
+
+    export interface IFactory<T> extends IAngularComponent {
+        factory(...dependencies: any[]): T;
     }
 
-    export class AngularFactory<T> implements IAngularComponent {
-        public getComponentType(): ComponentType {
-            return ComponentType.AngularFactory;
-        }
-        public factory(...dependencies: any[]): T {
-            throw new Error("No factory method in AngularFactory sub-class. All sub-classes must implement factory.")
-        }
+    export interface IDirective extends IFactory<ng.IDirective> {
+        name: string;
+        getComponentType(): ComponentType;
     }
 
-    export class AngularDirective extends AngularFactory<ng.IDirective> {
-        public name: string;
-        public getComponentType(): ComponentType {
-            return ComponentType.AngularDirective
-        }
-    }
-
-    export class AngularController implements IAngularComponent {
-        public getComponentType(): ComponentType {
-            return ComponentType.AngularController;
-        }
-    }
-
-    export class AngularValue<T> implements IAngularComponent {
-        public getComponentType(): ComponentType {
-            return ComponentType.AngularValue;
-        }
-        public name: string;
-        public value(): T {
-            return null;
-        }
+    export interface IValue<T> extends IAngularComponent {
+        name: string;
+        value(): T;
     }
 
     export enum ComponentType {
@@ -135,7 +114,7 @@ module Main {
     * @param serviceComponent The Agnular serice to register.
     **/
     function registerService(angularModule: any, componentName: string, serviceComponent: any): void {
-        var serviceName = serviceComponent.serviceName;
+        var serviceName = componentName[0].toLowerCase() + componentName.slice(1);
         if (!serviceName) {
             throw new Error(componentName + " does not provide the static property serviceName.");
         }
@@ -150,7 +129,7 @@ module Main {
     **/
     function registerFactory(angularModule: any, factoryName: string, factoryComponent: any): void {
         var factoryRegistrationName: string,
-            factoryContainer: AngularFactory<any>;
+            factoryContainer: IFactory<any>;
         factoryContainer = new factoryComponent();
         // Since we are leaving angular convention slightly with factories and are utilizing classes,
         // the names of factories need to be adjusted slightly.
@@ -182,27 +161,21 @@ module Main {
     * @param valueComponent The value component to register.
     **/
     function registerValue(angularModule: any, valueName: string, valueComponent: any): void {
-        var valueInstance: AngularValue<any>,
+        var valueInstance: IValue<any>,
             name: string,
             value: any;
 
-        valueInstance = <AngularValue<any>> new valueComponent();
+        valueInstance = <IValue<any>> new valueComponent();
         name = valueInstance.name;
         value = valueInstance.value();
 
-        if (!name) {
-            throw new Error(valueName + " does not provide a name property");
-        }
-        if (!value) {
-            throw new Error(valueName + " does not propvide a value property");
-        }
 
         angularModule.config(["$provide", ($provide) => $provide.value(name, value)]);
     }
 
 
     function registerDirective(angularModule: any, directiveName: string, directiveComponent: any): void {
-        var directiveContainer: AngularDirective;
+        var directiveContainer: IDirective;
         directiveContainer = new directiveComponent();
         if (directiveComponent.$inject) {
             directiveContainer.factory.$inject = directiveComponent.$inject;

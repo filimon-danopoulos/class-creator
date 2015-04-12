@@ -6,17 +6,18 @@ module App.Services {
         Python
     }
 
-    export interface ICodeService {
+    export interface ICodeService extends Main.IAngularComponent{
         getCodeStringFromJSON(method: Common.HTTPMethod, language: CodeServiceLanguage, json: string): ng.IPromise<string>;
         getAvailableLanguages(): [{ key: string, value: number }];
     }
 
-    export class CodeService extends Main.AngularService implements ICodeService {
+    export class CodeService  implements ICodeService {
         public static $inject = ["$http", "$q"];
-        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
-            super();
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {}
+
+        public getComponentType(): Main.ComponentType {
+            return Main.ComponentType.AngularService;
         }
-        public static serviceName: string = "codeService";
 
         public getCodeStringFromJSON(method: Common.HTTPMethod, language: CodeServiceLanguage, json: string): ng.IPromise<string> {
             var deferred: ng.IDeferred<{}>,

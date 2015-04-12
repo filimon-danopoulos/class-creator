@@ -1,6 +1,9 @@
 module App.Home {
 
-    export class HomeTabs extends Main.AngularValue<IHomeTab[]> {
+    export class HomeTabs implements Main.IValue<IHomeTab[]> {
+        public getComponentType(): Main.ComponentType {
+            return Main.ComponentType.AngularValue;
+        }
         public name: string = "tabs";
         public value(): IHomeTab[] {
             return [{

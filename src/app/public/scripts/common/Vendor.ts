@@ -1,8 +1,11 @@
 module App.Common {
-    export class ToastrValue extends Main.AngularValue<Toastr> {
+    export class ToastrValue implements Main.IValue<Toastr> {
         constructor() {
-            super();
             toastr.options.closeButton = true;
+        }
+
+        public getComponentType(): Main.ComponentType {
+            return Main.ComponentType.AngularValue;
         }
 
         public name: string = "toastr";

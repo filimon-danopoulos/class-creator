@@ -7,8 +7,13 @@ module App.Common {
         warn(string): void;
     }
 
-    export class LoggerFactory extends Main.AngularFactory<ILogger> {
+    export class LoggerFactory implements Main.IFactory<ILogger> {
         public static $inject = ["$log", "toastr"];
+
+        public getComponentType(): Main.ComponentType {
+            return Main.ComponentType.AngularFactory;
+        }
+
         public factory($log: ng.ILogService, toastr: Toastr): ILogger {
             return {
                 success: (message: string): void => {

@@ -7,16 +7,15 @@ module App.Home {
         disabled?: boolean;
     }
 
-    export interface IHomeController {
+    export interface IHomeController extends Main.IController {
         selectedTab: IHomeTab;
         tabs: IHomeTab[];
         setSelectedTab(tab: IHomeTab): void;
     }
 
-    export class HomeController extends Main.AngularController implements IHomeController {
+    export class HomeController implements IHomeController {
         public static $inject = ["tabs"];
         constructor( public tabs: IHomeTab[] ) {
-            super();
             var initiallyActiveTab: number;
             initiallyActiveTab = 0;
 
@@ -25,6 +24,10 @@ module App.Home {
         }
 
         public selectedTab: IHomeTab;
+
+        public getComponentType(): Main.ComponentType {
+            return Main.ComponentType.AngularController;
+        }
 
         public setSelectedTab(tab: IHomeTab): void {
             if (tab.disabled) {

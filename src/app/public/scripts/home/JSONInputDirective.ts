@@ -1,6 +1,9 @@
 module App.Common {
-    export class JSONInputDiretive extends Main.AngularDirective {
+    export class JSONInputDiretive implements Main.IDirective {
         public name: string = "appJsonInput";
+        public getComponentType(): Main.ComponentType {
+            return Main.ComponentType.AngularDirective;
+        }
         public factory(): ng.IDirective {
             return <ng.IDirective> {
                 restrict: 'E',

@@ -1,5 +1,5 @@
 module App.Home {
-    export interface IJSONFromController {
+    export interface IJSONFromController extends Main.IController {
         submitJSON(): void;
         hasResult(): boolean;
         reset(): void;
@@ -12,14 +12,17 @@ module App.Home {
         availableLanguages: [{ key: string, value: number }];
     }
 
-    export class JSONFormController extends Main.AngularController implements IJSONFromController {
+    export class JSONFormController implements IJSONFromController {
         public static $inject = ["codeService", "logger"];
         constructor(
             private codeService: App.Services.ICodeService,
             private logger: App.Common.ILogger
             ) {
-            super();
             this.availableLanguages = this.codeService.getAvailableLanguages();
+        }
+
+        public getComponentType(): Main.ComponentType {
+            return Main.ComponentType.AngularController;
         }
 
         public JSONInput: string;
@@ -45,16 +48,16 @@ module App.Home {
 
             this.codeService.getCodeStringFromJSON(Common.HTTPMethod.GET, languageInputNo, this.JSONInput)
                 .then(result => {
-                    var language: string;
+                var language: string;
 
-                    language = this.availableLanguages
-                        .filter(x => x.value === languageInputNo)
-                        .shift()
-                        .key;
+                language = this.availableLanguages
+                    .filter(x => x.value === languageInputNo)
+                    .shift()
+                .key;
 
-                    this.result = result;
-                    this.logger.success(language + " class generated!");
-                }, error => this.logger.error("Could not retrieve class with the provided JSON."));
+                this.result = result;
+                this.logger.success(language + " class generated!");
+            }, error => this.logger.error("Could not retrieve class with the provided JSON."));
         }
 
         public formatJSON(): void {

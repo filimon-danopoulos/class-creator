@@ -1,6 +1,6 @@
 module App {
     export class Routes {
-        public static setUp(routeProvider) {
+        public static setUp(routeProvider: ng.route.IRouteProvider) {
             routeProvider
                 .when('/', {
                     templateUrl: 'scripts/home/templates/HomeView.html',

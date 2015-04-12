@@ -20,6 +20,7 @@
         "./app/public/scripts/common/HTTPMethod.ts",
         "./app/public/scripts/common/Logger.ts",
         "./app/public/scripts/common/Vendor.ts",
+        "./app/public/scripts/docs/DocsController.ts",
         "./app/public/scripts/home/HomeTabs.ts",
         "./app/public/scripts/home/JSONInputDirective.ts",
         "./app/public/scripts/home/ResultDirective.ts",
