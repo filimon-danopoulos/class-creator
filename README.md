@@ -1,4 +1,2 @@
-class-creator
-=============
-
-Creates classes from JSON.
+This is a play project I have to try out different angular and TypeScript ideas.
+It has limited practical use (read, don't use it)...
